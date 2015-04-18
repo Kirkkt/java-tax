@@ -96,4 +96,5 @@ public final class TaxUtil {
   public String getEmployerStateIdNumber() {
     return employerStateIdNumber;
   }
+
 }
