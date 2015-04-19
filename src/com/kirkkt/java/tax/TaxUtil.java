@@ -6,6 +6,7 @@ import com.google.common.base.Preconditions;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 // TODO(kirktdev): singleton?
 public final class TaxUtil {
@@ -20,38 +21,6 @@ public final class TaxUtil {
   private String employerIdentificationNumber;
   private String employerAddress;
   private String employerStateIdNumber;
-
-  /**
-   * Parses a line of string and round the result into int. Throws error message on error.
-   *
-   * @param line a string with components separated by {@code " "}
-   * @param parts the number of {@code " "} this string should have. Only the last part, defined by
-   *   the sepration of {@code " "} will be parsed and rounded.
-   */
-  public static int parseAndRoundToInt(String line, int parts) {
-    try {
-      return Math.round(Float.parseFloat(line.split(" ", parts)[parts - 1]));
-    } catch (NumberFormatException e) {
-      throw new NumberFormatException(
-          genericParsingErrorMessage(line) + "\nDetail:\n  " + e.toString());
-    }
-  }
-
-  /**
-   * Returns a string describing a parsing error message.
-   *
-   * @param line the string being parsed
-   */
-  public static String genericParsingErrorMessage(String text) {
-    return String.format("%s: \n  %s", genericParsingErrorMessage(), text);
-  }
-
-  /**
-   * Returns a string describing a parsing error message.
-   */
-  public static String genericParsingErrorMessage() {
-    return "Error processing line";
-  }
 
   /**
    * Return a standard error message string describing that additional logic is
@@ -109,7 +78,7 @@ public final class TaxUtil {
         }
       }
       br.close();
-    } catch (Exception e) {
+    } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read file " + fileName + " due to error " + e);
     }
   }
@@ -137,5 +106,4 @@ public final class TaxUtil {
   public String getEmployerStateIdNumber() {
     return employerStateIdNumber;
   }
-
 }

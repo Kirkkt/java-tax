@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# compile java
+javac \
+    -sourcepath /Users/kirkt/Dropbox/github/java_tax/src \
+    -cp $JAVA_CLASS_PATH \
+    -d /Users/kirkt/Dropbox/github/java_tax/class \
+    src/com/kirkkt/java/tax/forms/input/*.java
+
+cd class
+
+# run prod
+
+java com/kirkkt/java/tax/forms/input/W2TaxYear2014
+
+cd ..
