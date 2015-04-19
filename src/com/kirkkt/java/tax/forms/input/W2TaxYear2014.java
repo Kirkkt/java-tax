@@ -3,8 +3,11 @@ package com.kirkkt.java.tax.forms.input;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
 
+import com.google.common.base.Preconditions;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 // TODO(kirktdev): general: add comment for field name and publib methods
 public class W2TaxYear2014 implements Form {
@@ -52,25 +55,25 @@ public class W2TaxYear2014 implements Form {
         if (line.equals("w2 " + getTaxYear())) {
           // heading
         } else if (line.startsWith("b1 ")) {
-          b1 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b1 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b2 ")) {
-          b2 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b2 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b3 ")) {
-          b3 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b3 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b4 ")) {
-          b4 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b4 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b5 ")) {
-          b5 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b5 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b6 ")) {
-          b6 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b6 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b7 ")) {
-          b7 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b7 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b8 ")) {
-          b8 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b8 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b10 ")) {
-          b10 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b10 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b11 ")) {
-          b11 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b11 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b12 ")) {
           String[] words = line.split(" ");
           // TODO(kirktdev): add sanity check to parse double/integer here
@@ -82,6 +85,7 @@ public class W2TaxYear2014 implements Form {
         } else if (line.startsWith("b13 ")) {
           String[] words = line.split(" ");
           // TODO(kirktdev): ImmutableList + Function can?
+          // TODO(kirktdev): parseToBoolean
           b13[0] = Boolean.parseBoolean(words[1]);
           b13[1] = Boolean.parseBoolean(words[2]);
           b13[2] = Boolean.parseBoolean(words[3]);
@@ -93,14 +97,20 @@ public class W2TaxYear2014 implements Form {
           for (int i = 1; i < words.length; i++) {
             b14[i - 1] = words[i];
           }
+        } else if (line.startsWith("b15 ")) {
+          Preconditions.checkArgument("CA".equals(line.split(" ", 2)[1]),
+              TaxUtil.genericParsingErrorMessage(line) + "\nExpecting:\n  CA");
         } else if (line.startsWith("b16 ")) {
-          b16 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          Preconditions.checkArgument(util.getEmployerStateIdNumber().equals(line.split(" ", 2)[1]),
+              TaxUtil.genericParsingErrorMessage(line)
+                  + "\nExpecting:\n  "
+                  + util.getEmployerStateIdNumber());
         } else if (line.startsWith("b17 ")) {
-          b17 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b17 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b18 ")) {
-          b18 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b18 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b19 ")) {
-          b19 = TaxUtil.round(Double.parseDouble(line.split(" ", 2)[1]));
+          b19 = TaxUtil.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b20 ")) {
           b20 = line.split(" ", 2)[1];
         } else {
@@ -109,10 +119,10 @@ public class W2TaxYear2014 implements Form {
         }
       }
       br.close();
-      // TODO(kirktdev): inline this inside for loop so that I have access to the line number
-    } catch (Exception e) {
+    } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read file " + fileName + " due to error " + e);
     }
+
   }
 
   public int getB1() {

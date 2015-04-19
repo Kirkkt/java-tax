@@ -21,19 +21,59 @@ public final class TaxUtil {
   private String employerAddress;
   private String employerStateIdNumber;
 
-  // TODO(kirktdev): jdoc
-  public static int round(double a) {
-    return (int)(a + .5);
+  /**
+   * Parses a line of string and round the result into int. Throws error message on error.
+   *
+   * @param line a string with components separated by {@code " "}
+   * @param parts the number of {@code " "} this string should have. Only the last part, defined by
+   *   the sepration of {@code " "} will be parsed and rounded.
+   */
+  public static int parseAndRoundToInt(String line, int parts) {
+    try {
+      return Math.round(Float.parseFloat(line.split(" ", parts)[parts - 1]));
+    } catch (NumberFormatException e) {
+      throw new NumberFormatException(
+          genericParsingErrorMessage(line) + "\nDetail:\n  " + e.toString());
+    }
   }
 
-  // TODO(kirktdev): jdoc
+  /**
+   * Returns a string describing a parsing error message.
+   *
+   * @param line the string being parsed
+   */
+  public static String genericParsingErrorMessage(String text) {
+    return String.format("%s: \n  %s", genericParsingErrorMessage(), text);
+  }
+
+  /**
+   * Returns a string describing a parsing error message.
+   */
+  public static String genericParsingErrorMessage() {
+    return "Error processing line";
+  }
+
+  /**
+   * Return a standard error message string describing that additional logic is
+   * needed form the given form.
+   * </p>If this happens, java_tax might not be right for you.
+   *
+   * @param form the form currently being processed
+   */
   public static String additionalLogicNeededString(Form form) {
     return "Additional logic needed for form "
         + form.getFormType() + " of tax year "
         + form.getTaxYear() + ".";
   }
 
-  // TODO(kirktdev): jdoc
+  /**
+   * Return a standard error message string describing that additional logic is
+   * needed on a specific line in the given form.
+   * </p>If this happens, java_tax might not be right for you.
+   *
+   * @param form the form currently being processed
+   * @param line the line name where additional logic is needed
+   */
   public static String additionalLogicNeededString(Form form, String line) {
     return "Additional logic needed for form "
         + form.getFormType() + " of tax year "
@@ -50,6 +90,7 @@ public final class TaxUtil {
       while ((line = br.readLine()) != null) {
         if (line.equals("common")) {
           // heading
+          // TODO(kirktdev): switch to use custom parsing method
         } else if (line.startsWith("checking account routing number ")) {
           checkingAccountRoutingNumber = line.split(" ", 5)[4];
         } else if (line.startsWith("checking account account number ")) {

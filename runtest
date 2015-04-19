@@ -1,7 +1,4 @@
 #!/bin/bash
-# TODO(kirktdev): put a comment here to let people know how to test up the dev env
-# 1. download third party jars
-# 2. set up $JAVA_CLASS_PATH
 
 # compile java
 # TODO(kirktdev): relative path can?
