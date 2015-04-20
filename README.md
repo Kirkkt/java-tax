@@ -2,6 +2,8 @@
 
 **A Java program that does tax for you!**
 
+***Will update daily!***
+
 In order to run this program, you need:
 
 1. Download some packages:
