@@ -11,3 +11,12 @@ javac -Xlint:deprecation \
     src/com/kirkkt/java/tax/forms/input/*.java \
     src/com/kirkkt/javatests/tax/*.java \
     src/com/kirkkt/javatests/tax/forms/input/*.java
+
+cd class
+
+# run tax test
+java \
+    -cp $JAVA_CLASS_PATH \
+    -ea com/kirkkt/javatests/tax/TestRunner
+
+cd -

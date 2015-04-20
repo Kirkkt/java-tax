@@ -10,7 +10,9 @@ import java.io.IOException;
 
 public final class TestUtil {
 
+  // TODO(kirktdev): create base test for TaxUtil, Parser and Printer
   private TestUtil() {} // COV_NF_LINE
+// TODO(kirktdev): custom assertion with context error message
 
   public static final String TEST_DATA_FOLDER =
       "/Users/kirkt/Dropbox/vim_notes/java_programs/data/com/kirkkt/javatests/tax";

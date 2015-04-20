@@ -5,11 +5,17 @@ import static org.junit.Assert.assertEquals;
 import com.kirkkt.javatests.tax.TestCase;
 import com.kirkkt.javatests.tax.TestUtil;
 import com.kirkkt.java.tax.TaxUtil;
+import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.input.W2TaxYear2014;
 
 import com.google.common.collect.UnmodifiableIterator;
 
 public class W2TaxYear2014Test implements TestCase {
+
+  @Override
+  public Form getForm() {
+    return new W2TaxYear2014();
+  }
 
   @Override
   public void test() {
@@ -31,13 +37,11 @@ public class W2TaxYear2014Test implements TestCase {
     assertEquals(gold.next(), String.valueOf(form.getB11()));
     for (String value : form.getB12()) {
       assertEquals(gold.next(), String.valueOf(value));
-      assertEquals(gold.next(), String.valueOf(value));
     }
     for (boolean value : form.getB13()) {
       assertEquals(gold.next(), String.valueOf(value));
     }
     for (String value : form.getB14()) {
-      assertEquals(gold.next(), String.valueOf(value));
       assertEquals(gold.next(), String.valueOf(value));
     }
     assertEquals(gold.next(), String.valueOf(form.getB16()));

@@ -18,6 +18,8 @@ public class TestRunner {
     for (TestCase testCase : testCases) {
       try {
         testCase.test();
+        System.out.println(String.format("Test passed for form %s tax year %s.",
+            testCase.getForm().getFormType(), testCase.getForm().getTaxYear()));
       } catch (Exception e) {
         // Ensure all tests are run despite some may fail
         // TODO(kirktdev): tostring() necessary?

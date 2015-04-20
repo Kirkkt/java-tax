@@ -11,6 +11,8 @@ import java.io.FileReader;
  * A helper class to host all static parsing logic.
  * </p> Should never be instantiated.
  */
+// TODO(kirktdev): create its opposite: Printer
+// TODO(kirktdev): parse boolean
 public final class Parser {
 
   private Parser() {} // COV_NF_LINE
