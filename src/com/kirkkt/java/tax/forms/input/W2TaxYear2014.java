@@ -1,7 +1,7 @@
 package com.kirkkt.java.tax.forms.input;
 
-import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.Parser;
+import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
 
 import com.google.common.base.Preconditions;
@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-// TODO(kirktdev): general: add comment for field name and publib methods
 public class W2TaxYear2014 implements Form {
 
   private int b1 = 0;
@@ -50,6 +49,7 @@ public class W2TaxYear2014 implements Form {
   public void readFromFile(String fileName) {
     BufferedReader br;
     String line;
+
     try {
       br = new BufferedReader(new FileReader(fileName));
       while ((line = br.readLine()) != null) {
@@ -181,7 +181,13 @@ public class W2TaxYear2014 implements Form {
     return b12;
   }
 
-  /** Special treatment checkboxes. */
+  /**
+   * Special treatment checkboxes.
+   *
+   * [0] Statutory employee.
+   * [1] Retirement plan.
+   * [2] Thrid-party sick pay.
+   */
   public boolean[] getB13() {
     return b13;
   }

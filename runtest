@@ -19,4 +19,4 @@ java \
     -cp $JAVA_CLASS_PATH \
     -ea com/kirkkt/javatests/tax/TestRunner
 
-cd -
+cd ..
