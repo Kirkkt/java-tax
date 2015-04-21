@@ -11,6 +11,9 @@ cd class
 
 # run prod
 
+java com/kirkkt/java/tax/forms/input/F1099DivTaxYear2014
+java com/kirkkt/java/tax/forms/input/F1099GTaxYear2014
+java com/kirkkt/java/tax/forms/input/F1099RTaxYear2014
 java com/kirkkt/java/tax/forms/input/W2TaxYear2014
 
 cd ..

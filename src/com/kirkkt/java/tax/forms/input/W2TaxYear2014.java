@@ -2,7 +2,6 @@ package com.kirkkt.java.tax.forms.input;
 
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
-import com.kirkkt.java.tax.forms.Form;
 
 import com.google.common.base.Preconditions;
 
@@ -10,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class W2TaxYear2014 implements Form {
+public class W2TaxYear2014 implements InputForm {
 
   private int b1 = 0;
   private int b2 = 0;

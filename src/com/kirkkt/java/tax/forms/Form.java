@@ -1,5 +1,6 @@
 package com.kirkkt.java.tax.forms;
 
+/** A form. */
 public interface Form {
 
   /**
@@ -15,13 +16,5 @@ public interface Form {
    * @return tax year, e.g. 2014
    */
   int getTaxYear();
-
-  /**
-   * Populate the form instance with the input from a file
-   *
-   * @param fileName the absolute path to the file
-   */
-  // TODO(kirktdev): this should go to a subinterface called InputForm
-  void readFromFile(String fileName);
 
 }

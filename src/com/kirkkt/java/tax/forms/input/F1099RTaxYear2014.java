@@ -2,13 +2,12 @@ package com.kirkkt.java.tax.forms.input;
 
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
-import com.kirkkt.java.tax.forms.Form;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class F1099RTaxYear2014 implements Form {
+public class F1099RTaxYear2014 implements InputForm {
 
   private String bPayerFederalIdentificationNumber = "";
   private String bPayerName = "";
@@ -303,7 +302,7 @@ public class F1099RTaxYear2014 implements Form {
 
   public static void main(String[] args) {
     F1099RTaxYear2014 form = new F1099RTaxYear2014();
-    form.readFromFile(TaxUtil.DATA_FOLDER + "/forms/input/1099rtaxyear2014.txt");
+    form.readFromFile(TaxUtil.DATA_FOLDER + "/forms/input/f1099rtaxyear2014.txt");
     System.out.print(form);
   }
 }

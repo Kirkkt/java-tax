@@ -1,6 +1,7 @@
 package com.kirkkt.javatests.tax.forms.input;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import com.kirkkt.javatests.tax.TestCase;
 import com.kirkkt.javatests.tax.TestUtil;
@@ -49,5 +50,6 @@ public class W2TaxYear2014Test implements TestCase {
     assertEquals(gold.next(), String.valueOf(form.getB18()));
     assertEquals(gold.next(), String.valueOf(form.getB19()));
     assertEquals(gold.next(), String.valueOf(form.getB20()));
+    assertFalse(gold.hasNext());
   }
 }

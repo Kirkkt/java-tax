@@ -1,6 +1,7 @@
 package com.kirkkt.javatests.tax.forms.input;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import com.kirkkt.javatests.tax.TestCase;
 import com.kirkkt.javatests.tax.TestUtil;
@@ -30,5 +31,6 @@ public class F1099GTaxYear2014Test implements TestCase {
     assertEquals(gold.next(), String.valueOf(form.getBPayerFEIN()));
     assertEquals(gold.next(), String.valueOf(form.getB2()));
     assertEquals(gold.next(), String.valueOf(form.getB3()));
+    assertFalse(gold.hasNext());
   }
 }
