@@ -4,6 +4,7 @@ import com.kirkkt.javatests.tax.forms.TaxUtilTest;
 import com.kirkkt.javatests.tax.forms.fillable.federal.worksheets.ItemizedDeductionsWorksheetTaxYear2014Test;
 import com.kirkkt.javatests.tax.forms.fillable.federal.worksheets.F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014Test;
 import com.kirkkt.javatests.tax.forms.fillable.federal.worksheets.F1040TaxComputationWorksheetTaxYear2014Test;
+import com.kirkkt.javatests.tax.forms.fillable.federal.worksheets.F6251ExemptionWorksheetTaxYear2014Test;
 import com.kirkkt.javatests.tax.forms.input.F1099DivTaxYear2014Test;
 import com.kirkkt.javatests.tax.forms.input.F1099GTaxYear2014Test;
 import com.kirkkt.javatests.tax.forms.input.F1099RTaxYear2014Test;
@@ -21,9 +22,12 @@ public class TestRunner {
     ImmutableList<TestCase> testCases = ImmutableList.<TestCase>of(
       // Add new tests here.
       new TaxUtilTest(),
+      // worksheets
       new F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014Test(),
       new F1040TaxComputationWorksheetTaxYear2014Test(),
+      new F6251ExemptionWorksheetTaxYear2014Test(),
       new ItemizedDeductionsWorksheetTaxYear2014Test(),
+      // input forms
       new F1099DivTaxYear2014Test(),
       new F1099GTaxYear2014Test(),
       new F1099RTaxYear2014Test(),
