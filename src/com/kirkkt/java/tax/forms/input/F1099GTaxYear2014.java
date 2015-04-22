@@ -59,6 +59,12 @@ public class F1099GTaxYear2014 implements InputForm {
     }
   }
 
+  @Override
+  public void prod() {
+    readFromFile(TaxUtil.DATA_FOLDER + "/forms/input/f1099gtaxyear2014.txt");
+    System.out.print(this);
+  }
+
   /** Payer info, e.g. state of California. */
   public String getBPayerInfo() {
     return bPayerInfo;
@@ -97,11 +103,5 @@ public class F1099GTaxYear2014 implements InputForm {
     result += "-----------------------\n";
 
     return result;
-  }
-
-  public static void main(String[] args) {
-    F1099GTaxYear2014 form = new F1099GTaxYear2014();
-    form.readFromFile(TaxUtil.DATA_FOLDER + "/forms/input/f1099gtaxyear2014.txt");
-    System.out.print(form);
   }
 }

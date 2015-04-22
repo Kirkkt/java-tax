@@ -5,15 +5,17 @@ javac \
     -sourcepath /Users/kirkt/Dropbox/github/java_tax/src \
     -cp $JAVA_CLASS_PATH \
     -d /Users/kirkt/Dropbox/github/java_tax/class \
-    src/com/kirkkt/java/tax/forms/input/*.java
+    src/com/kirkkt/java/tax/*.java \
+    src/com/kirkkt/java/tax/forms/*.java \
+    src/com/kirkkt/java/tax/forms/input/*.java \
+    src/com/kirkkt/java/tax/forms/fillable/*.java \
+    src/com/kirkkt/java/tax/forms/fillable/federal/worksheets/*.java
 
 cd class
 
 # run prod
-
-java com/kirkkt/java/tax/forms/input/F1099DivTaxYear2014
-java com/kirkkt/java/tax/forms/input/F1099GTaxYear2014
-java com/kirkkt/java/tax/forms/input/F1099RTaxYear2014
-java com/kirkkt/java/tax/forms/input/W2TaxYear2014
+java \
+    -cp $JAVA_CLASS_PATH \
+    com/kirkkt/java/tax/ProdRunner
 
 cd ..

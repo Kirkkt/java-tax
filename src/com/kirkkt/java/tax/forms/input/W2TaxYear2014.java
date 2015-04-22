@@ -125,6 +125,12 @@ public class W2TaxYear2014 implements InputForm {
     }
   }
 
+  @Override
+  public void prod() {
+    readFromFile(TaxUtil.DATA_FOLDER + "/forms/input/w2taxyear2014.txt");
+    System.out.print(this);
+  }
+
   /** Wages, tips, other compensation. */
   public int getB1() {
     return b1;
@@ -300,11 +306,5 @@ public class W2TaxYear2014 implements InputForm {
     result += "-----------------------\n";
 
     return result;
-  }
-
-  public static void main(String[] args) {
-    W2TaxYear2014 form = new W2TaxYear2014();
-    form.readFromFile(TaxUtil.DATA_FOLDER + "/forms/input/w2taxyear2014.txt");
-    System.out.print(form);
   }
 }

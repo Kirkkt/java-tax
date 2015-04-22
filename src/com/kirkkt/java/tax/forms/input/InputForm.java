@@ -11,4 +11,9 @@ public interface InputForm extends Form {
    * @param fileName the absolute path to the file
    */
   void readFromFile(String fileName);
+
+  /**
+   * Print the form in production.
+   */
+  void prod();
 }
