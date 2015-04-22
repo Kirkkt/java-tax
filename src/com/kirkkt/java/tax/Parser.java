@@ -11,9 +11,10 @@ import java.io.FileReader;
  * A helper class to host all static parsing logic.
  * </p> Should never be instantiated.
  */
-// TODO(kirktdev): create its opposite: Printer
 // TODO(kirktdev): parse boolean
 public final class Parser {
+
+  public static final String GENERAL_PARSING_ERROR_MESSAGE = "Error processing line";
 
   private Parser() {} // COV_NF_LINE
 
@@ -47,16 +48,9 @@ public final class Parser {
   /**
    * Returns a string describing a parsing error message.
    *
-   * @param line the string being parsed
+   * @param lineContext the string being parsed
    */
-  public static String genericParsingErrorMessage(String text) {
-    return String.format("%s: \n  %s", genericParsingErrorMessage(), text);
-  }
-
-  /**
-   * Returns a string describing a parsing error message.
-   */
-  public static String genericParsingErrorMessage() {
-    return "Error processing line";
+  public static String genericParsingErrorMessage(String lineContext) {
+    return String.format("%s: \n  %s", GENERAL_PARSING_ERROR_MESSAGE, lineContext);
   }
 }

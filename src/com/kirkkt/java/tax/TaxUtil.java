@@ -11,7 +11,6 @@ import java.io.IOException;
 // TODO(kirktdev): singleton?
 public final class TaxUtil {
 
-  // TODO(kirktdev): relative path can?
   public static final String DATA_FOLDER =
       "/Users/kirkt/Dropbox/vim_notes/java_programs/data/com/kirkkt/java/tax";
 
@@ -83,16 +82,16 @@ public final class TaxUtil {
     }
   }
 
+  public String getCheckingAccountAccountType() {
+    return checkingAccountAccountType;
+  }
+
   public String getCheckingAccountRoutingNumber() {
     return checkingAccountRoutingNumber;
   }
 
   public String getCheckingAccountAccountNumber() {
     return checkingAccountAccountNumber;
-  }
-
-  public String getCheckingAccountAccountType() {
-    return checkingAccountAccountType;
   }
 
   public String getEmployerIdentificationNumber() {
