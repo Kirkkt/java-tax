@@ -24,7 +24,6 @@ public class ItemizedDeductionsWorksheetTaxYear2014Test implements TestCase {
     assertEquals("Itemized Deductions Worksheet", form.getFormType());
     assertEquals(2014, form.getTaxYear());
 
-    // TODO(kirktdev): switch to use fake f1040 schedule a
     UnmodifiableIterator<String> input =
         TestUtil.getGold(TestUtil.TEST_DATA_FOLDER
             + "/forms/fillable/federal/worksheets/itemizeddeductionsworksheettaxyear2014input.txt");
