@@ -95,10 +95,28 @@ public class F6251ExemptionWorksheetTaxYear2014 implements AttachedForm {
     return bResult;
   }
 
-  // TODO(kirktdev): implement toString
   @Override
   public String toString() {
     String result = "";
+
+    result += getFormType() + " Tax Year " + getTaxYear() + "\n";
+    result += "-----------------------\n";
+    result += "\n";
+
+    result += "b1: " + getB1() + "\n";
+    result += "b2: " + getB2() + "\n";
+    result += "b3: " + getB3() + "\n";
+    result += "b4: " + getB4() + "\n";
+    result += "b5: " + getB5() + "\n";
+    result += "b6: " + getB6() + "\n";
+    result += "b7: " + getB7() + "\n";
+    result += "b8: " + getB8() + "\n";
+    result += "b9: " + getB9() + "\n";
+    result += "b10: " + getB10() + "\n";
+    result += "bResult: " + getBResult() + "\n";
+
+    result += "-----------------------\n";
+
     return result;
   }
 }
