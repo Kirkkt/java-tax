@@ -4,6 +4,7 @@ import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,9 +22,9 @@ public class W2TaxYear2014 implements InputForm {
   private int b8 = 0;
   private int b10 = 0;
   private int b11 = 0;
-  private String[] b12 = null;
+  private ImmutableMap<String, Integer> b12 = null;
   private boolean[] b13 = new boolean[3];
-  private String[] b14 = null;
+  private ImmutableMap<String, Integer> b14 = null;
   private int b16 = 0;
   private int b17 = 0;
   private int b18 = 0;
@@ -50,6 +51,7 @@ public class W2TaxYear2014 implements InputForm {
     String line;
 
     try {
+      // TODO(kirktdev): forbid from multiple reads
       br = new BufferedReader(new FileReader(fileName));
       while ((line = br.readLine()) != null) {
         if (line.equals("w2 " + getTaxYear())) {
@@ -76,12 +78,13 @@ public class W2TaxYear2014 implements InputForm {
           b11 = Parser.parseAndRoundToInt(line, 2);
         } else if (line.startsWith("b12 ")) {
           String[] words = line.split(" ");
-          // TODO(kirktdev): add sanity check to parse double/integer here
-          // TODO(kirktdev): ImmutableMap can?
-          b12 = new String[words.length - 1];
-          for (int i = 1; i < words.length; i++) {
-            b12[i - 1] = words[i];
+          // TODO(kirktdev): get rid of the second <> can?
+          ImmutableMap.Builder<String, Integer> b12MapBuilder =
+              ImmutableMap.<String, Integer>builder();
+          for (int i = 1; i < words.length - 1; i += 2) {
+            b12MapBuilder.put(words[i], Parser.parseAndRoundToInt(words[i + 1], 1));
           }
+          b12 = b12MapBuilder.build();
         } else if (line.startsWith("b13 ")) {
           String[] words = line.split(" ");
           // TODO(kirktdev): ImmutableList + Function can?
@@ -91,11 +94,12 @@ public class W2TaxYear2014 implements InputForm {
           b13[2] = Boolean.parseBoolean(words[3]);
         } else if (line.startsWith("b14 ")) {
           String[] words = line.split(" ");
-          // TODO(kirktdev): ImmutableMap can?
-          b14 = new String[words.length - 1];
-          for (int i = 1; i < words.length; i++) {
-            b14[i - 1] = words[i];
+          ImmutableMap.Builder<String, Integer> b14MapBuilder =
+              ImmutableMap.<String, Integer>builder();
+          for (int i = 1; i < words.length - 1; i += 2) {
+            b14MapBuilder.put(words[1], Parser.parseAndRoundToInt(words[i + 1], 1));
           }
+          b14 = b14MapBuilder.build();
         } else if (line.startsWith("b15 ")) {
           Preconditions.checkArgument("CA".equals(line.split(" ", 2)[1]),
               Parser.genericParsingErrorMessage(line) + "\nExpecting:\n  CA");
@@ -182,7 +186,7 @@ public class W2TaxYear2014 implements InputForm {
   }
 
   /** Annotation codes. */
-  public String[] getB12() {
+  public ImmutableMap<String, Integer> getB12() {
     return b12;
   }
 
@@ -198,7 +202,7 @@ public class W2TaxYear2014 implements InputForm {
   }
 
   /** Other */
-  public String[] getB14() {
+  public ImmutableMap<String, Integer> getB14() {
     return b14;
   }
 
@@ -274,14 +278,14 @@ public class W2TaxYear2014 implements InputForm {
 
     if (getB12() != null) {
       result += "12 See instrubtions for box 12\n";
-      for (int i = 0; i < getB12().length; i += 2) {
-        result += "  " + getB12()[i] + "\t" + getB12()[i + 1] + "\n";
+      for (String key : b12.keySet()) {
+        result += "  " + key + "\t" + b12.get(key) + "\n";
       }
     }
     if (getB14() != null) {
       result += "14 Other\n";
-      for (int i = 0; i < getB14().length; i += 2) {
-        result += ("  " + getB14()[i] + "\t" + getB14()[i + 1]) + "\n";
+      for (String key : b14.keySet()) {
+        result += "  " + key + "\t" + b14.get(key) + "\n";
       }
     }
     if (getB12() != null || getB14() != null) {

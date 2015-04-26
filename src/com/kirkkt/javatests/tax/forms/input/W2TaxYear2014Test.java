@@ -36,14 +36,16 @@ public class W2TaxYear2014Test implements TestCase {
     assertEquals(gold.next(), String.valueOf(form.getB8()));
     assertEquals(gold.next(), String.valueOf(form.getB10()));
     assertEquals(gold.next(), String.valueOf(form.getB11()));
-    for (String value : form.getB12()) {
-      assertEquals(gold.next(), String.valueOf(value));
+    for (String key : form.getB12().keySet()) {
+      assertEquals(gold.next(), String.valueOf(key));
+      assertEquals(gold.next(), String.valueOf(form.getB12().get(key)));
     }
     for (boolean value : form.getB13()) {
       assertEquals(gold.next(), String.valueOf(value));
     }
-    for (String value : form.getB14()) {
-      assertEquals(gold.next(), String.valueOf(value));
+    for (String key : form.getB14().keySet()) {
+      assertEquals(gold.next(), String.valueOf(key));
+      assertEquals(gold.next(), String.valueOf(form.getB14().get(key)));
     }
     assertEquals(gold.next(), String.valueOf(form.getB16()));
     assertEquals(gold.next(), String.valueOf(form.getB17()));

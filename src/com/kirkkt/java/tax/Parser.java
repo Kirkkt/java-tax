@@ -17,6 +17,7 @@ public final class Parser {
   public static final String GENERAL_PARSING_ERROR_MESSAGE = "Error processing line";
 
   private Parser() {} // COV_NF_LINE
+// TODO(kirktdev): simpler method for special case for parts = 1?
 
   /**
    * Parses a line of string and round the result into int. Throws error message on error.
