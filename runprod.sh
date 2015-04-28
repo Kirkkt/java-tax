@@ -1,10 +1,12 @@
 #!/bin/bash
 
+sanitycheck.sh
+
 # compile java
 javac \
-    -sourcepath /Users/kirkt/Dropbox/github/java_tax/src \
+    -sourcepath $GITHUB_DIR/java_tax/src \
     -cp $JAVA_CLASS_PATH \
-    -d /Users/kirkt/Dropbox/github/java_tax/class \
+    -d $GITHUB_DIR/java_tax/class \
     src/com/kirkkt/java/tax/*.java \
     src/com/kirkkt/java/tax/forms/*.java \
     src/com/kirkkt/java/tax/forms/input/*.java \

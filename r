@@ -1,1 +1,1 @@
-runprod
+runprod.sh

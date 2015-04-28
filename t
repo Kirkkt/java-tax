@@ -1,1 +1,1 @@
-runtest
+runtest.sh
