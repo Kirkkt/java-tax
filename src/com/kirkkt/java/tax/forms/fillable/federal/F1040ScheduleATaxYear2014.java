@@ -1,5 +1,6 @@
 package com.kirkkt.java.tax.forms.fillable.federal;
 
+import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.fillable.AttachedForm;
@@ -28,12 +29,12 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   private int b5 = 0;
   private int b6 = 0;
   private int b7 = 0;
-  private ImmutableMap<String, Integer> b8List = ImmutableMap.<String, Integer>of();
+  private Map<String, Integer> b8List = ImmutableMap.<String, Integer>of();
   private int b8 = 0;
   private int b9 = 0;
 
   private int b10 = 0;
-  private ImmutableMap<String, Integer> b11List = ImmutableMap.<String, Integer>of();
+  private Map<String, Integer> b11List = ImmutableMap.<String, Integer>of();
   private int b11 = 0;
   private int b12 = 0;
   private int b13 = 0;
@@ -47,17 +48,17 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
 
   private int b20 = 0;
 
-  private ImmutableMap<String, Integer> b21List = ImmutableMap.<String, Integer>of();
+  private Map<String, Integer> b21List = ImmutableMap.<String, Integer>of();
   private int b21 = 0;
   private int b22 = 0;
-  private ImmutableMap<String, Integer> b23List = ImmutableMap.<String, Integer>of();
+  private Map<String, Integer> b23List = ImmutableMap.<String, Integer>of();
   private int b23 = 0;
   private int b24 = 0;
   private int b25 = 0;
   private int b26 = 0;
   private int b27 = 0;
 
-  private ImmutableMap<String, Integer> b28List = ImmutableMap.<String, Integer>of();
+  private Map<String, Integer> b28List = ImmutableMap.<String, Integer>of();
   private int b28 = 0;
 
   private boolean b29Checkbox = false;
@@ -65,6 +66,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   private boolean b30 = false;
 
   private boolean w2Imported = false;
+  private boolean fileImported = false;
 
   @Override
   public String getFormType() {
@@ -78,12 +80,71 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
 
   @Override
   public void readFromMotherForm(Form motherForm) {
-    // readFromF1040(form.getB38());
+    // readFromF1040(((F1040TaxYear2014) motherForm).getB38());
   }
 
   @Override
   public void readFromFile(String fileName) {
-// TODO(kirktdev): read from file
+    if (fileImported) {
+      throw new IllegalStateException("Form " + getFormType() + " for tax year " + getTaxYear() + " can't read from multiple files.");
+    }
+    fileImported = true;
+
+    BufferedReader br;
+    String line;
+
+    try {
+      br = new BufferedReader(new FileReader(fileName));
+      while ((line = br.readLine()) != null) {
+        if (line.equals("f1040 schedule a " + getTaxYear())) {
+          // heading
+        } else if (line.startsWith("b1 ")) {
+          b4 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b5checkbox ")) {
+          b5Checkbox = line.split(" ", 2)[1];
+        } else if (line.startsWith("b6 ")) {
+          b6 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b7 ")) {
+          b7 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b8list ")) {
+          b8List = Parser.parseListAndRound(line, 2);
+        } else if (line.startsWith("b10 ")) {
+          b10 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b11list ")) {
+          b11List = Parser.parseListAndRound(line, 2);
+        } else if (line.startsWith("b12 ")) {
+          b12 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b13 ")) {
+          b13 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b14 ")) {
+          b14 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b16 ")) {
+          b16 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b17 ")) {
+          b17 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b18 ")) {
+          b18 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b20 ")) {
+          b20 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b21list ")) {
+          b21List = Parser.parseListAndRound(line, 2);
+        } else if (line.startsWith("b22 ")) {
+          b22 = Parser.parseAndRound(line, 2);
+        } else if (line.startsWith("b23list ")) {
+          b23List = Parser.parseListAndRound(line, 2);
+        } else if (line.startsWith("b28list ")) {
+          b28List = Parser.parseListAndRound(line, 2);
+        } else if (line.startsWith("b30 ")) {
+          b30 = Parser.parseBoolean(line, 2);
+        } else {
+          br.close();
+          throw new IllegalArgumentException("Invalid input line: " + line);
+        }
+      }
+      br.close();
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read file " + fileName + " due to error " + e);
+    }
 
     doMath();
   }
@@ -449,8 +510,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     } else {
       ItemizedDeductionsWorksheetTaxYear2014 worksheet =
           new ItemizedDeductionsWorksheetTaxYear2014();
-      // TODO(kirktdev): make itemized...worksheet understand this form
-      // worksheet.readFromMotherForm(this);
+      worksheet.readFromMotherForm(this);
       b29 = worksheet.getBResult();
     }
   }

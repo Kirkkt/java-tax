@@ -45,9 +45,9 @@ public class F1099GTaxYear2014 implements InputForm {
         } else if (line.startsWith("payer's fein ")) {
           bPayerFEIN = line.split(" ", 3)[2];
         } else if (line.startsWith("b2 ")) {
-          b2 = Parser.parseAndRoundToInt(line, 2);
+          b2 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b3 ")) {
-          b3 = Parser.parseAndRoundToInt(line, 2);
+          b3 = Parser.parseAndRound(line, 2);
         } else {
           br.close();
           throw new IllegalArgumentException("Invalid input line: " + line);

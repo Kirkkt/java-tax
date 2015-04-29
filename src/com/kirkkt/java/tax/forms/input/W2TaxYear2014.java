@@ -31,6 +31,8 @@ public class W2TaxYear2014 implements InputForm {
   private int b19 = 0;
   private String b20 = "";
 
+  private boolean fileImported = false;
+
   private final TaxUtil util = new TaxUtil();
 
   public W2TaxYear2014() {}
@@ -47,6 +49,12 @@ public class W2TaxYear2014 implements InputForm {
 
   @Override
   public void readFromFile(String fileName) {
+    if (fileImported) {
+      throw new IllegalStateException("Form " + getFormType() + " for tax year " + getTaxYear()
+          + " can't read from files more than once.");
+    }
+    fileImported = true;
+
     BufferedReader br;
     String line;
 
@@ -57,47 +65,42 @@ public class W2TaxYear2014 implements InputForm {
         if (line.equals("w2 " + getTaxYear())) {
           // heading
         } else if (line.startsWith("b1 ")) {
-          b1 = Parser.parseAndRoundToInt(line, 2);
+          b1 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b2 ")) {
-          b2 = Parser.parseAndRoundToInt(line, 2);
+          b2 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b3 ")) {
-          b3 = Parser.parseAndRoundToInt(line, 2);
+          b3 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b4 ")) {
-          b4 = Parser.parseAndRoundToInt(line, 2);
+          b4 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b5 ")) {
-          b5 = Parser.parseAndRoundToInt(line, 2);
+          b5 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b6 ")) {
-          b6 = Parser.parseAndRoundToInt(line, 2);
+          b6 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b7 ")) {
-          b7 = Parser.parseAndRoundToInt(line, 2);
+          b7 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b8 ")) {
-          b8 = Parser.parseAndRoundToInt(line, 2);
+          b8 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b10 ")) {
-          b10 = Parser.parseAndRoundToInt(line, 2);
+          b10 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b11 ")) {
-          b11 = Parser.parseAndRoundToInt(line, 2);
+          b11 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b12 ")) {
           String[] words = line.split(" ");
           // TODO(kirktdev): get rid of the second <> can?
           ImmutableMap.Builder<String, Integer> b12MapBuilder =
               ImmutableMap.<String, Integer>builder();
           for (int i = 1; i < words.length - 1; i += 2) {
-            b12MapBuilder.put(words[i], Parser.parseAndRoundToInt(words[i + 1], 1));
+            b12MapBuilder.put(words[i], Parser.parseAndRound(words[i + 1], 1));
           }
           b12 = b12MapBuilder.build();
         } else if (line.startsWith("b13 ")) {
-          String[] words = line.split(" ");
-          // TODO(kirktdev): ImmutableList + Function can?
-          // TODO(kirktdev): parseToBoolean
-          b13[0] = Boolean.parseBoolean(words[1]);
-          b13[1] = Boolean.parseBoolean(words[2]);
-          b13[2] = Boolean.parseBoolean(words[3]);
+          b13 = Parser.parseBooleanArray(line, 2);
         } else if (line.startsWith("b14 ")) {
           String[] words = line.split(" ");
           ImmutableMap.Builder<String, Integer> b14MapBuilder =
               ImmutableMap.<String, Integer>builder();
           for (int i = 1; i < words.length - 1; i += 2) {
-            b14MapBuilder.put(words[1], Parser.parseAndRoundToInt(words[i + 1], 1));
+            b14MapBuilder.put(words[1], Parser.parseAndRound(words[i + 1], 1));
           }
           b14 = b14MapBuilder.build();
         } else if (line.startsWith("b15 ")) {
@@ -109,13 +112,13 @@ public class W2TaxYear2014 implements InputForm {
                   + "\nExpecting:\n  "
                   + util.getEmployerStateIdNumber());
         } else if (line.startsWith("b16 ")) {
-          b16 = Parser.parseAndRoundToInt(line, 2);
+          b16 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b17 ")) {
-          b17 = Parser.parseAndRoundToInt(line, 2);
+          b17 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b18 ")) {
-          b18 = Parser.parseAndRoundToInt(line, 2);
+          b18 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b19 ")) {
-          b19 = Parser.parseAndRoundToInt(line, 2);
+          b19 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b20 ")) {
           b20 = line.split(" ", 2)[1];
         } else {

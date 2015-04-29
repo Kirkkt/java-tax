@@ -1,8 +1,8 @@
 package com.kirkkt.java.tax.forms.fillable.federal.worksheets;
 
-import com.kirkkt.java.tax.forms.fillable.AttachedForm;
 import com.kirkkt.java.tax.forms.Form;
-// import com.kirkkt.java.tax.forms.fillable.federal.F1040ScheduleATaxYear2014;
+import com.kirkkt.java.tax.forms.fillable.AttachedForm;
+import com.kirkkt.java.tax.forms.fillable.federal.F1040ScheduleATaxYear2014;
 
 public class ItemizedDeductionsWorksheetTaxYear2014 implements AttachedForm {
 
@@ -32,19 +32,18 @@ public class ItemizedDeductionsWorksheetTaxYear2014 implements AttachedForm {
 
   @Override
   public void readFromMotherForm(Form motherForm) {
-  // public void readFromMotherForm(F1040ScheduleATaxYear2014 motherForm) {
-  // TODO(kirktdev): uncomment once f 1040 schedule a is available
-  //   readFromF1040ScheduleA(
-  //       form.getB2(),
-  //       form.getB4(),
-  //       form.getB9(),
-  //       form.getB14(),
-  //       form.getB15(),
-  //       form.getB19(),
-  //       form.getB20(),
-  //       form.getB27(),
-  //       form.getB28()
-  //   );
+    F1040ScheduleATaxYear2014 form = (F1040ScheduleATaxYear2014) motherForm;
+    readFromMotherForm(
+        form.getB2(),
+        form.getB4(),
+        form.getB9(),
+        form.getB14(),
+        form.getB15(),
+        form.getB19(),
+        form.getB20(),
+        form.getB27(),
+        form.getB28()
+    );
   }
 
   public void readFromMotherForm(

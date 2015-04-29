@@ -3,9 +3,11 @@ package com.kirkkt.java.tax;
 import com.kirkkt.java.tax.forms.Form;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Map;
 
 /**
  * A helper class to host all static parsing logic.
@@ -14,11 +16,18 @@ import java.io.FileReader;
 // TODO(kirktdev): parse boolean
 public final class Parser {
 
-  public static final String GENERAL_PARSING_ERROR_MESSAGE = "Error processing line";
+  private static final String GENERAL_PARSING_ERROR_MESSAGE = "Error processing line";
 
   private Parser() {} // COV_NF_LINE
-// TODO(kirktdev): simpler method for special case for parts = 1?
 
+  /**
+   * Parses a line of string and round the result into int. Throws error message on error.
+   *
+   * @param line a line of string. This entire line will be parsed into an integer.
+   */
+  public static int parseAndRound(String line) {
+    return parseAndRound(line, 1);
+  }
   /**
    * Parses a line of string and round the result into int. Throws error message on error.
    *
@@ -26,8 +35,8 @@ public final class Parser {
    * @param parts the number of components expected from this string. Only the last part, defined by
    *   the sepration of {@code " "} will be parsed and rounded.
    */
-  public static int parseAndRoundToInt(String line, int parts) {
-    return parseAndRoundToInt((parts == 1) ? line : line.split(" ", parts)[parts - 1], line);
+  public static int parseAndRound(String line, int parts) {
+    return parseAndRound((parts == 1) ? line : line.split(" ", parts)[parts - 1], line);
   }
 
   /**
@@ -37,13 +46,63 @@ public final class Parser {
    * @param lineContext the line containing {@param text} that can provide the context of where it
    *   is from.
    */
-  public static int parseAndRoundToInt(String text, String lineContext) {
+  public static int parseAndRound(String text, String lineContext) {
     try {
       return Math.round(Float.parseFloat(text));
     } catch (NumberFormatException e) {
       throw new NumberFormatException(
           genericParsingErrorMessage(lineContext) + "\nDetail:\n  " + e.toString());
     }
+  }
+
+  public static Map<String, Integer> parseListAndRound(String line, int parts) {
+    ImmutableMap.Builder<String, Integer> builder = ImmutableMap.<String, Integer>builder();
+    String toParse = line.split(" ", parts)[parts - 1];
+    String[] toParseArray = toParse.split(" ");
+    for (int i = 0; i < toParseArray.length; i += 2) {
+      builder.put(toParseArray[i], parseAndRound(toParseArray[i + 1], line));
+    }
+    return builder.build();
+  }
+
+  /**
+   * Parses a line of string into a boolean. Throws error message on error.
+   *
+   * @param line a string with components separated by {@code " "}
+   * @param parts the number of components expected from this string. Only the last part, defined by
+   *   the sepration of {@code " "} will be parsed.
+   */
+  public static boolean parseBoolean(String line, int parts) {
+    try {
+      return Boolean.parseBoolean((parts == 1) ? line : line.split(" ", parts)[parts - 1]);
+      // TODO(kirktdev): what exception are we expecting?
+    } catch (NumberFormatException e) {
+      throw new NumberFormatException(
+          genericParsingErrorMessage(line) + "\nDetail:\n  " + e.toString());
+    }
+  }
+
+  /**
+   * Parse a line of string into a boolean array. Throws error message on error.
+   *
+   * @param line a string with components separated by {@code " "}
+   * @param parts the number of components expected from this string. Only the last part, defined by
+   *   the sepration of {@code " "} will be parsed.
+   */
+  public static boolean[] parseBooleanArray(String line, int parts) {
+    String toParse = (parts == 1) ? line : line.split(" ", parts)[parts - 1];
+    String[] toParseArray = toParse.split(" ");
+    boolean[] result = new boolean[toParseArray.length];
+    try {
+      for (int i = 0; i < toParseArray.length; i++) {
+        result[i] = Boolean.parseBoolean(toParseArray[i]);
+      }
+      // TODO(kirktdev): what exception do I expect?
+    } catch (NumberFormatException e) {
+      throw new NumberFormatException(
+          genericParsingErrorMessage(line) + "\nDetail:\n  " + e.toString());
+    }
+    return result;
   }
 
   /**

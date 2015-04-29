@@ -50,29 +50,29 @@ public class F1099DivTaxYear2014 implements InputForm {
         } else if (line.startsWith("payer name ")) {
           payerName = line.split(" ", 3)[2];
         } else if (line.startsWith("b1a ")) {
-          b1a = Parser.parseAndRoundToInt(line, 2);
+          b1a = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b1b ")) {
-          b1b = Parser.parseAndRoundToInt(line, 2);
+          b1b = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b2a ")) {
-          b2a = Parser.parseAndRoundToInt(line, 2);
+          b2a = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b2b ")) {
-          b2b = Parser.parseAndRoundToInt(line, 2);
+          b2b = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b3 ")) {
-          b3 = Parser.parseAndRoundToInt(line, 2);
+          b3 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b4 ")) {
-          b4 = Parser.parseAndRoundToInt(line, 2);
+          b4 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b6 ")) {
-          b6 = Parser.parseAndRoundToInt(line, 2);
+          b6 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b10 ")) {
-          b10 = Parser.parseAndRoundToInt(line, 2);
+          b10 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b11 ")) {
-          b11 = Parser.parseAndRoundToInt(line, 2);
+          b11 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b12 ")) {
           b12 = line.split(" ", 2)[1];
         } else if (line.startsWith("b13 ")) {
           b13 = line.split(" ", 2)[1];
         } else if (line.startsWith("b14 ")) {
-          b14 = Parser.parseAndRoundToInt(line, 2);
+          b14 = Parser.parseAndRound(line, 2);
         } else {
           br.close();
           throw new IllegalArgumentException("Invalid input line: " + line);

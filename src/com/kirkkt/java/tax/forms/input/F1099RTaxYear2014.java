@@ -59,41 +59,39 @@ public class F1099RTaxYear2014 implements InputForm {
         } else if (line.startsWith("account number ")) {
           bAccountNumber = line.split(" ", 3)[2];
         } else if (line.startsWith("b1 ")) {
-          b1 = Parser.parseAndRoundToInt(line, 2);
+          b1 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b2a ")) {
-          b2a = Parser.parseAndRoundToInt(line, 2);
+          b2a = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b2b ")) {
-          // TODO(kirktdev): taxutill.parseboolean
-          b2b[0] = Boolean.parseBoolean(line.split(" ", 3)[1]);
-          b2b[1] = Boolean.parseBoolean(line.split(" ", 3)[2]);
+          b2b = Parser.parseBooleanArray(line, 2);
         } else if (line.startsWith("b3 ")) {
-          b3 = Parser.parseAndRoundToInt(line, 2);
+          b3 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b4 ")) {
-          b4 = Parser.parseAndRoundToInt(line, 2);
+          b4 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b5 ")) {
-          b5 = Parser.parseAndRoundToInt(line, 2);
+          b5 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b6 ")) {
-          b6 = Parser.parseAndRoundToInt(line, 2);
+          b6 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b7 ")) {
           b7 = line.split(" ", 2)[1];
         } else if (line.startsWith("b7checkbox ")) {
           b7Checkbox = Boolean.parseBoolean(line.split(" ", 2)[1]);
         } else if (line.startsWith("b8 ")) {
-          b8 = Parser.parseAndRoundToInt(line, 2);
+          b8 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b9a ")) {
-          b9a = Parser.parseAndRoundToInt(line, 2);
+          b9a = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b9b ")) {
-          b9b = Parser.parseAndRoundToInt(line, 2);
+          b9b = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b10 ")) {
-          b10 = Parser.parseAndRoundToInt(line, 2);
+          b10 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b11 ")) {
-          b11 = Parser.parseAndRoundToInt(line, 2);
+          b11 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b12 ")) {
-          b12 = Parser.parseAndRoundToInt(line, 2);
+          b12 = Parser.parseAndRound(line, 2);
         } else if (line.startsWith("b13 ")) {
           b13 = line.split(" ", 2)[1];
         } else if (line.startsWith("b14 ")) {
-          b14 = Parser.parseAndRoundToInt(line, 2);
+          b14 = Parser.parseAndRound(line, 2);
         } else {
           br.close();
           throw new IllegalArgumentException("Invalid input line: " + line);
