@@ -73,15 +73,25 @@ public final class Parser {
    *   the sepration of {@code " "} will be parsed.
    */
   public static boolean parseBoolean(String line, int parts) {
+    return parseBoolean((parts == 1) ? line : line.split(" ", parts)[parts - 1], line);
+  }
+
+  /**
+   * Parses a string into a boolean. Throws error message on error.
+   *
+   * @param text the string to be parsed
+   * @param lineContext the line containing {@param text} that can provide the context of where it
+   *   is from.
+   */
+  public static boolean parseBoolean(String text, String lineContext) {
     try {
-      return Boolean.parseBoolean((parts == 1) ? line : line.split(" ", parts)[parts - 1]);
+      return Boolean.parseBoolean(text);
       // TODO(kirktdev): what exception are we expecting?
     } catch (NumberFormatException e) {
       throw new NumberFormatException(
-          genericParsingErrorMessage(line) + "\nDetail:\n  " + e.toString());
+          genericParsingErrorMessage(lineContext) + "\nDetail:\n  " + e.toString());
     }
   }
-
   /**
    * Parse a line of string into a boolean array. Throws error message on error.
    *

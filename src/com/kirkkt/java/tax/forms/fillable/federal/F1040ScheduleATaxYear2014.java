@@ -1,11 +1,12 @@
 package com.kirkkt.java.tax.forms.fillable.federal;
 
 import com.kirkkt.java.tax.Parser;
+import com.kirkkt.java.tax.TaxMath;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.fillable.AttachedForm;
-import com.kirkkt.java.tax.forms.input.InputForm;
 import com.kirkkt.java.tax.forms.fillable.federal.worksheets.ItemizedDeductionsWorksheetTaxYear2014;
+import com.kirkkt.java.tax.forms.input.InputForm;
 import com.kirkkt.java.tax.forms.input.W2TaxYear2014;
 
 import com.google.common.base.Preconditions;
@@ -358,7 +359,6 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   @Override
-  // TODO(kirktdev): fanty-print maps
   public String toString() {
     String result = "";
 
@@ -388,8 +388,8 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     if (getB7() > 0) {
       result += "b7:\n  " + getB7() + "\n";
     }
-    if (getB8List() != null) {
-      result += "b8: list\n  " + getB8List() + "\n";
+    if (!getB8List().isEmpty()) {
+      // result += "b8: list\n  " + Printer.print(getB8List()) + "\n";
     }
     if (getB8() > 0) {
       result += "b8:\n  " + getB8() + "\n";
@@ -400,8 +400,8 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     if (getB10() > 0) {
       result += "b10:\n  " + getB10() + "\n";
     }
-    if (getB11List() != null) {
-      result += "b11 list:\n  " + getB11List() + "\n";
+    if (!getB11List().isEmpty()) {
+      // result += "b11 list:\n" + Printer.print(getB11List()) + "\n";
     }
     if (getB11() > 0) {
       result += "b11:\n  " + getB11() + "\n";
@@ -439,8 +439,8 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     }
     result += "\n";
 
-    if (getB21List() != null) {
-      result += "b21 list:\n  " + getB21List() + "\n";
+    if (!getB21List().isEmpty()) {
+      // result += "b21 list:\n  " + Printer.print(getB21List()) + "\n";
     }
     if (getB21() > 0) {
       result += "b21:\n  " + getB21() + "\n";
@@ -448,8 +448,8 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     if (getB22() > 0) {
       result += "b22:\n  " + getB22() + "\n";
     }
-    if (getB23List() != null) {
-      result += "b23 list:\n  " + getB23List() + "\n";
+    if (!getB23List().isEmpty()) {
+      // result += "b23 list:\n  " + Printer.print(getB23List()) + "\n";
     }
     if (getB23() > 0) {
       result += "b23:\n  " + getB23() + "\n";
@@ -468,8 +468,8 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     }
     result += "\n";
 
-    if (getB28List() != null) {
-      result += "b28 list:\n  " + getB28List() + "\n";
+    if (!getB28List().isEmpty()) {
+      // result += "b28 list:\n  " + Printer.print(getB28List()) + "\n";
     }
     if (getB28() > 0) {
       result += "b28:\n  " + getB28() + "\n";
@@ -490,20 +490,20 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     b3 = Math.round(.1f * b2);
     b4 = Math.max(0, b1 - b3);
 
-    b8 = getSum(b8List);
+    b8 = TaxMath.getSum(b8List);
     b9 = b5 + b6 + b7 + b8;
 
-    b11 = getSum(b11List);
+    b11 = TaxMath.getSum(b11List);
     b15 = b10 + b11 + b12 + b13 + b14;
 
     b19 = b16 + b17 + b18;
 
-    b21 = getSum(b21List);
-    b23 = getSum(b23List);
+    b21 = TaxMath.getSum(b21List);
+    b23 = TaxMath.getSum(b23List);
     b24 = b21 + b22 + b23;
     b26 = Math.round(.02f * b25);
     b27 = Math.max(b24 - b26, 0);
-    b28 = getSum(b28List);
+    b28 = TaxMath.getSum(b28List);
 
     if (!b29Checkbox) {
       b29 = b4 + b9 + b15 + b19 + b20 + b27 + b28;
@@ -515,11 +515,4 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     }
   }
 
-  private int getSum(Map<String, Integer> map) {
-    int result = 0;
-    for (String key : map.keySet()) {
-      result += map.get(key);
-    }
-    return result;
-  }
 }
