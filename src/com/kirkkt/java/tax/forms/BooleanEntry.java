@@ -6,15 +6,21 @@ public class BooleanEntry extends Entry<Boolean> {
   private String falseWord;
 
   @Override
-  public void readFromLine(String line, String prefix) throws IllegalArgumentException, NumberFormatException {
+  void init() {
+    super.init();
+    value = false;
+  }
+
+  @Override
+  public void readFromLine(String line, String prefix)
+      throws IllegalArgumentException, NumberFormatException {
     super.readFromLine(line, prefix);
     setValue(Boolean.parseBoolean(line.split(prefix, 2)[1]));
   }
 
   @Override
   public String forcePrint() {
-    return "";
-    // return getId() + ":\n  " + (getValue() ? getTrueWord() : getFalseWord()) + "\n";
+    return getId() + ":\n  " + (getValue() ? getTrueWord() : getFalseWord()) + "\n";
   }
 
   public BooleanEntry setDisplayWords(String trueWord, String falseWord) {

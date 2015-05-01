@@ -2,6 +2,7 @@ package com.kirkkt.java.tax.forms.input;
 
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
+import com.kirkkt.java.tax.forms.BooleanEntry;
 import com.kirkkt.java.tax.forms.IntEntry;
 
 import java.io.BufferedReader;
@@ -20,7 +21,7 @@ public class F1099RTaxYear2014 implements InputForm {
   private IntEntry b5 = new IntEntry();
   private IntEntry b6 = new IntEntry();
   private String b7 = "";
-  private boolean b7Checkbox = false;
+  private BooleanEntry b7Checkbox = new BooleanEntry();
   private IntEntry b8 = new IntEntry();
   private IntEntry b9a = new IntEntry();
   private IntEntry b9b = new IntEntry();
@@ -82,7 +83,8 @@ public class F1099RTaxYear2014 implements InputForm {
         } else if (line.startsWith("b7 ")) {
           b7 = line.split(" ", 2)[1];
         } else if (line.startsWith("b7checkbox ")) {
-          b7Checkbox = Boolean.parseBoolean(line.split(" ", 2)[1]);
+          b7Checkbox.readFromLine(line, "b7checkbox ");
+          b7Checkbox.setDescription("IRA/SEP/SIMPLE");
         } else if (line.startsWith("b8 ")) {
           b8.readFromLine(line, "b8 ");
           b8.setDescription("Other");
@@ -176,7 +178,7 @@ public class F1099RTaxYear2014 implements InputForm {
   }
 
   /** IRA/SEP/SIMPLE. */
-  public boolean getB7Checkbox() {
+  public BooleanEntry getB7Checkbox() {
     return b7Checkbox;
   }
 
@@ -266,11 +268,9 @@ public class F1099RTaxYear2014 implements InputForm {
     if (!getB7().isEmpty()) {
       result += "7 Distribution code:\n  " + getB7() + "\n";
     }
-    if (getB7Checkbox()) {
-      result += "7 checkbox IRA/SEP/SIMPLE:\n  X" + "\n";
-    }
+    result += getB7Checkbox().print();
     result += getB8().print();
-    if (!getB7().isEmpty() || getB7Checkbox() || getB8().isDirty()) {
+    if (!getB7().isEmpty() || getB7Checkbox().isDirty() || getB8().isDirty()) {
       result += "\n";
     }
 

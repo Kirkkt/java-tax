@@ -39,7 +39,7 @@ public class F1099RTaxYear2014Test implements TestCase {
     assertEquals(gold.next(), String.valueOf(form.getB5().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB6().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB7()));
-    assertEquals(gold.next(), String.valueOf(form.getB7Checkbox()));
+    assertEquals(gold.next(), String.valueOf(form.getB7Checkbox().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB8().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB9a().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB9b().getValue()));
