@@ -4,6 +4,7 @@ import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.BooleanEntry;
 import com.kirkkt.java.tax.forms.IntEntry;
+import com.kirkkt.java.tax.forms.StringEntry;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,8 +12,8 @@ import java.io.IOException;
 
 public class F1099RTaxYear2014 implements InputForm {
 
-  private String bPayerFederalIdentificationNumber = "";
-  private String bPayerName = "";
+  private StringEntry bPayerFederalIdentificationNumber = new StringEntry();
+  private StringEntry bPayerName = new StringEntry();
   private IntEntry b1 = new IntEntry();
   private IntEntry b2a = new IntEntry();
   private boolean[] b2b = new boolean[2];
@@ -20,16 +21,16 @@ public class F1099RTaxYear2014 implements InputForm {
   private IntEntry b4 = new IntEntry();
   private IntEntry b5 = new IntEntry();
   private IntEntry b6 = new IntEntry();
-  private String b7 = "";
+  private StringEntry b7 = new StringEntry();
   private BooleanEntry b7Checkbox = new BooleanEntry();
   private IntEntry b8 = new IntEntry();
   private IntEntry b9a = new IntEntry();
   private IntEntry b9b = new IntEntry();
   private IntEntry b10 = new IntEntry();
-  private String bAccountNumber = "";
+  private StringEntry bAccountNumber = new StringEntry();
   private IntEntry b11 = new IntEntry();
   private IntEntry b12 = new IntEntry();
-  private String b13 = "";
+  private StringEntry b13 = new StringEntry();
   private IntEntry b14 = new IntEntry();
 
   public F1099RTaxYear2014() {}
@@ -55,11 +56,15 @@ public class F1099RTaxYear2014 implements InputForm {
         if (line.equals("f1099r " + getTaxYear())) {
           // heading
         } else if (line.startsWith("payer's federal identification number ")) {
-          bPayerFederalIdentificationNumber = line.split(" ", 5)[4];
-        } else if (line.startsWith("payer's name")) {
-          bPayerName = line.split(" ", 3)[2];
+          bPayerFederalIdentificationNumber.readFromLine(line,
+              "payer's federal identification number ");
+          bPayerFederalIdentificationNumber.setDescription("Payer's federal identification number");
+        } else if (line.startsWith("payer's name ")) {
+          bPayerName.readFromLine(line, "payer's name ");
+          bPayerName.setDescription("Payer's name");
         } else if (line.startsWith("account number ")) {
-          bAccountNumber = line.split(" ", 3)[2];
+          bAccountNumber.readFromLine(line, "account number ");
+          bAccountNumber.setDescription("Account number");
         } else if (line.startsWith("b1 ")) {
           b1.readFromLine(line, "b1 ");
           b1.setDescription("Gross distribution");
@@ -81,7 +86,8 @@ public class F1099RTaxYear2014 implements InputForm {
           b6.readFromLine(line, "b6 ");
           b6.setDescription("Net unrealized appreciate in employer's securities");
         } else if (line.startsWith("b7 ")) {
-          b7 = line.split(" ", 2)[1];
+          b7.readFromLine(line, "b7 ");
+          b7.setDescription("Distribution code");
         } else if (line.startsWith("b7checkbox ")) {
           b7Checkbox.readFromLine(line, "b7checkbox ");
           b7Checkbox.setDescription("IRA/SEP/SIMPLE");
@@ -104,7 +110,8 @@ public class F1099RTaxYear2014 implements InputForm {
           b12.readFromLine(line, "b12 ");
           b12.setDescription("State tax withheld");
         } else if (line.startsWith("b13 ")) {
-          b13 = line.split(" ", 2)[1];
+          b13.readFromLine(line, "b13 ");
+          b13.setDescription("Payer's state number");
         } else if (line.startsWith("b14 ")) {
           b14.readFromLine(line, "b14 ");
           b14.setDescription("State distribution");
@@ -125,11 +132,11 @@ public class F1099RTaxYear2014 implements InputForm {
     System.out.print(this);
   }
 
-  public String getBPayerFederalIdentificationNumber() {
+  public StringEntry getBPayerFederalIdentificationNumber() {
     return bPayerFederalIdentificationNumber;
   }
 
-  public String getBPayerName() {
+  public StringEntry getBPayerName() {
     return bPayerName;
   }
 
@@ -173,7 +180,7 @@ public class F1099RTaxYear2014 implements InputForm {
   }
 
   /** Distribution code(s). */
-  public String getB7() {
+  public StringEntry getB7() {
     return b7;
   }
 
@@ -202,7 +209,7 @@ public class F1099RTaxYear2014 implements InputForm {
     return b10;
   }
 
-  public String getBAccountNumber() {
+  public StringEntry getBAccountNumber() {
     return bAccountNumber;
   }
 
@@ -217,7 +224,7 @@ public class F1099RTaxYear2014 implements InputForm {
   }
 
   /** State/Payer's state no. */
-  public String getB13() {
+  public StringEntry getB13() {
     return b13;
   }
 
@@ -234,60 +241,57 @@ public class F1099RTaxYear2014 implements InputForm {
     result += "-----------------------\n";
     result += "\n";
 
-    result += "Payer's federal identification number:\n  "
-        + getBPayerFederalIdentificationNumber() + "\n";
-    result += "Payer's name:\n  " + getBPayerName() + "\n";
+    result += bPayerFederalIdentificationNumber.print();
+    result += bPayerName.print();
     result += "\n";
 
-    result += getB1().print();
+    result += b1.print();
     result += "\n";
 
-    result += getB2a().print();
+    result += b2a.print();
 
-    if (getB2b()[0]) {
+    if (b2b[0]) {
       result += "2b Taxable amount not determined:\n  X" + "\n";
     }
-    if (getB2b()[1]) {
+    if (b2b[1]) {
       result += "2b Total distribution:\n  X" + "\n";
     }
-    if (getB2b()[0] || getB2b()[1])
+    if (b2b[0] || b2b[1])
       result += "\n";
 
-    result += getB3().print();
-    result += getB4().print();
-    // if (getB3().isDirty() || getB4().isDirty()) {
+    result += b3.print();
+    result += b4.print();
+    // if (b3.isDirty() || b4.isDirty()) {
       result += "\n";
     // }
 
-    result += getB5().print();
-    result += getB6().print();
-    if (getB5().isDirty() || getB6().isDirty()) {
+    result += b5.print();
+    result += b6.print();
+    if (b5.isDirty() || b6.isDirty()) {
       result += "\n";
     }
 
-    if (!getB7().isEmpty()) {
-      result += "7 Distribution code:\n  " + getB7() + "\n";
-    }
-    result += getB7Checkbox().print();
-    result += getB8().print();
-    if (!getB7().isEmpty() || getB7Checkbox().isDirty() || getB8().isDirty()) {
+    result += b7.print();
+    result += b7Checkbox.print();
+    result += b8.print();
+    if (b7.isDirty() || b7Checkbox.isDirty() || b8.isDirty()) {
       result += "\n";
     }
 
-    result += getB9a().print();
-    result += getB9b().print();
-    result += getB10().print();
-    if (getB9a().isDirty() || getB9b().isDirty() || getB10().isDirty()) {
+    result += b9a.print();
+    result += b9b.print();
+    result += b10.print();
+    if (b9a.isDirty() || b9b.isDirty() || b10.isDirty()) {
       result += "\n";
     }
 
-    result += "Account number:\n  " + getBAccountNumber() + "\n";
-    result += getB11().print();
+    result += bAccountNumber.print();
+    result += b11.print();
     result += "\n";
 
-    result += getB12().print();
-    result += "13 Payer's state number:\n  " + getB13() + "\n";
-    result += getB14().print();
+    result += b12.print();
+    result += b13.print();
+    result += b14.print();
     result += "\n";
 
     result += "-----------------------\n";

@@ -3,6 +3,7 @@ package com.kirkkt.java.tax.forms.input;
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.IntEntry;
+import com.kirkkt.java.tax.forms.StringEntry;
 
 import com.google.common.base.Preconditions;
 
@@ -12,8 +13,8 @@ import java.io.IOException;
 
 public class F1099GTaxYear2014 implements InputForm {
 
-  private String bPayerInfo = "";
-  private String bPayerFEIN = "";
+  private StringEntry bPayerInfo = new StringEntry();
+  private StringEntry bPayerFEIN = new StringEntry();
   private IntEntry b2 = new IntEntry();
   private IntEntry b3 = new IntEntry();
 
@@ -42,9 +43,11 @@ public class F1099GTaxYear2014 implements InputForm {
         if (line.equals("f1099g " + getTaxYear())) {
           // heading
         } else if (line.startsWith("payer info ")) {
-          bPayerInfo = line.split(" ", 3)[2];
+          bPayerInfo.readFromLine(line, "payer info ");
+          bPayerInfo.setDescription("Payer's info");
         } else if (line.startsWith("payer's fein ")) {
-          bPayerFEIN = line.split(" ", 3)[2];
+          bPayerFEIN.readFromLine(line, "payer's fein ");
+          bPayerFEIN.setDescription("Payer's FEIN");
         } else if (line.startsWith("b2 ")) {
           b2.readFromLine(line, "b2 ");
           b2.setDescription("State or local income tax refunds, credits, or offsets");
@@ -69,12 +72,12 @@ public class F1099GTaxYear2014 implements InputForm {
   }
 
   /** Payer info, e.g. state of California. */
-  public String getBPayerInfo() {
+  public StringEntry getBPayerInfo() {
     return bPayerInfo;
   }
 
   /** Payer's FEIN. */
-  public String getBPayerFEIN() {
+  public StringEntry getBPayerFEIN() {
     return bPayerFEIN;
   }
 
@@ -95,8 +98,8 @@ public class F1099GTaxYear2014 implements InputForm {
     result += "-----------------------\n";
     result += "\n";
 
-    result += "Payer's info:\n  " + getBPayerInfo() + "\n";
-    result += "Payer's FEIN:\n  " + getBPayerFEIN() + "\n";
+    result += bPayerInfo.print();
+    result += bPayerFEIN.print();
     result += "" + "\n";
 
     result += getB2().print();

@@ -27,9 +27,10 @@ public class F1099RTaxYear2014Test implements TestCase {
     UnmodifiableIterator<String> gold =
         TestUtil.getGold(TestUtil.TEST_DATA_FOLDER + "/forms/input/f1099rtaxyear2014gold.txt");
 
-    assertEquals(gold.next(), String.valueOf(form.getBPayerFederalIdentificationNumber()));
-    assertEquals(gold.next(), String.valueOf(form.getBPayerName()));
-    assertEquals(gold.next(), String.valueOf(form.getBAccountNumber()));
+    assertEquals(gold.next(),
+        String.valueOf(form.getBPayerFederalIdentificationNumber().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getBPayerName().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getBAccountNumber().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB1().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB2a().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB2b()[0]));
@@ -38,7 +39,7 @@ public class F1099RTaxYear2014Test implements TestCase {
     assertEquals(gold.next(), String.valueOf(form.getB4().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB5().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB6().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB7()));
+    assertEquals(gold.next(), String.valueOf(form.getB7().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB7Checkbox().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB8().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB9a().getValue()));
@@ -46,7 +47,7 @@ public class F1099RTaxYear2014Test implements TestCase {
     assertEquals(gold.next(), String.valueOf(form.getB10().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB11().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB12().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB13()));
+    assertEquals(gold.next(), String.valueOf(form.getB13().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB14().getValue()));
     assertFalse(gold.hasNext());
   }

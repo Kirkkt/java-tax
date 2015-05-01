@@ -269,7 +269,7 @@ public class W2TaxYear2014 implements InputForm {
 
     result += b7.print();
     result += b8.print();
-    if (getB7().isDirty() || getB8().isDirty()) {
+    if (b7.isDirty() || b8.isDirty()) {
       result += "\n";
     }
 
@@ -280,27 +280,27 @@ public class W2TaxYear2014 implements InputForm {
 
     result += b11.print();
     result += "13\n";
-    result += String.format("  Statutory employee: [%s]\n", getB13()[0] ? "X" : " ");
-    result += String.format("  Retirement plan: [%s]\n", getB13()[1] ? "X" : " ");
-    result += String.format("  Third-party sick pay: [%s]\n", getB13()[2] ? "X" : " ");
+    result += String.format("  Statutory employee: [%s]\n", b13[0] ? "X" : " ");
+    result += String.format("  Retirement plan: [%s]\n", b13[1] ? "X" : " ");
+    result += String.format("  Third-party sick pay: [%s]\n", b13[2] ? "X" : " ");
     result += "\n";
-    if (getB11().isDirty() || getB13()[0] || getB13()[1] || getB13()[2]) {
+    if (b11.isDirty() || b13[0] || b13[1] || b13[2]) {
       result += "\n";
     }
 
-    if (getB12() != null) {
+    if (b12 != null) {
       result += "12 See instrubtions for box 12\n";
       for (String key : b12.keySet()) {
         result += "  " + key + "\t" + b12.get(key) + "\n";
       }
     }
-    if (getB14() != null) {
+    if (b14 != null) {
       result += "14 Other\n";
       for (String key : b14.keySet()) {
         result += "  " + key + "\t" + b14.get(key) + "\n";
       }
     }
-    if (getB12() != null || getB14() != null) {
+    if (b12 != null || b14 != null) {
       result += "\n";
     }
 
@@ -310,7 +310,7 @@ public class W2TaxYear2014 implements InputForm {
     result += b17.print();
     result += b18.print();
     result += b19.print();
-    result += "20 Locality name:\n  " + getB20() + "\n";
+    result += "20 Locality name:\n  " + b20 + "\n";
     result += "\n";
 
     result += "-----------------------\n";

@@ -6,6 +6,7 @@ import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.BooleanEntry;
 import com.kirkkt.java.tax.forms.IntEntry;
+import com.kirkkt.java.tax.forms.StringEntry;
 import com.kirkkt.java.tax.forms.fillable.AttachedForm;
 import com.kirkkt.java.tax.forms.fillable.federal.worksheets.ItemizedDeductionsWorksheetTaxYear2014;
 import com.kirkkt.java.tax.forms.input.InputForm;
@@ -28,7 +29,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   private IntEntry b3 = new IntEntry();
   private IntEntry b4 = new IntEntry();
 
-  private String b5Checkbox = "";
+  private StringEntry b5Checkbox = new StringEntry();
   private IntEntry b5 = new IntEntry();
   private IntEntry b6 = new IntEntry();
   private IntEntry b7 = new IntEntry();
@@ -104,7 +105,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
         } else if (line.startsWith("b1 ")) {
           b1.readFromLine(line, "b1 ");
         } else if (line.startsWith("b5checkbox ")) {
-          b5Checkbox = line.split(" ", 2)[1];
+          b5Checkbox.readFromLine(line , "b5checkbox ");
         } else if (line.startsWith("b6 ")) {
           b6.readFromLine(line, "b6 ");
         } else if (line.startsWith("b7 ")) {
@@ -194,7 +195,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** A value between "Income taxes" and "General sales taxes" */
-  public String getB5Checkbox() {
+  public StringEntry getB5Checkbox() {
     return b5Checkbox;
   }
 
@@ -374,8 +375,8 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     result += getB4().print();
     result += "\n";
 
-    result += "b5 checkbox:\n  " + getB5Checkbox() + "\n";
-    result += "b5:\n  " + getB5() + "\n";
+    result += getB5Checkbox().print();
+    result += getB5().print();
     result += getB6().print();
     result += getB7().print();
     if (!getB8List().isEmpty()) {

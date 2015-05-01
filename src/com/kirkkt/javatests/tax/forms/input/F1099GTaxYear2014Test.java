@@ -27,8 +27,8 @@ public class F1099GTaxYear2014Test implements TestCase {
     UnmodifiableIterator<String> gold =
         TestUtil.getGold(TestUtil.TEST_DATA_FOLDER + "/forms/input/f1099gtaxyear2014gold.txt");
 
-    assertEquals(gold.next(), String.valueOf(form.getBPayerInfo()));
-    assertEquals(gold.next(), String.valueOf(form.getBPayerFEIN()));
+    assertEquals(gold.next(), String.valueOf(form.getBPayerInfo().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getBPayerFEIN().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB2().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB3().getValue()));
     assertFalse(gold.hasNext());

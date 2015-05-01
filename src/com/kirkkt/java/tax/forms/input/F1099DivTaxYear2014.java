@@ -3,6 +3,7 @@ package com.kirkkt.java.tax.forms.input;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.forms.IntEntry;
+import com.kirkkt.java.tax.forms.StringEntry;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,7 +11,7 @@ import java.io.IOException;
 
 public class F1099DivTaxYear2014 implements InputForm {
 
-  private String payerName = "";
+  private StringEntry bPayerName = new StringEntry();
   private IntEntry b1a = new IntEntry();
   private IntEntry b1b = new IntEntry();
   private IntEntry b2a = new IntEntry();
@@ -20,8 +21,8 @@ public class F1099DivTaxYear2014 implements InputForm {
   private IntEntry b6 = new IntEntry();
   private IntEntry b10 = new IntEntry();
   private IntEntry b11 = new IntEntry();
-  private String b12 = "";
-  private String b13 = "";
+  private StringEntry b12 = new StringEntry();
+  private StringEntry b13 = new StringEntry();
   private IntEntry b14 = new IntEntry();
 
   private final TaxUtil util = new TaxUtil();
@@ -49,7 +50,8 @@ public class F1099DivTaxYear2014 implements InputForm {
         if (line.equals("f1099div " + getTaxYear())) {
           // heading
         } else if (line.startsWith("payer name ")) {
-          payerName = line.split(" ", 3)[2];
+          bPayerName.readFromLine(line, "payer name ");
+          bPayerName.setDescription("Payer's name");
         } else if (line.startsWith("b1a ")) {
           b1a.readFromLine(line, "b1a ");
           b1a.setDescription("Total ordinary dividends");
@@ -78,9 +80,11 @@ public class F1099DivTaxYear2014 implements InputForm {
           b11.readFromLine(line, "b11 ");
           b11.setDescription("Specified private activity bond interest dividends");
         } else if (line.startsWith("b12 ")) {
-          b12 = line.split(" ", 2)[1];
+          b12.readFromLine(line, "b12 ");
+          b12.setDescription("State");
         } else if (line.startsWith("b13 ")) {
-          b13 = line.split(" ", 2)[1];
+          b13.readFromLine(line, "b13 ");
+          b13.setDescription("State identification number");
         } else if (line.startsWith("b14 ")) {
           b14.readFromLine(line, "b14 ");
           b14.setDescription("State tax withheld");
@@ -102,8 +106,8 @@ public class F1099DivTaxYear2014 implements InputForm {
   }
 
   /** Payer name, i.e. Vanguard. */
-  public String getPayerName() {
-    return payerName;
+  public StringEntry getBPayerName() {
+    return bPayerName;
   }
 
   /** Total ordinary dividends. */
@@ -152,12 +156,12 @@ public class F1099DivTaxYear2014 implements InputForm {
   }
 
   /** State */
-  public String getB12() {
+  public StringEntry getB12() {
     return b12;
   }
 
   /** State identification no. */
-  public String getB13() {
+  public StringEntry getB13() {
     return b13;
   }
 
@@ -173,25 +177,21 @@ public class F1099DivTaxYear2014 implements InputForm {
     result += "-----------------------\n";
     result += "\n";
 
-    result += "Payer's name\n  " + getPayerName() + "\n";
+    result += bPayerName.print();
     result += "\n";
 
-    result += getB1a().print();
-    result += getB1b().print();
-    result += getB2a().print();
-    result += getB2b().print();
-    result += getB3().print();
-    result += getB4().print();
-    result += getB6().print();
-    result += getB10().print();
-    result += getB11().print();
-    if (!getB12().isEmpty()) {
-      result += "12 State\n  " + getB12() + "\n";
-    }
-    if (!getB13().isEmpty()) {
-      result += "13 State identification number\n  " + getB13() +"\n";
-    }
-    result += getB14().print();
+    result += b1a.print();
+    result += b1b.print();
+    result += b2a.print();
+    result += b2b.print();
+    result += b3.print();
+    result += b4.print();
+    result += b6.print();
+    result += b10.print();
+    result += b11.print();
+    result += b12.print();
+    result += b13.print();
+    result += b14.print();
     result += "\n";
 
     result += "-----------------------\n";
