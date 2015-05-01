@@ -158,7 +158,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   public void readFromW2(W2TaxYear2014 form) {
-    readFromW2(form.getB17());
+    readFromW2(form.getB17().getValue());
   }
 
   public void readFromW2(int formB17) {

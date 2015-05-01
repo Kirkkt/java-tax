@@ -1,5 +1,7 @@
 package com.kirkkt.java.tax.forms;
 
+import com.google.common.base.Strings;
+
 public class Entry<T> {
 
   T value;
@@ -11,6 +13,10 @@ public class Entry<T> {
   private String description;
 
   public Entry() {
+    init();
+  }
+
+  void init() {
     dirty = false;
   }
 
@@ -33,8 +39,8 @@ public class Entry<T> {
     return id;
   }
 
-  public boolean mustPrint() {
-    return mustPrint;
+  public boolean shouldPrint() {
+    return mustPrint || dirty;
   }
 
   public T getValue() {
@@ -51,7 +57,7 @@ public class Entry<T> {
   }
 
   public String print() {
-    if (mustPrint) {
+    if (shouldPrint()) {
       return forcePrint();
     }
     return "";
@@ -70,6 +76,11 @@ public class Entry<T> {
   }
 
   public String forcePrint() {
-    return getId() + ":\n  " + getValue() + "\n";
+    String result = id;
+    if (!Strings.isNullOrEmpty(description)) {
+      result += " " + description;
+    }
+    result += ":\n  " + value + "\n";
+    return result;
   }
 }

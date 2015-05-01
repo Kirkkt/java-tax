@@ -2,6 +2,7 @@ package com.kirkkt.java.tax.forms.input;
 
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
+import com.kirkkt.java.tax.forms.IntEntry;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
@@ -11,24 +12,25 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class W2TaxYear2014 implements InputForm {
+// TODO(kirktdev): use collections instead of declaring individual entries
 
-  private int b1 = 0;
-  private int b2 = 0;
-  private int b3 = 0;
-  private int b4 = 0;
-  private int b5 = 0;
-  private int b6 = 0;
-  private int b7 = 0;
-  private int b8 = 0;
-  private int b10 = 0;
-  private int b11 = 0;
+  private IntEntry b1 = new IntEntry();
+  private IntEntry b2 = new IntEntry();
+  private IntEntry b3 = new IntEntry();
+  private IntEntry b4 = new IntEntry();
+  private IntEntry b5 = new IntEntry();
+  private IntEntry b6 = new IntEntry();
+  private IntEntry b7 = new IntEntry();
+  private IntEntry b8 = new IntEntry();
+  private IntEntry b10 = new IntEntry();
+  private IntEntry b11 = new IntEntry();
   private ImmutableMap<String, Integer> b12 = null;
   private boolean[] b13 = new boolean[3];
   private ImmutableMap<String, Integer> b14 = null;
-  private int b16 = 0;
-  private int b17 = 0;
-  private int b18 = 0;
-  private int b19 = 0;
+  private IntEntry b16 = new IntEntry();
+  private IntEntry b17 = new IntEntry();
+  private IntEntry b18 = new IntEntry();
+  private IntEntry b19 = new IntEntry();
   private String b20 = "";
 
   private boolean fileImported = false;
@@ -65,25 +67,35 @@ public class W2TaxYear2014 implements InputForm {
         if (line.equals("w2 " + getTaxYear())) {
           // heading
         } else if (line.startsWith("b1 ")) {
-          b1 = Parser.parseAndRound(line, 2);
+          b1.readFromLine(line, "b1 ");
+          b1.setDescription("Wages, tips, other compensation");
         } else if (line.startsWith("b2 ")) {
-          b2 = Parser.parseAndRound(line, 2);
+          b2.readFromLine(line, "b2 ");
+          b2.setDescription("Federal income tax withheld");
         } else if (line.startsWith("b3 ")) {
-          b3 = Parser.parseAndRound(line, 2);
+          b3.readFromLine(line, "b3 ");
+          b3.setDescription("Social security wages");
         } else if (line.startsWith("b4 ")) {
-          b4 = Parser.parseAndRound(line, 2);
+          b4.readFromLine(line, "b4 ");
+          b4.setDescription("Secial security tax withheld");
         } else if (line.startsWith("b5 ")) {
-          b5 = Parser.parseAndRound(line, 2);
+          b5.readFromLine(line, "b5 ");
+          b5.setDescription("Medicare wages and tips");
         } else if (line.startsWith("b6 ")) {
-          b6 = Parser.parseAndRound(line, 2);
+          b6.readFromLine(line, "b6 ");
+          b6.setDescription("Medicare tax withheld");
         } else if (line.startsWith("b7 ")) {
-          b7 = Parser.parseAndRound(line, 2);
+          b7.readFromLine(line, "b7 ");
+          b7.setDescription("Social security tips");
         } else if (line.startsWith("b8 ")) {
-          b8 = Parser.parseAndRound(line, 2);
+          b8.readFromLine(line, "b8 ");
+          b8.setDescription("Allocated tips");
         } else if (line.startsWith("b10 ")) {
-          b10 = Parser.parseAndRound(line, 2);
+          b10.readFromLine(line, "b10 ");
+          b10.setDescription("Dependent care benefits");
         } else if (line.startsWith("b11 ")) {
-          b11 = Parser.parseAndRound(line, 2);
+          b11.readFromLine(line, "b11 ");
+          b11.setDescription("Nonqualified plans");
         } else if (line.startsWith("b12 ")) {
           String[] words = line.split(" ");
           // TODO(kirktdev): get rid of the second <> can?
@@ -112,13 +124,17 @@ public class W2TaxYear2014 implements InputForm {
                   + "\nExpecting:\n  "
                   + util.getEmployerStateIdNumber());
         } else if (line.startsWith("b16 ")) {
-          b16 = Parser.parseAndRound(line, 2);
+          b16.readFromLine(line, "b16 ");
+          b16.setDescription("State wages, tipc, etc.");
         } else if (line.startsWith("b17 ")) {
-          b17 = Parser.parseAndRound(line, 2);
+          b17.readFromLine(line, "b17 ");
+          b17.setDescription("State income tax");
         } else if (line.startsWith("b18 ")) {
-          b18 = Parser.parseAndRound(line, 2);
+          b18.readFromLine(line, "b18 ");
+          b18.setDescription("Local wages, tips, etc.");
         } else if (line.startsWith("b19 ")) {
-          b19 = Parser.parseAndRound(line, 2);
+          b19.readFromLine(line, "b19 ");
+          b19.setDescription("Local income tax");
         } else if (line.startsWith("b20 ")) {
           b20 = line.split(" ", 2)[1];
         } else {
@@ -139,52 +155,52 @@ public class W2TaxYear2014 implements InputForm {
   }
 
   /** Wages, tips, other compensation. */
-  public int getB1() {
+  public IntEntry getB1() {
     return b1;
   }
 
   /** Federal income tax withheld. */
-  public int getB2() {
+  public IntEntry getB2() {
     return b2;
   }
 
   /** Social security wages. */
-  public int getB3() {
+  public IntEntry getB3() {
     return b3;
   }
 
   /** Social security tax withheld. */
-  public int getB4() {
+  public IntEntry getB4() {
     return b4;
   }
 
   /** Medicare wages and tips. */
-  public int getB5() {
+  public IntEntry getB5() {
     return b5;
   }
 
   /** Medicare tax withheld. */
-  public int getB6() {
+  public IntEntry getB6() {
     return b6;
   }
 
   /** Social security tips. */
-  public int getB7() {
+  public IntEntry getB7() {
     return b7;
   }
 
   /** Allocated tips. */
-  public int getB8() {
+  public IntEntry getB8() {
     return b8;
   }
 
   /** Dependent care benefits. */
-  public int getB10() {
+  public IntEntry getB10() {
     return b10;
   }
 
   /** Nonqualified plans. */
-  public int getB11() {
+  public IntEntry getB11() {
     return b11;
   }
 
@@ -210,22 +226,22 @@ public class W2TaxYear2014 implements InputForm {
   }
 
   /** State wages, tips, etc. */
-  public int getB16() {
+  public IntEntry getB16() {
     return b16;
   }
 
   /** State income tax. */
-  public int getB17() {
+  public IntEntry getB17() {
     return b17;
   }
 
   /** Local income wages, tips, etc. */
-  public int getB18() {
+  public IntEntry getB18() {
     return b18;
   }
 
   /** Local income tax. */
-  public int getB19() {
+  public IntEntry getB19() {
     return b19;
   }
 
@@ -241,41 +257,34 @@ public class W2TaxYear2014 implements InputForm {
     result += "-----------------------\n";
     result += "\n";
 
-    result += "1 Wages, tips, other compensation:\n  " + getB1() + "\n";
-    result += "2 Federal income tax withheld:\n  " + getB2() + "\n";
+    result += b1.print();
+    result += b2.print();
     result += "\n";
 
     result += "Employer's name, address, and ZIP code:\n  " + util.getEmployerAddress() + "\n";
-    result += "3 Social security wages:\n  " + getB3() + "\n";
-    result += "4 Secial security tax withheld:\n  " + getB4() + "\n";
-    result += "5 Medicare wages and tips:\n  " + getB5() + "\n";
-    result += "6 Medicare tax withheld:\n  " + getB6() + "\n";
-    if (getB7() > 0) {
-      result += "7 Social security tips:\n  " + getB7() + "\n";
-    }
-    if (getB8() > 0) {
-      result += "8 Allocated tips:\n  " + getB8() + "\n";
-    }
-    if (getB7() > 0 || getB8() > 0) {
+    result += b3.print();
+    result += b4.print();
+    result += b5.print();
+    result += b6.print();
+
+    result += b7.print();
+    result += b8.print();
+    if (!getB7().isEmpty() || !getB8().isEmpty()) {
       result += "\n";
     }
 
     result += "Employer identification number (EIN):\n  "
         + util.getEmployerIdentificationNumber() + "\n";
-    if (getB10() > 0) {
-      result += "10 Dependent care benefits:\n  " + getB10() + "\n";
-    }
+    result += b10.print();
     result += "\n";
 
-    if (getB11() > 0) {
-      result += "11 Nonqualified plans:\n  " + getB11() + "\n";
-    }
+    result += b11.print();
     result += "13\n";
     result += String.format("  Statutory employee: [%s]\n", getB13()[0] ? "X" : " ");
     result += String.format("  Retirement plan: [%s]\n", getB13()[1] ? "X" : " ");
     result += String.format("  Third-party sick pay: [%s]\n", getB13()[2] ? "X" : " ");
     result += "\n";
-    if (getB11() > 0 || getB13()[0] || getB13()[1] || getB13()[2]) {
+    if (!getB11().isEmpty() || getB13()[0] || getB13()[1] || getB13()[2]) {
       result += "\n";
     }
 
@@ -297,17 +306,11 @@ public class W2TaxYear2014 implements InputForm {
 
     result += "15 State:\n  CA\n";
     result += "Employer's state ID No.:\n  " + util.getEmployerStateIdNumber() + "\n";
-    result += "16 State wages, tipc, etc.:\n  " + getB16() + "\n";
-    result += "17 State income tax:\n  " + getB17() + "\n";
-    if (getB18() > 0) {
-      result += "18 Local wages, tips, etc.:\n  " + getB18() + "\n";
-    }
-    if (getB19() > 0) {
-      result += "19 Local income tax:\n  " + getB19() + "\n";
-    }
-    if (!getB20().isEmpty()) {
-      result += "20 Locality name:\n  " + getB20() + "\n";
-    }
+    result += b16.print();
+    result += b17.print();
+    result += b18.print();
+    result += b19.print();
+    result += "20 Locality name:\n  " + getB20() + "\n";
     result += "\n";
 
     result += "-----------------------\n";

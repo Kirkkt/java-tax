@@ -26,16 +26,16 @@ public class W2TaxYear2014Test implements TestCase {
     assertEquals(2014, form.getTaxYear());
     UnmodifiableIterator<String> gold =
         TestUtil.getGold(TestUtil.TEST_DATA_FOLDER + "/forms/input/w2taxyear2014gold.txt");
-    assertEquals(gold.next(), String.valueOf(form.getB1()));
-    assertEquals(gold.next(), String.valueOf(form.getB2()));
-    assertEquals(gold.next(), String.valueOf(form.getB3()));
-    assertEquals(gold.next(), String.valueOf(form.getB4()));
-    assertEquals(gold.next(), String.valueOf(form.getB5()));
-    assertEquals(gold.next(), String.valueOf(form.getB6()));
-    assertEquals(gold.next(), String.valueOf(form.getB7()));
-    assertEquals(gold.next(), String.valueOf(form.getB8()));
-    assertEquals(gold.next(), String.valueOf(form.getB10()));
-    assertEquals(gold.next(), String.valueOf(form.getB11()));
+    assertEquals(gold.next(), String.valueOf(form.getB1().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB2().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB3().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB4().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB5().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB6().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB7().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB8().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB10().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB11().getValue()));
     for (String key : form.getB12().keySet()) {
       assertEquals(gold.next(), String.valueOf(key));
       assertEquals(gold.next(), String.valueOf(form.getB12().get(key)));
@@ -47,10 +47,10 @@ public class W2TaxYear2014Test implements TestCase {
       assertEquals(gold.next(), String.valueOf(key));
       assertEquals(gold.next(), String.valueOf(form.getB14().get(key)));
     }
-    assertEquals(gold.next(), String.valueOf(form.getB16()));
-    assertEquals(gold.next(), String.valueOf(form.getB17()));
-    assertEquals(gold.next(), String.valueOf(form.getB18()));
-    assertEquals(gold.next(), String.valueOf(form.getB19()));
+    assertEquals(gold.next(), String.valueOf(form.getB16().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB17().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB18().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB19().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB20()));
     assertFalse(gold.hasNext());
   }
