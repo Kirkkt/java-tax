@@ -2,6 +2,7 @@ package com.kirkkt.java.tax.forms.input;
 
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.Parser;
+import com.kirkkt.java.tax.forms.IntEntry;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,18 +11,18 @@ import java.io.IOException;
 public class F1099DivTaxYear2014 implements InputForm {
 
   private String payerName = "";
-  private int b1a = 0;
-  private int b1b = 0;
-  private int b2a = 0;
-  private int b2b = 0;
-  private int b3 = 0;
-  private int b4 = 0;
-  private int b6 = 0;
-  private int b10 = 0;
-  private int b11 = 0;
+  private IntEntry b1a = new IntEntry();
+  private IntEntry b1b = new IntEntry();
+  private IntEntry b2a = new IntEntry();
+  private IntEntry b2b = new IntEntry();
+  private IntEntry b3 = new IntEntry();
+  private IntEntry b4 = new IntEntry();
+  private IntEntry b6 = new IntEntry();
+  private IntEntry b10 = new IntEntry();
+  private IntEntry b11 = new IntEntry();
   private String b12 = "";
   private String b13 = "";
-  private int b14 = 0;
+  private IntEntry b14 = new IntEntry();
 
   private final TaxUtil util = new TaxUtil();
 
@@ -50,29 +51,39 @@ public class F1099DivTaxYear2014 implements InputForm {
         } else if (line.startsWith("payer name ")) {
           payerName = line.split(" ", 3)[2];
         } else if (line.startsWith("b1a ")) {
-          b1a = Parser.parseAndRound(line, 2);
+          b1a.readFromLine(line, "b1a ");
+          b1a.setDescription("Total ordinary dividends");
         } else if (line.startsWith("b1b ")) {
-          b1b = Parser.parseAndRound(line, 2);
+          b1b.readFromLine(line, "b1b ");
+          b1b.setDescription("Qualified dividends");
         } else if (line.startsWith("b2a ")) {
-          b2a = Parser.parseAndRound(line, 2);
+          b2a.readFromLine(line, "b2a ");
+          b2a.setDescription("Total capital gain distribution");
         } else if (line.startsWith("b2b ")) {
-          b2b = Parser.parseAndRound(line, 2);
+          b2b.readFromLine(line, "b2b ");
+          b2b.setDescription("Unrecapitalized section 1250 gain");
         } else if (line.startsWith("b3 ")) {
-          b3 = Parser.parseAndRound(line, 2);
+          b3.readFromLine(line, "b3 ");
+          b3.setDescription("Nondividend distributions");
         } else if (line.startsWith("b4 ")) {
-          b4 = Parser.parseAndRound(line, 2);
+          b4.readFromLine(line, "b4 ");
+          b4.setDescription("Federal income tax withheld");
         } else if (line.startsWith("b6 ")) {
-          b6 = Parser.parseAndRound(line, 2);
+          b6.readFromLine(line, "b6 ");
+          b6.setDescription("Foreign tax paid");
         } else if (line.startsWith("b10 ")) {
-          b10 = Parser.parseAndRound(line, 2);
+          b10.readFromLine(line, "b10 ");
+          b10.setDescription("Exempty-interest dividends");
         } else if (line.startsWith("b11 ")) {
-          b11 = Parser.parseAndRound(line, 2);
+          b11.readFromLine(line, "b11 ");
+          b11.setDescription("Specified private activity bond interest dividends");
         } else if (line.startsWith("b12 ")) {
           b12 = line.split(" ", 2)[1];
         } else if (line.startsWith("b13 ")) {
           b13 = line.split(" ", 2)[1];
         } else if (line.startsWith("b14 ")) {
-          b14 = Parser.parseAndRound(line, 2);
+          b14.readFromLine(line, "b14 ");
+          b14.setDescription("State tax withheld");
         } else {
           br.close();
           throw new IllegalArgumentException("Invalid input line: " + line);
@@ -96,47 +107,47 @@ public class F1099DivTaxYear2014 implements InputForm {
   }
 
   /** Total ordinary dividends. */
-  public int getB1a() {
+  public IntEntry getB1a() {
     return b1a;
   }
 
   /** Qualified dividends. */
-  public int getB1b() {
+  public IntEntry getB1b() {
     return b1b;
   }
 
   /** Total capital gain distr. */
-  public int getB2a() {
+  public IntEntry getB2a() {
     return b2a;
   }
 
   /** Unrecap. Sec 1250 gain. */
-  public int getB2b() {
+  public IntEntry getB2b() {
     return b2b;
   }
 
   /** Nondividend distributions. */
-  public int getB3() {
+  public IntEntry getB3() {
     return b3;
   }
 
   /** Fedelal income tax withheld. */
-  public int getB4() {
+  public IntEntry getB4() {
     return b4;
   }
 
   /** Foreign tax paid. */
-  public int getB6() {
+  public IntEntry getB6() {
     return b6;
   }
 
   /** Exempt-interest dividends. */
-  public int getB10() {
+  public IntEntry getB10() {
     return b10;
   }
 
   /** Specified private activity bond interest dividends. */
-  public int getB11() {
+  public IntEntry getB11() {
     return b11;
   }
 
@@ -151,7 +162,7 @@ public class F1099DivTaxYear2014 implements InputForm {
   }
 
   /** State tax withheld. */
-  public int getB14() {
+  public IntEntry getB14() {
     return b14;
   }
 
@@ -165,36 +176,22 @@ public class F1099DivTaxYear2014 implements InputForm {
     result += "Payer's name\n  " + getPayerName() + "\n";
     result += "\n";
 
-    result += "1a Total ordinary dividends\n  " + getB1a() + "\n";
-    result += "1b Qualified dividends\n  " + getB1b() + "\n";
-    result += "2a Total capital gain distribution\n  " + getB2a() + "\n";
-    if (getB2b() > 0) {
-      result += "2b Unrecapitalized section 1250 gain\n  " + getB2b() + "\n";
-    }
-    if (getB3() > 0) {
-      result += "3 Nondividend distributions\n  " + getB3() + "\n";
-    }
-    if (getB4() > 0) {
-      result += "4 Federal income tax withheld\n  " + getB4() + "\n";
-    }
-    if (getB6() > 0) {
-      result += "6 Foreign tax paid\n  " + getB6() + "\n";
-    }
-    if (getB10() > 0) {
-      result += "10 Exempty-interest dividends\n  " + getB10() + "\n";
-    }
-    if (getB11() > 0) {
-      result += "11 Specified private activity bond interest dividends\n " + getB11() + "\n";
-    }
+    result += getB1a().print();
+    result += getB1b().print();
+    result += getB2a().print();
+    result += getB2b().print();
+    result += getB3().print();
+    result += getB4().print();
+    result += getB6().print();
+    result += getB10().print();
+    result += getB11().print();
     if (!getB12().isEmpty()) {
       result += "12 State\n  " + getB12() + "\n";
     }
     if (!getB13().isEmpty()) {
       result += "13 State identification number\n  " + getB13() +"\n";
     }
-    if (getB14() > 0) {
-      result += "14 State tax withheld\n  " + getB14() + "\n";
-    }
+    result += getB14().print();
     result += "\n";
 
     result += "-----------------------\n";

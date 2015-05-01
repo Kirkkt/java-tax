@@ -28,18 +28,18 @@ public class F1099DivTaxYear2014Test implements TestCase {
         TestUtil.getGold(TestUtil.TEST_DATA_FOLDER + "/forms/input/f1099divtaxyear2014gold.txt");
 
     assertEquals(gold.next(), String.valueOf(form.getPayerName()));
-    assertEquals(gold.next(), String.valueOf(form.getB1a()));
-    assertEquals(gold.next(), String.valueOf(form.getB1b()));
-    assertEquals(gold.next(), String.valueOf(form.getB2a()));
-    assertEquals(gold.next(), String.valueOf(form.getB2b()));
-    assertEquals(gold.next(), String.valueOf(form.getB3()));
-    assertEquals(gold.next(), String.valueOf(form.getB4()));
-    assertEquals(gold.next(), String.valueOf(form.getB6()));
-    assertEquals(gold.next(), String.valueOf(form.getB10()));
-    assertEquals(gold.next(), String.valueOf(form.getB11()));
+    assertEquals(gold.next(), String.valueOf(form.getB1a().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB1b().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB2a().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB2b().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB3().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB4().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB6().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB10().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB11().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB12()));
     assertEquals(gold.next(), String.valueOf(form.getB13()));
-    assertEquals(gold.next(), String.valueOf(form.getB14()));
+    assertEquals(gold.next(), String.valueOf(form.getB14().getValue()));
     assertFalse(gold.hasNext());
   }
 }

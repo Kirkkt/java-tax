@@ -35,12 +35,15 @@ public class TestRunner {
     );
 
     for (TestCase testCase : testCases) {
-      testCase.test();
-      String message = "Test passed for form " + testCase.getForm().getFormType();
+      String message = "Testing form " + testCase.getForm().getFormType();
       if (testCase.getForm().getTaxYear() > 0) {
         message += " tax year " + testCase.getForm().getTaxYear();
       }
-      System.out.println(message);
+      message += " ...";
+      System.out.print(message);
+      testCase.test();
+      // TODO(kirktdev): output this in green
+      System.out.println(" \033[0;32mPASSED\033[0m.");
     }
   }
 }

@@ -34,15 +34,15 @@ public class ItemizedDeductionsWorksheetTaxYear2014 implements AttachedForm {
   public void readFromMotherForm(Form motherForm) {
     F1040ScheduleATaxYear2014 form = (F1040ScheduleATaxYear2014) motherForm;
     readFromMotherForm(
-        form.getB2(),
-        form.getB4(),
-        form.getB9(),
-        form.getB14(),
-        form.getB15(),
-        form.getB19(),
-        form.getB20(),
-        form.getB27(),
-        form.getB28()
+        form.getB2().getValue(),
+        form.getB4().getValue(),
+        form.getB9().getValue(),
+        form.getB14().getValue(),
+        form.getB15().getValue(),
+        form.getB19().getValue(),
+        form.getB20().getValue(),
+        form.getB27().getValue(),
+        form.getB28().getValue()
     );
   }
 

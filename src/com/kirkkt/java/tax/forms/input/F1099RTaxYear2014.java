@@ -2,6 +2,7 @@ package com.kirkkt.java.tax.forms.input;
 
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
+import com.kirkkt.java.tax.forms.IntEntry;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,24 +12,24 @@ public class F1099RTaxYear2014 implements InputForm {
 
   private String bPayerFederalIdentificationNumber = "";
   private String bPayerName = "";
-  private int b1 = 0;
-  private int b2a = 0;
+  private IntEntry b1 = new IntEntry();
+  private IntEntry b2a = new IntEntry();
   private boolean[] b2b = new boolean[2];
-  private int b3 = 0;
-  private int b4 = 0;
-  private int b5 = 0;
-  private int b6 = 0;
+  private IntEntry b3 = new IntEntry();
+  private IntEntry b4 = new IntEntry();
+  private IntEntry b5 = new IntEntry();
+  private IntEntry b6 = new IntEntry();
   private String b7 = "";
   private boolean b7Checkbox = false;
-  private int b8 = 0;
-  private int b9a = 0;
-  private int b9b = 0;
-  private int b10 = 0;
+  private IntEntry b8 = new IntEntry();
+  private IntEntry b9a = new IntEntry();
+  private IntEntry b9b = new IntEntry();
+  private IntEntry b10 = new IntEntry();
   private String bAccountNumber = "";
-  private int b11 = 0;
-  private int b12 = 0;
+  private IntEntry b11 = new IntEntry();
+  private IntEntry b12 = new IntEntry();
   private String b13 = "";
-  private int b14 = 0;
+  private IntEntry b14 = new IntEntry();
 
   public F1099RTaxYear2014() {}
 
@@ -59,39 +60,52 @@ public class F1099RTaxYear2014 implements InputForm {
         } else if (line.startsWith("account number ")) {
           bAccountNumber = line.split(" ", 3)[2];
         } else if (line.startsWith("b1 ")) {
-          b1 = Parser.parseAndRound(line, 2);
+          b1.readFromLine(line, "b1 ");
+          b1.setDescription("Gross distribution");
         } else if (line.startsWith("b2a ")) {
-          b2a = Parser.parseAndRound(line, 2);
+          b2a.readFromLine(line, "b2a ");
+          b2a.setDescription("Taxable amount");
         } else if (line.startsWith("b2b ")) {
           b2b = Parser.parseBooleanArray(line, 2);
         } else if (line.startsWith("b3 ")) {
-          b3 = Parser.parseAndRound(line, 2);
+          b3.readFromLine(line, "b3 ");
+          b3.setDescription("Capital gain");
         } else if (line.startsWith("b4 ")) {
-          b4 = Parser.parseAndRound(line, 2);
+          b4.readFromLine(line, "b4 ");
+          b4.setDescription("Federal income tax withheld");
         } else if (line.startsWith("b5 ")) {
-          b5 = Parser.parseAndRound(line, 2);
+          b5.readFromLine(line, "b5 ");
+          b5.setDescription("Employee contribution/designated Roth contribution or insurance premiums");
         } else if (line.startsWith("b6 ")) {
-          b6 = Parser.parseAndRound(line, 2);
+          b6.readFromLine(line, "b6 ");
+          b6.setDescription("Net unrealized appreciate in employer's securities");
         } else if (line.startsWith("b7 ")) {
           b7 = line.split(" ", 2)[1];
         } else if (line.startsWith("b7checkbox ")) {
           b7Checkbox = Boolean.parseBoolean(line.split(" ", 2)[1]);
         } else if (line.startsWith("b8 ")) {
-          b8 = Parser.parseAndRound(line, 2);
+          b8.readFromLine(line, "b8 ");
+          b8.setDescription("Other");
         } else if (line.startsWith("b9a ")) {
-          b9a = Parser.parseAndRound(line, 2);
+          b9a.readFromLine(line, "b9a ");
+          b9a.setDescription("Your percentage of total distribution");
         } else if (line.startsWith("b9b ")) {
-          b9b = Parser.parseAndRound(line, 2);
+          b9b.readFromLine(line, "b9b ");
+          b9b.setDescription("Total employee contributions");
         } else if (line.startsWith("b10 ")) {
-          b10 = Parser.parseAndRound(line, 2);
+          b10.readFromLine(line, "b10 ");
+          b10.setDescription("Amount allocable to IRR within 5 years");
         } else if (line.startsWith("b11 ")) {
-          b11 = Parser.parseAndRound(line, 2);
+          b11.readFromLine(line, "b11 ");
+          b11.setDescription("year of designated Roth contribution");
         } else if (line.startsWith("b12 ")) {
-          b12 = Parser.parseAndRound(line, 2);
+          b12.readFromLine(line, "b12 ");
+          b12.setDescription("State tax withheld");
         } else if (line.startsWith("b13 ")) {
           b13 = line.split(" ", 2)[1];
         } else if (line.startsWith("b14 ")) {
-          b14 = Parser.parseAndRound(line, 2);
+          b14.readFromLine(line, "b14 ");
+          b14.setDescription("State distribution");
         } else {
           br.close();
           throw new IllegalArgumentException("Invalid input line: " + line);
@@ -118,12 +132,12 @@ public class F1099RTaxYear2014 implements InputForm {
   }
 
   /** Gross distribution. */
-  public int getB1() {
+  public IntEntry getB1() {
     return b1;
   }
 
   /** Taxable amount. */
-  public int getB2a() {
+  public IntEntry getB2a() {
     return b2a;
   }
 
@@ -136,23 +150,23 @@ public class F1099RTaxYear2014 implements InputForm {
   }
 
   /** Capital gain. */
-  public int getB3() {
+  public IntEntry getB3() {
     return b3;
   }
 
   /** Federal income tax withheld. */
-  public int getB4() {
+  public IntEntry getB4() {
     return b4;
   }
 
   /** Employee contri/desig Roth contrib or insurance premiums. */
-  public int getB5() {
+  public IntEntry getB5() {
     return b5;
   }
 
   /** Net unrealized appreciation in employer
    s securities. */
-  public int getB6() {
+  public IntEntry getB6() {
     return b6;
   }
 
@@ -167,22 +181,22 @@ public class F1099RTaxYear2014 implements InputForm {
   }
 
   /** Other. */
-  public int getB8() {
+  public IntEntry getB8() {
     return b8;
   }
 
   /** Your percentage of total distribution. */
-  public int getB9a() {
+  public IntEntry getB9a() {
     return b9a;
   }
 
   /** Total employee contributions. */
-  public int getB9b() {
+  public IntEntry getB9b() {
     return b9b;
   }
 
   /** Amount allocable to IRR within 5 years. */
-  public int getB10() {
+  public IntEntry getB10() {
     return b10;
   }
 
@@ -191,12 +205,12 @@ public class F1099RTaxYear2014 implements InputForm {
   }
 
   /** 1st year of desig. Roth contrib. */
-  public int getB11() {
+  public IntEntry getB11() {
     return b11;
   }
 
   /** State income withheld. */
-  public int getB12() {
+  public IntEntry getB12() {
     return b12;
   }
 
@@ -206,7 +220,7 @@ public class F1099RTaxYear2014 implements InputForm {
   }
 
   /** State distribution. */
-  public int getB14() {
+  public IntEntry getB14() {
     return b14;
   }
 
@@ -223,12 +237,10 @@ public class F1099RTaxYear2014 implements InputForm {
     result += "Payer's name:\n  " + getBPayerName() + "\n";
     result += "\n";
 
-    result += "1 Gross distribution:\n  " + getB1() + "\n";
+    result += getB1().print();
     result += "\n";
 
-    if (getB2a() > 0) {
-      result += "2a Taxable amount:\n  " + getB2a() + "\n";
-    }
+    result += getB2a().print();
 
     if (getB2b()[0]) {
       result += "2b Taxable amount not determined:\n  X" + "\n";
@@ -239,24 +251,15 @@ public class F1099RTaxYear2014 implements InputForm {
     if (getB2b()[0] || getB2b()[1])
       result += "\n";
 
-    if (getB3() > 0) {
-      result += "3 Capital gain:\n  " + getB3() + "\n";
-    }
-    if (getB4() > 0) {
-      result += "4 Federal income tax withheld:\n  " + getB4() + "\n";
-    }
-    if (getB3() > 0 || getB4() > 0) {
+    result += getB3().print();
+    result += getB4().print();
+    // if (getB3().isDirty() || getB4().isDirty()) {
       result += "\n";
-    }
+    // }
 
-    if (getB5() > 0) {
-      result += "5 Employee contribution/designated Roth contribution or insurance premiums:\n  "
-          + getB5() + "\n";
-    }
-    if (getB6() > 0) {
-      result += "6 Net unrealized appreciate in employer's securities:\n  " + getB6() + "\n";
-    }
-    if (getB5() > 0 || getB6() > 0) {
+    result += getB5().print();
+    result += getB6().print();
+    if (getB5().isDirty() || getB6().isDirty()) {
       result += "\n";
     }
 
@@ -266,37 +269,25 @@ public class F1099RTaxYear2014 implements InputForm {
     if (getB7Checkbox()) {
       result += "7 checkbox IRA/SEP/SIMPLE:\n  X" + "\n";
     }
-    if (getB8() > 0) {
-      result += "8 Other:\n  " + getB8() + "\n";
-    }
-    if (!getB7().isEmpty() || getB7Checkbox() || getB8() > 0) {
+    result += getB8().print();
+    if (!getB7().isEmpty() || getB7Checkbox() || getB8().isDirty()) {
       result += "\n";
     }
 
-    if (getB9a() > 0) {
-      result += "9a Your percentage of total distribution:\n  " + getB9a() + "\n";
-    }
-    if (getB9b() > 0) {
-      result += "9b Total employee contributions:\n  " + getB9b() + "\n";
-    }
-    if (getB10() > 0) {
-      result += "10 Amount allocable to IRR within 5 years:\n  " + getB10() + "\n";
-    }
-    if (getB9a() > 0 || getB9b() > 0 || getB10() > 0) {
+    result += getB9a().print();
+    result += getB9b().print();
+    result += getB10().print();
+    if (getB9a().isDirty() || getB9b().isDirty() || getB10().isDirty()) {
       result += "\n";
     }
 
     result += "Account number:\n  " + getBAccountNumber() + "\n";
-    result += "1st year of designated Roth contribution:\n  " + getB11() + "\n";
+    result += getB11().print();
     result += "\n";
 
-    if (getB12() > 0) {
-      result += "12 State tax withheld:\n  " + getB12() + "\n";
-    }
+    result += getB12().print();
     result += "13 Payer's state number:\n  " + getB13() + "\n";
-    if (getB14() > 0) {
-      result += "14 State distribution:\n  " + getB14() + "\n";
-    }
+    result += getB14().print();
     result += "\n";
 
     result += "-----------------------\n";

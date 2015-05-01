@@ -30,24 +30,24 @@ public class F1099RTaxYear2014Test implements TestCase {
     assertEquals(gold.next(), String.valueOf(form.getBPayerFederalIdentificationNumber()));
     assertEquals(gold.next(), String.valueOf(form.getBPayerName()));
     assertEquals(gold.next(), String.valueOf(form.getBAccountNumber()));
-    assertEquals(gold.next(), String.valueOf(form.getB1()));
-    assertEquals(gold.next(), String.valueOf(form.getB2a()));
+    assertEquals(gold.next(), String.valueOf(form.getB1().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB2a().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB2b()[0]));
     assertEquals(gold.next(), String.valueOf(form.getB2b()[1]));
-    assertEquals(gold.next(), String.valueOf(form.getB3()));
-    assertEquals(gold.next(), String.valueOf(form.getB4()));
-    assertEquals(gold.next(), String.valueOf(form.getB5()));
-    assertEquals(gold.next(), String.valueOf(form.getB6()));
+    assertEquals(gold.next(), String.valueOf(form.getB3().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB4().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB5().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB6().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB7()));
     assertEquals(gold.next(), String.valueOf(form.getB7Checkbox()));
-    assertEquals(gold.next(), String.valueOf(form.getB8()));
-    assertEquals(gold.next(), String.valueOf(form.getB9a()));
-    assertEquals(gold.next(), String.valueOf(form.getB9b()));
-    assertEquals(gold.next(), String.valueOf(form.getB10()));
-    assertEquals(gold.next(), String.valueOf(form.getB11()));
-    assertEquals(gold.next(), String.valueOf(form.getB12()));
+    assertEquals(gold.next(), String.valueOf(form.getB8().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB9a().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB9b().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB10().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB11().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB12().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB13()));
-    assertEquals(gold.next(), String.valueOf(form.getB14()));
+    assertEquals(gold.next(), String.valueOf(form.getB14().getValue()));
     assertFalse(gold.hasNext());
   }
 }

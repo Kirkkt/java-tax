@@ -269,7 +269,7 @@ public class W2TaxYear2014 implements InputForm {
 
     result += b7.print();
     result += b8.print();
-    if (!getB7().isEmpty() || !getB8().isEmpty()) {
+    if (getB7().isDirty() || getB8().isDirty()) {
       result += "\n";
     }
 
@@ -284,7 +284,7 @@ public class W2TaxYear2014 implements InputForm {
     result += String.format("  Retirement plan: [%s]\n", getB13()[1] ? "X" : " ");
     result += String.format("  Third-party sick pay: [%s]\n", getB13()[2] ? "X" : " ");
     result += "\n";
-    if (!getB11().isEmpty() || getB13()[0] || getB13()[1] || getB13()[2]) {
+    if (getB11().isDirty() || getB13()[0] || getB13()[1] || getB13()[2]) {
       result += "\n";
     }
 

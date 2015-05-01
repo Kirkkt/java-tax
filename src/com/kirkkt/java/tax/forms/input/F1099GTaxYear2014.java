@@ -2,6 +2,7 @@ package com.kirkkt.java.tax.forms.input;
 
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
+import com.kirkkt.java.tax.forms.IntEntry;
 
 import com.google.common.base.Preconditions;
 
@@ -13,8 +14,8 @@ public class F1099GTaxYear2014 implements InputForm {
 
   private String bPayerInfo = "";
   private String bPayerFEIN = "";
-  private int b2 = 0;
-  private int b3 = 0;
+  private IntEntry b2 = new IntEntry();
+  private IntEntry b3 = new IntEntry();
 
   private final TaxUtil util = new TaxUtil();
 
@@ -45,9 +46,11 @@ public class F1099GTaxYear2014 implements InputForm {
         } else if (line.startsWith("payer's fein ")) {
           bPayerFEIN = line.split(" ", 3)[2];
         } else if (line.startsWith("b2 ")) {
-          b2 = Parser.parseAndRound(line, 2);
+          b2.readFromLine(line, "b2 ");
+          b2.setDescription("State or local income tax refunds, credits, or offsets");
         } else if (line.startsWith("b3 ")) {
-          b3 = Parser.parseAndRound(line, 2);
+          b3.readFromLine(line, "b3 ");
+          b3.setDescription("tax year");
         } else {
           br.close();
           throw new IllegalArgumentException("Invalid input line: " + line);
@@ -76,12 +79,12 @@ public class F1099GTaxYear2014 implements InputForm {
   }
 
   /** State or local income tax refunds, credits, or offsets. */
-  public int getB2() {
+  public IntEntry getB2() {
     return b2;
   }
 
   /** Tax year. */
-  public int getB3() {
+  public IntEntry getB3() {
     return b3;
   }
 
@@ -96,8 +99,8 @@ public class F1099GTaxYear2014 implements InputForm {
     result += "Payer's FEIN:\n  " + getBPayerFEIN() + "\n";
     result += "" + "\n";
 
-    result += "2 State or local income tax refunds, credits, or offsets:\n  " + getB2() + "\n";
-    result += "3 tax year:\n  " + getB3() + "\n";
+    result += getB2().print();
+    result += getB3().print();
     result += "\n";
 
     result += "-----------------------\n";

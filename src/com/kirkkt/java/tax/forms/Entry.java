@@ -52,8 +52,8 @@ public class Entry<T> {
     this.dirty = true;
   }
 
-  public boolean isEmpty() {
-    return !dirty;
+  public boolean isDirty() {
+    return dirty;
   }
 
   public String print() {

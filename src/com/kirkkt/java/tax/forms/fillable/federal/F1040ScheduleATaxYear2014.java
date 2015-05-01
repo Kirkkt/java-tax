@@ -4,6 +4,7 @@ import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxMath;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
+import com.kirkkt.java.tax.forms.IntEntry;
 import com.kirkkt.java.tax.forms.fillable.AttachedForm;
 import com.kirkkt.java.tax.forms.fillable.federal.worksheets.ItemizedDeductionsWorksheetTaxYear2014;
 import com.kirkkt.java.tax.forms.input.InputForm;
@@ -21,49 +22,49 @@ import java.util.Map;
 // TODO(kirktdev): separate prod input txt and test input txt
 public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
 
-  private int b1 = 0;
-  private int b2 = 0;
-  private int b3 = 0;
-  private int b4 = 0;
+  private IntEntry b1 = new IntEntry();
+  private IntEntry b2 = new IntEntry();
+  private IntEntry b3 = new IntEntry();
+  private IntEntry b4 = new IntEntry();
 
   private String b5Checkbox = "";
-  private int b5 = 0;
-  private int b6 = 0;
-  private int b7 = 0;
+  private IntEntry b5 = new IntEntry();
+  private IntEntry b6 = new IntEntry();
+  private IntEntry b7 = new IntEntry();
   private Map<String, Integer> b8List = ImmutableMap.<String, Integer>of();
-  private int b8 = 0;
-  private int b9 = 0;
+  private IntEntry b8 = new IntEntry();
+  private IntEntry b9 = new IntEntry();
 
-  private int b10 = 0;
+  private IntEntry b10 = new IntEntry();
   private Map<String, Integer> b11List = ImmutableMap.<String, Integer>of();
-  private int b11 = 0;
-  private int b12 = 0;
-  private int b13 = 0;
-  private int b14 = 0;
-  private int b15 = 0;
+  private IntEntry b11 = new IntEntry();
+  private IntEntry b12 = new IntEntry();
+  private IntEntry b13 = new IntEntry();
+  private IntEntry b14 = new IntEntry();
+  private IntEntry b15 = new IntEntry();
 
-  private int b16 = 0;
-  private int b17 = 0;
-  private int b18 = 0;
-  private int b19 = 0;
+  private IntEntry b16 = new IntEntry();
+  private IntEntry b17 = new IntEntry();
+  private IntEntry b18 = new IntEntry();
+  private IntEntry b19 = new IntEntry();
 
-  private int b20 = 0;
+  private IntEntry b20 = new IntEntry();
 
   private Map<String, Integer> b21List = ImmutableMap.<String, Integer>of();
-  private int b21 = 0;
-  private int b22 = 0;
+  private IntEntry b21 = new IntEntry();
+  private IntEntry b22 = new IntEntry();
   private Map<String, Integer> b23List = ImmutableMap.<String, Integer>of();
-  private int b23 = 0;
-  private int b24 = 0;
-  private int b25 = 0;
-  private int b26 = 0;
-  private int b27 = 0;
+  private IntEntry b23 = new IntEntry();
+  private IntEntry b24 = new IntEntry();
+  private IntEntry b25 = new IntEntry();
+  private IntEntry b26 = new IntEntry();
+  private IntEntry b27 = new IntEntry();
 
   private Map<String, Integer> b28List = ImmutableMap.<String, Integer>of();
-  private int b28 = 0;
+  private IntEntry b28 = new IntEntry();
 
   private boolean b29Checkbox = false;
-  private int b29 = 0;
+  private IntEntry b29 = new IntEntry();
   private boolean b30 = false;
 
   private boolean w2Imported = false;
@@ -100,37 +101,37 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
         if (line.equals("f1040 schedule a " + getTaxYear())) {
           // heading
         } else if (line.startsWith("b1 ")) {
-          b4 = Parser.parseAndRound(line, 2);
+          b1.readFromLine(line, "b1 ");
         } else if (line.startsWith("b5checkbox ")) {
           b5Checkbox = line.split(" ", 2)[1];
         } else if (line.startsWith("b6 ")) {
-          b6 = Parser.parseAndRound(line, 2);
+          b6.readFromLine(line, "b6 ");
         } else if (line.startsWith("b7 ")) {
-          b7 = Parser.parseAndRound(line, 2);
+          b7.readFromLine(line, "b7 ");
         } else if (line.startsWith("b8list ")) {
           b8List = Parser.parseListAndRound(line, 2);
         } else if (line.startsWith("b10 ")) {
-          b10 = Parser.parseAndRound(line, 2);
+          b10.readFromLine(line, "b10 ");
         } else if (line.startsWith("b11list ")) {
           b11List = Parser.parseListAndRound(line, 2);
         } else if (line.startsWith("b12 ")) {
-          b12 = Parser.parseAndRound(line, 2);
+          b12.readFromLine(line, "b12 ");
         } else if (line.startsWith("b13 ")) {
-          b13 = Parser.parseAndRound(line, 2);
+          b13.readFromLine(line, "b13 ");
         } else if (line.startsWith("b14 ")) {
-          b14 = Parser.parseAndRound(line, 2);
+          b14.readFromLine(line, "b14 ");
         } else if (line.startsWith("b16 ")) {
-          b16 = Parser.parseAndRound(line, 2);
+          b16.readFromLine(line, "b16 ");
         } else if (line.startsWith("b17 ")) {
-          b17 = Parser.parseAndRound(line, 2);
+          b17.readFromLine(line, "b17 ");
         } else if (line.startsWith("b18 ")) {
-          b18 = Parser.parseAndRound(line, 2);
+          b18.readFromLine(line, "b18 ");
         } else if (line.startsWith("b20 ")) {
-          b20 = Parser.parseAndRound(line, 2);
+          b20.readFromLine(line, "b20 ");
         } else if (line.startsWith("b21list ")) {
           b21List = Parser.parseListAndRound(line, 2);
         } else if (line.startsWith("b22 ")) {
-          b22 = Parser.parseAndRound(line, 2);
+          b22.readFromLine(line, "b22 ");
         } else if (line.startsWith("b23list ")) {
           b23List = Parser.parseListAndRound(line, 2);
         } else if (line.startsWith("b28list ")) {
@@ -151,8 +152,8 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   public void readFromF1040(int formB38) {
-    b2 = formB38;
-    b25 = formB38;
+    b2.setValue(formB38);
+    b25.setValue(formB38);
     b29Checkbox = formB38 > 152525;
     doMath();
   }
@@ -163,31 +164,31 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
 
   public void readFromW2(int formB17) {
     w2Imported = true;
-    b5 = formB17;
+    b5.setValue(formB17);
   }
 
   /** medical and dental expenses */
-  public int getB1() {
+  public IntEntry getB1() {
     return b1;
   }
 
   /** Form 1040 line 38 */
-  public int getB2() {
+  public IntEntry getB2() {
     return b2;
   }
 
   /** 10% of line 2 */
-  public int getB3() {
+  public IntEntry getB3() {
     return b3;
   }
 
   /** 3 -1 */
-  public int getB4() {
+  public IntEntry getB4() {
     return b4;
   }
 
   /** State and local tax paid */
-  public int getB5() {
+  public IntEntry getB5() {
     return b5;
   }
 
@@ -197,12 +198,12 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** real estate taxes */
-  public int getB6() {
+  public IntEntry getB6() {
     return b6;
   }
 
   /** personal property taxes */
-  public int getB7() {
+  public IntEntry getB7() {
     return b7;
   }
 
@@ -212,17 +213,17 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** other taxes amount */
-  public int getB8() {
+  public IntEntry getB8() {
     return b8;
   }
 
   /** 5+...+9 */
-  public int getB9() {
+  public IntEntry getB9() {
     return b9;
   }
 
   /** home morgage interest and points */
-  public int getB10() {
+  public IntEntry getB10() {
     return b10;
   }
 
@@ -232,52 +233,52 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** unreported home morgage interest payee amount */
-  public int getB11() {
+  public IntEntry getB11() {
     return b11;
   }
 
   /** unreported home morgage points */
-  public int getB12() {
+  public IntEntry getB12() {
     return b12;
   }
 
   /** morgage insurance premiums */
-  public int getB13() {
+  public IntEntry getB13() {
     return b13;
   }
 
   /* investment interest */
-  public int getB14() {
+  public IntEntry getB14() {
     return b14;
   }
 
   /** 10+...+14 */
-  public int getB15() {
+  public IntEntry getB15() {
     return b15;
   }
 
   /** gifts to charity by cash or check */
-  public int getB16() {
+  public IntEntry getB16() {
     return b16;
   }
 
   /** gifts to charity other than by cash or check */
-  public int getB17() {
+  public IntEntry getB17() {
     return b17;
   }
 
   /** gifts to charity carryover from prior year */
-  public int getB18() {
+  public IntEntry getB18() {
     return b18;
   }
 
   /** 16+..+18 */
-  public int getB19() {
+  public IntEntry getB19() {
     return b19;
   }
 
   /** casualty or theft loss */
-  public int getB20() {
+  public IntEntry getB20() {
     return b20;
   }
 
@@ -287,12 +288,12 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** unreimbursed employee expenses amount */
-  public int getB21() {
+  public IntEntry getB21() {
     return b21;
   }
 
   /** tax preparation fees */
-  public int getB22() {
+  public IntEntry getB22() {
     return b22;
   }
 
@@ -302,27 +303,27 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** other expenses amount */
-  public int getB23() {
+  public IntEntry getB23() {
     return b23;
   }
 
   /** 21+...+23 */
-  public int getB24() {
+  public IntEntry getB24() {
     return b24;
   }
 
   /** form 1040 line 38 */
-  public int getB25() {
+  public IntEntry getB25() {
     return b25;
   }
 
   /** 2% of 25 */
-  public int getB26() {
+  public IntEntry getB26() {
     return b26;
   }
 
   /** 26-24 */
-  public int getB27() {
+  public IntEntry getB27() {
     return b27;
   }
 
@@ -332,7 +333,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** other amount */
-  public int getB28() {
+  public IntEntry getB28() {
     return b28;
   }
 
@@ -342,7 +343,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** total itemized deductions */
-  public int getB29() {
+  public IntEntry getB29() {
     return b29;
   }
 
@@ -366,114 +367,62 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     result += "-----------------------\n";
     result += "\n";
 
-    if (getB1() > 0) {
-      result += "b1:\n  " + getB1() + "\n";
-    }
-    if (getB2() > 0) {
-      result += "b2:\n  " + getB2() + "\n";
-    }
-    if (getB3() > 0) {
-      result += "b3:\n  " + getB3() + "\n";
-    }
-    if (getB4() > 0) {
-      result += "b4:\n  " + getB4() + "\n";
-    }
+    result += getB1().print();
+    result += getB2().print();
+    result += getB3().print();
+    result += getB4().print();
     result += "\n";
 
     result += "b5 checkbox:\n  " + getB5Checkbox() + "\n";
     result += "b5:\n  " + getB5() + "\n";
-    if (getB6() > 0) {
-      result += "b6:\n  " + getB6() + "\n";
-    }
-    if (getB7() > 0) {
-      result += "b7:\n  " + getB7() + "\n";
-    }
+    result += getB6().print();
+    result += getB7().print();
     if (!getB8List().isEmpty()) {
       // result += "b8: list\n  " + Printer.print(getB8List()) + "\n";
     }
-    if (getB8() > 0) {
-      result += "b8:\n  " + getB8() + "\n";
-    }
+    result += getB8().print();
     result += "b9:\n  " + getB9() + "\n";
     result += "\n";
 
-    if (getB10() > 0) {
-      result += "b10:\n  " + getB10() + "\n";
-    }
+    result += getB10().print();
     if (!getB11List().isEmpty()) {
       // result += "b11 list:\n" + Printer.print(getB11List()) + "\n";
     }
-    if (getB11() > 0) {
-      result += "b11:\n  " + getB11() + "\n";
-    }
-    if (getB12() > 0) {
-      result += "b12:\n  " + getB12() + "\n";
-    }
-    if (getB13() > 0) {
-      result += "b13:\n  " + getB13() + "\n";
-    }
-    if (getB14() > 0) {
-      result += "b14:\n  " + getB14() + "\n";
-    }
-    if (getB15() > 0) {
-      result += "b15:\n  " + getB15() + "\n";
-    }
+    result += getB11().print();
+    result += getB12().print();
+    result += getB13().print();
+    result += getB14().print();
+    result += getB15().print();
     result += "\n";
 
-    if (getB16() > 0) {
-      result += "b16:\n  " + getB16() + "\n";
-    }
-    if (getB17() > 0) {
-      result += "b17:\n  " + getB17() + "\n";
-    }
-    if (getB18() > 0) {
-      result += "b18:\n  " + getB18() + "\n";
-    }
-    if (getB19() > 0) {
-      result += "b19:\n  " + getB19() + "\n";
-    }
+    result += getB16().print();
+    result += getB17().print();
+    result += getB18().print();
+    result += getB19().print();
     result += "\n";
 
-    if (getB20() > 0) {
-      result += "b20:\n  " + getB20() + "\n";
-    }
+    result += getB20().print();
     result += "\n";
 
     if (!getB21List().isEmpty()) {
       // result += "b21 list:\n  " + Printer.print(getB21List()) + "\n";
     }
-    if (getB21() > 0) {
-      result += "b21:\n  " + getB21() + "\n";
-    }
-    if (getB22() > 0) {
-      result += "b22:\n  " + getB22() + "\n";
-    }
+    result += getB21().print();
+    result += getB22().print();
     if (!getB23List().isEmpty()) {
       // result += "b23 list:\n  " + Printer.print(getB23List()) + "\n";
     }
-    if (getB23() > 0) {
-      result += "b23:\n  " + getB23() + "\n";
-    }
-    if (getB24() > 0) {
-      result += "b24:\n  " + getB24() + "\n";
-    }
-    if (getB25() > 0) {
-      result += "b25:\n  " + getB25() + "\n";
-    }
-    if (getB26() > 0) {
-      result += "b26:\n  " + getB26() + "\n";
-    }
-    if (getB27() > 0) {
-      result += "b27:\n  " + getB27() + "\n";
-    }
+    result += getB23().print();
+    result += getB24().print();
+    result += getB25().print();
+    result += getB26().print();
+    result += getB27().print();
     result += "\n";
 
     if (!getB28List().isEmpty()) {
       // result += "b28 list:\n  " + Printer.print(getB28List()) + "\n";
     }
-    if (getB28() > 0) {
-      result += "b28:\n  " + getB28() + "\n";
-    }
+    result += getB28().print();
     result += "\n";
 
     result += "b29 checkbox:\n  " + getB29Checkbox() + "\n";
@@ -487,31 +436,49 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   private void doMath() {
-    b3 = Math.round(.1f * b2);
-    b4 = Math.max(0, b1 - b3);
+    if (b2.getValue() > 0) {
+      b3.setValue(Math.round(.1f * b2.getValue()));
+    }
+    if (b1.getValue() != b3.getValue()) {
+      b4.setValue(Math.max(0, b1.getValue() - b3.getValue()));
+    }
 
-    b8 = TaxMath.getSum(b8List);
-    b9 = b5 + b6 + b7 + b8;
+    if (TaxMath.getSum(b8List) > 0) {
+      b8.setValue(TaxMath.getSum(b8List));
+    }
+    b9.setValue(b5.getValue() + b6.getValue() + b7.getValue() + b8.getValue());
 
-    b11 = TaxMath.getSum(b11List);
-    b15 = b10 + b11 + b12 + b13 + b14;
+    if (TaxMath.getSum(b11List) > 0) {
+      b11.setValue(TaxMath.getSum(b11List));
+    }
+    b15.setValue(b10.getValue() + b11.getValue() + b12.getValue() + b13.getValue()
+        + b14.getValue());
 
-    b19 = b16 + b17 + b18;
+    b19.setValue(b16.getValue() + b17.getValue() + b18.getValue());
 
-    b21 = TaxMath.getSum(b21List);
-    b23 = TaxMath.getSum(b23List);
-    b24 = b21 + b22 + b23;
-    b26 = Math.round(.02f * b25);
-    b27 = Math.max(b24 - b26, 0);
-    b28 = TaxMath.getSum(b28List);
+    if (TaxMath.getSum(b21List) > 0) {
+      b21.setValue(TaxMath.getSum(b21List));
+    }
+    if (TaxMath.getSum(b23List) > 0) {
+      b23.setValue(TaxMath.getSum(b23List));
+    }
+    b24.setValue(b21.getValue() + b22.getValue() + b23.getValue());
+    if (b25.getValue() > 0) {
+      b26.setValue(Math.round(.02f * b25.getValue()));
+    }
+    b27.setValue(Math.max(b24.getValue() - b26.getValue(), 0));
+    if (TaxMath.getSum(b28List) > 0) {
+      b28.setValue(TaxMath.getSum(b28List));
+    }
 
     if (!b29Checkbox) {
-      b29 = b4 + b9 + b15 + b19 + b20 + b27 + b28;
+      b29.setValue(b4.getValue() + b9.getValue() + b15.getValue() + b19.getValue()
+          + b20.getValue() + b27.getValue() + b28.getValue());
     } else {
       ItemizedDeductionsWorksheetTaxYear2014 worksheet =
           new ItemizedDeductionsWorksheetTaxYear2014();
       worksheet.readFromMotherForm(this);
-      b29 = worksheet.getBResult();
+      b29.setValue(worksheet.getBResult());
     }
   }
 
