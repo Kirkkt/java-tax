@@ -4,6 +4,7 @@ import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxMath;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
+import com.kirkkt.java.tax.forms.BooleanEntry;
 import com.kirkkt.java.tax.forms.IntEntry;
 import com.kirkkt.java.tax.forms.fillable.AttachedForm;
 import com.kirkkt.java.tax.forms.fillable.federal.worksheets.ItemizedDeductionsWorksheetTaxYear2014;
@@ -63,9 +64,9 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   private Map<String, Integer> b28List = ImmutableMap.<String, Integer>of();
   private IntEntry b28 = new IntEntry();
 
-  private boolean b29Checkbox = false;
+  private BooleanEntry b29Checkbox = new BooleanEntry();
   private IntEntry b29 = new IntEntry();
-  private boolean b30 = false;
+  private BooleanEntry b30 = new BooleanEntry();
 
   private boolean w2Imported = false;
   private boolean fileImported = false;
@@ -137,7 +138,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
         } else if (line.startsWith("b28list ")) {
           b28List = Parser.parseListAndRound(line, 2);
         } else if (line.startsWith("b30 ")) {
-          b30 = Parser.parseBoolean(line, 2);
+          b30.readFromLine(line, "b30 ");
         } else {
           br.close();
           throw new IllegalArgumentException("Invalid input line: " + line);
@@ -154,7 +155,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   public void readFromF1040(int formB38) {
     b2.setValue(formB38);
     b25.setValue(formB38);
-    b29Checkbox = formB38 > 152525;
+    b29Checkbox.setValue(formB38 > 152525);
     doMath();
   }
 
@@ -338,7 +339,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** form 1040 line 28 > 152535? */
-  public boolean getB29Checkbox() {
+  public BooleanEntry getB29Checkbox() {
     return b29Checkbox;
   }
 
@@ -348,7 +349,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** force itemized deductions */
-  public boolean getB30() {
+  public BooleanEntry getB30() {
     return b30;
   }
 
@@ -425,11 +426,9 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     result += getB28().print();
     result += "\n";
 
-    result += "b29 checkbox:\n  " + getB29Checkbox() + "\n";
+    result += getB29Checkbox().print();
     result += "b29:\n  " + getB29() + "\n";
-    if (getB30()) {
-      result += "b30:\n  X\n";
-    }
+    result += getB30().print();
 
     result += "-----------------------\n";
     return result;
@@ -471,7 +470,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
       b28.setValue(TaxMath.getSum(b28List));
     }
 
-    if (!b29Checkbox) {
+    if (!b29Checkbox.getValue()) {
       b29.setValue(b4.getValue() + b9.getValue() + b15.getValue() + b19.getValue()
           + b20.getValue() + b27.getValue() + b28.getValue());
     } else {
