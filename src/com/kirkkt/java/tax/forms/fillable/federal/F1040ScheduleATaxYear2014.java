@@ -369,67 +369,67 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     result += "-----------------------\n";
     result += "\n";
 
-    result += getB1().print();
-    result += getB2().print();
-    result += getB3().print();
-    result += getB4().print();
+    result += b1.print();
+    result += b2.print();
+    result += b3.print();
+    result += b4.print();
     result += "\n";
 
-    result += getB5Checkbox().print();
-    result += getB5().print();
-    result += getB6().print();
-    result += getB7().print();
+    result += b5Checkbox.print();
+    result += b5.print();
+    result += b6.print();
+    result += b7.print();
     if (!getB8List().isEmpty()) {
       // result += "b8: list\n  " + Printer.print(getB8List()) + "\n";
     }
-    result += getB8().print();
+    result += b8.print();
     result += "b9:\n  " + getB9() + "\n";
     result += "\n";
 
-    result += getB10().print();
+    result += b10.print();
     if (!getB11List().isEmpty()) {
       // result += "b11 list:\n" + Printer.print(getB11List()) + "\n";
     }
-    result += getB11().print();
-    result += getB12().print();
-    result += getB13().print();
-    result += getB14().print();
-    result += getB15().print();
+    result += b11.print();
+    result += b12.print();
+    result += b13.print();
+    result += b14.print();
+    result += b15.print();
     result += "\n";
 
-    result += getB16().print();
-    result += getB17().print();
-    result += getB18().print();
-    result += getB19().print();
+    result += b16.print();
+    result += b17.print();
+    result += b18.print();
+    result += b19.print();
     result += "\n";
 
-    result += getB20().print();
+    result += b20.print();
     result += "\n";
 
     if (!getB21List().isEmpty()) {
       // result += "b21 list:\n  " + Printer.print(getB21List()) + "\n";
     }
-    result += getB21().print();
-    result += getB22().print();
+    result += b21.print();
+    result += b22.print();
     if (!getB23List().isEmpty()) {
       // result += "b23 list:\n  " + Printer.print(getB23List()) + "\n";
     }
-    result += getB23().print();
-    result += getB24().print();
-    result += getB25().print();
-    result += getB26().print();
-    result += getB27().print();
+    result += b23.print();
+    result += b24.print();
+    result += b25.print();
+    result += b26.print();
+    result += b27.print();
     result += "\n";
 
     if (!getB28List().isEmpty()) {
       // result += "b28 list:\n  " + Printer.print(getB28List()) + "\n";
     }
-    result += getB28().print();
+    result += b28.print();
     result += "\n";
 
-    result += getB29Checkbox().print();
+    result += b29Checkbox.print();
     result += "b29:\n  " + getB29() + "\n";
-    result += getB30().print();
+    result += b30.print();
 
     result += "-----------------------\n";
     return result;

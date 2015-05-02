@@ -102,8 +102,8 @@ public class F1099GTaxYear2014 implements InputForm {
     result += bPayerFEIN.print();
     result += "" + "\n";
 
-    result += getB2().print();
-    result += getB3().print();
+    result += b2.print();
+    result += b3.print();
     result += "\n";
 
     result += "-----------------------\n";
