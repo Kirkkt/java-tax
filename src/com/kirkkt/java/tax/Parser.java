@@ -73,7 +73,7 @@ public final class Parser {
    *   the sepration of {@code " "} will be parsed.
    */
   public static boolean parseBoolean(String line, int parts) {
-    return Boolean.parseBoolean((parts == 1) ? line : line.split(" ", parts)[parts - 1], line);
+    return Boolean.parseBoolean((parts == 1) ? line : line.split(" ", parts)[parts - 1]);
   }
 
   /**
