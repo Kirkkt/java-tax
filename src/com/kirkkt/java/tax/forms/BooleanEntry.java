@@ -1,5 +1,6 @@
 package com.kirkkt.java.tax.forms;
 
+
 public class BooleanEntry extends Entry<Boolean> {
 
   private String trueWord;
@@ -13,7 +14,7 @@ public class BooleanEntry extends Entry<Boolean> {
 
   @Override
   public void readFromLine(String line, String prefix)
-      throws IllegalArgumentException, NumberFormatException {
+      throws IllegalArgumentException {
     super.readFromLine(line, prefix);
     setValue(Boolean.parseBoolean(line.split(prefix, 2)[1]));
   }

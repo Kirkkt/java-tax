@@ -68,7 +68,7 @@ public class Entry<T> {
   }
 
   public void readFromLine(String line, String prefix)
-      throws IllegalArgumentException, NumberFormatException {
+      throws IllegalArgumentException {
     if (!line.startsWith(prefix)) {
       throw new IllegalArgumentException("line " + line + " doesn't start with " + prefix);
     }

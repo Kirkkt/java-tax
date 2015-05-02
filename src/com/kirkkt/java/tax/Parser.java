@@ -1,9 +1,9 @@
 package com.kirkkt.java.tax;
 
-import com.kirkkt.java.tax.forms.Form;
-
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
+
+import com.kirkkt.java.tax.forms.Form;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -50,7 +50,7 @@ public final class Parser {
     try {
       return Math.round(Float.parseFloat(text));
     } catch (NumberFormatException e) {
-      throw new NumberFormatException(
+      throw new IllegalArgumentException(
           genericParsingErrorMessage(lineContext) + "\nDetail:\n  " + e.toString());
     }
   }
@@ -73,25 +73,9 @@ public final class Parser {
    *   the sepration of {@code " "} will be parsed.
    */
   public static boolean parseBoolean(String line, int parts) {
-    return parseBoolean((parts == 1) ? line : line.split(" ", parts)[parts - 1], line);
+    return Boolean.parseBoolean((parts == 1) ? line : line.split(" ", parts)[parts - 1], line);
   }
 
-  /**
-   * Parses a string into a boolean. Throws error message on error.
-   *
-   * @param text the string to be parsed
-   * @param lineContext the line containing {@param text} that can provide the context of where it
-   *   is from.
-   */
-  public static boolean parseBoolean(String text, String lineContext) {
-    try {
-      return Boolean.parseBoolean(text);
-      // TODO(kirktdev): what exception are we expecting?
-    } catch (NumberFormatException e) {
-      throw new NumberFormatException(
-          genericParsingErrorMessage(lineContext) + "\nDetail:\n  " + e.toString());
-    }
-  }
   /**
    * Parse a line of string into a boolean array. Throws error message on error.
    *
@@ -107,9 +91,8 @@ public final class Parser {
       for (int i = 0; i < toParseArray.length; i++) {
         result[i] = Boolean.parseBoolean(toParseArray[i]);
       }
-      // TODO(kirktdev): what exception do I expect?
     } catch (NumberFormatException e) {
-      throw new NumberFormatException(
+      throw new IllegalArgumentException(
           genericParsingErrorMessage(line) + "\nDetail:\n  " + e.toString());
     }
     return result;
