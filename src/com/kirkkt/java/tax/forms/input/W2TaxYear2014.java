@@ -63,7 +63,6 @@ public class W2TaxYear2014 implements InputForm {
     String line;
 
     try {
-      // TODO(kirktdev): forbid from multiple reads
       br = new BufferedReader(new FileReader(fileName));
       while ((line = br.readLine()) != null) {
         if (line.equals("w2 " + getTaxYear())) {
@@ -100,9 +99,7 @@ public class W2TaxYear2014 implements InputForm {
           b11.setDescription("Nonqualified plans");
         } else if (line.startsWith("b12 ")) {
           String[] words = line.split(" ");
-          // TODO(kirktdev): get rid of the second <> can?
-          ImmutableMap.Builder<String, Integer> b12MapBuilder =
-              ImmutableMap.<String, Integer>builder();
+          ImmutableMap.Builder<String, Integer> b12MapBuilder = ImmutableMap.builder();
           for (int i = 1; i < words.length - 1; i += 2) {
             b12MapBuilder.put(words[i], Parser.parseAndRound(words[i + 1], 1));
           }
@@ -111,8 +108,7 @@ public class W2TaxYear2014 implements InputForm {
           b13 = Parser.parseBooleanArray(line, 2);
         } else if (line.startsWith("b14 ")) {
           String[] words = line.split(" ");
-          ImmutableMap.Builder<String, Integer> b14MapBuilder =
-              ImmutableMap.<String, Integer>builder();
+          ImmutableMap.Builder<String, Integer> b14MapBuilder = ImmutableMap.builder();
           for (int i = 1; i < words.length - 1; i += 2) {
             b14MapBuilder.put(words[1], Parser.parseAndRound(words[i + 1], 1));
           }

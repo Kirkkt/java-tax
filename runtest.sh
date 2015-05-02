@@ -3,7 +3,6 @@
 sanitycheck.sh
 
 # compile java
-# TODO(kirktdev): relative path can?
 javac -Xlint:deprecation \
     -sourcepath $GITHUB_DIR/java_tax/src \
     -cp $JAVA_CLASS_PATH \

@@ -8,8 +8,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-// TODO(kirktdev): singleton?
-// TODO(kirktdev): sys env?
 public final class TaxUtil {
 
   public static final String DATA_FOLDER = System.getenv("GITHUB_DIR")
@@ -59,7 +57,7 @@ public final class TaxUtil {
       while ((line = br.readLine()) != null) {
         if (line.equals("common")) {
           // heading
-          // TODO(kirktdev): switch to use custom parsing method
+          // TODO(kirktdev): switch to use custom parsing method?
         } else if (line.startsWith("checking account routing number ")) {
           checkingAccountRoutingNumber = line.split(" ", 5)[4];
         } else if (line.startsWith("checking account account number ")) {
