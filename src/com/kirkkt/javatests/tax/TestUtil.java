@@ -12,8 +12,8 @@ public final class TestUtil {
 
   private TestUtil() {}  // COV_NF_LINE
 
-  public static final String TEST_DATA_FOLDER =
-      "/Users/kirkt/Dropbox/vim_notes/java_programs/data/com/kirkkt/javatests/tax";
+  public static final String TEST_DATA_FOLDER = System.getenv("GITHUB_DIR")
+      + "/../vim_notes/java_programs/data/com/kirkkt/javatests/tax";
 
   public static UnmodifiableIterator<String> getGold(String fileName) {
     BufferedReader br;

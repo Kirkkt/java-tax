@@ -1,19 +1,19 @@
 package com.kirkkt.java.tax.forms.fillable.federal;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
+
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxMath;
 import com.kirkkt.java.tax.TaxUtil;
-import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.BooleanEntry;
+import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.IntEntry;
 import com.kirkkt.java.tax.forms.StringEntry;
 import com.kirkkt.java.tax.forms.fillable.AttachedForm;
 import com.kirkkt.java.tax.forms.fillable.federal.worksheets.ItemizedDeductionsWorksheetTaxYear2014;
 import com.kirkkt.java.tax.forms.input.InputForm;
 import com.kirkkt.java.tax.forms.input.W2TaxYear2014;
-
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -33,6 +33,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   private IntEntry b5 = new IntEntry();
   private IntEntry b6 = new IntEntry();
   private IntEntry b7 = new IntEntry();
+  // TODO(kirktdev): use entry object
   private Map<String, Integer> b8List = ImmutableMap.<String, Integer>of();
   private IntEntry b8 = new IntEntry();
   private IntEntry b9 = new IntEntry();

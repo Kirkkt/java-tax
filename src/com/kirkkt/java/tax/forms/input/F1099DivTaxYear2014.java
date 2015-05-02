@@ -1,7 +1,7 @@
 package com.kirkkt.java.tax.forms.input;
 
-import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.Parser;
+import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.IntEntry;
 import com.kirkkt.java.tax.forms.StringEntry;
 

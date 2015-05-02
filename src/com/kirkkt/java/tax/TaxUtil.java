@@ -1,18 +1,19 @@
 package com.kirkkt.java.tax;
 
-import com.kirkkt.java.tax.forms.Form;
-
 import com.google.common.base.Preconditions;
+
+import com.kirkkt.java.tax.forms.Form;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 // TODO(kirktdev): singleton?
+// TODO(kirktdev): sys env?
 public final class TaxUtil {
 
-  public static final String DATA_FOLDER =
-      "/Users/kirkt/Dropbox/vim_notes/java_programs/data/com/kirkkt/java/tax";
+  public static final String DATA_FOLDER = System.getenv("GITHUB_DIR")
+      + "/../vim_notes/java_programs/data/com/kirkkt/java/tax";
 
   private String checkingAccountRoutingNumber;
   private String checkingAccountAccountNumber;

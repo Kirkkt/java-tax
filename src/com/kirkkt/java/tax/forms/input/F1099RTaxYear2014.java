@@ -16,6 +16,7 @@ public class F1099RTaxYear2014 implements InputForm {
   private StringEntry bPayerName = new StringEntry();
   private IntEntry b1 = new IntEntry();
   private IntEntry b2a = new IntEntry();
+  // TODO(kirktdev): switch to entry objects
   private boolean[] b2b = new boolean[2];
   private IntEntry b3 = new IntEntry();
   private IntEntry b4 = new IntEntry();

@@ -1,11 +1,11 @@
 package com.kirkkt.java.tax.forms.input;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
+
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.IntEntry;
-
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,7 +24,9 @@ public class W2TaxYear2014 implements InputForm {
   private IntEntry b8 = new IntEntry();
   private IntEntry b10 = new IntEntry();
   private IntEntry b11 = new IntEntry();
+  // TODO(kirktdev): switch to entry object
   private ImmutableMap<String, Integer> b12 = null;
+  // TODO(kirktdev): switch to entry object
   private boolean[] b13 = new boolean[3];
   private ImmutableMap<String, Integer> b14 = null;
   private IntEntry b16 = new IntEntry();
