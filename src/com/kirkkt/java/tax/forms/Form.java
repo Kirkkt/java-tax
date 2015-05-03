@@ -1,9 +1,12 @@
 package com.kirkkt.java.tax.forms;
 
+import com.google.common.collect.ImmutableMap;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -31,12 +34,30 @@ public abstract class Form {
   public abstract int getTaxYear();
 
   // TODO(kirktdev): make abstract
-  public Map<String, String> getBooleanEntryKeyMap() { return null;}
-  public Map<String, String> getIntEntryKeyMap() { return null;}
-  public Map<String, String> getStringEntryKeyMap() { return null;}
-  public Map<String, String> getBooleanListEntryKeyMap() { return null;}
-  public Map<String, List<String>> getBooleanListSubentryKeyMap() { return null;}
-  public Map<String, String> getIntListEntryKeyMap() { return null;}
+  public Map<String, String> getBooleanEntryKeyMap() {
+    return ImmutableMap.<String, String>of();
+  }
+
+  public Map<String, String> getIntEntryKeyMap() {
+    return ImmutableMap.<String, String>of();
+  }
+
+  public Map<String, String> getStringEntryKeyMap() {
+    return ImmutableMap.<String, String>of();
+  }
+
+  public Map<String, String> getBooleanListEntryKeyMap() {
+    return ImmutableMap.<String, String>of();
+  }
+
+  public Map<String, List<String>> getBooleanListSubentryKeyMap() {
+    return ImmutableMap.<String, List<String>>of();
+  }
+
+  public Map<String, String> getIntListEntryKeyMap() {
+    return ImmutableMap.<String, String>of();
+  }
+
 
   /**
    * Populate the form instance with the input from a file
@@ -56,7 +77,7 @@ public abstract class Form {
     try {
       br = new BufferedReader(new FileReader(fileName));
       while ((line = br.readLine()) != null) {
-        if (line.equals("w2 " + getTaxYear()) || line.startsWith("# ")) {
+        if (line.equals(getFormType() + " " + getTaxYear()) || line.startsWith("# ")) {
           // heading or comments
           continue;
         }
@@ -91,7 +112,7 @@ public abstract class Form {
           entry.setDescription(getIntListEntryKeyMap().get(header));
           entries.put(header, entry);
         } else {
-          throw new IllegalArgumentException("Invalid input line: " + line);
+          throw new IllegalArgumentException("Invalid input line: [" + line + "]");
         }
       }
       br.close();
@@ -100,4 +121,32 @@ public abstract class Form {
     }
   }
 
+  public Set<String> keySet() {
+    return entries.keySet();
+  }
+
+  public boolean isEntryValueEqual(String key, String expected) {
+    return keySet().contains(key) && entries.get(key).isEqualTo(expected);
+  }
+
+  public Object getValue(String key) {
+    if (keySet().contains(key)) {
+      return null;
+    }
+    return entries.get(key).getValue();
+  }
+
+  public String toString() {
+    String result = "";
+    result += getFormType() + " Tax Year " + getTaxYear() + "\n";
+    result += "-----------------------\n";
+    result += "\n";
+
+    for (String key : entries.keySet()) {
+      result += ((Entry) entries.get(key)).print();
+    }
+    result += "\n-----------------------\n";
+
+    return result;
+  }
 }

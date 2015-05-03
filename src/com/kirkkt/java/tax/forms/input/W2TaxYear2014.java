@@ -1,6 +1,5 @@
 package com.kirkkt.java.tax.forms.input;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 
 import com.kirkkt.java.tax.Parser;
@@ -30,8 +29,6 @@ public class W2TaxYear2014 extends InputForm {
       "employer state id number", "Employer state ID number",
       "b20", "Locality name"
       );
-  @Override
-  public Map<String, String> getStringEntryKeyMap() { return STRING_ENTRY_KEY_MAP;}
   private static final Map<String, String> INT_ENTRY_KEY_MAP =
       ImmutableMap.<String, String>builder()
           .put("b1", "Wages, tips, other compensation")
@@ -49,15 +46,9 @@ public class W2TaxYear2014 extends InputForm {
           .put("b18", "Local wages, tips, etc.")
           .put("b19", "Local income tax")
           .build();
-  @Override
-  public Map<String, String> getIntEntryKeyMap() { return INT_ENTRY_KEY_MAP;}
   private static final Map<String, String> BOOLEAN_LIST_ENTRY_KEY_MAP = ImmutableMap.of(
       "b13", ""
   );
-  @Override
-  public Map<String, String> getBooleanListEntryKeyMap() { return BOOLEAN_LIST_ENTRY_KEY_MAP;}
-  @Override
-  public Map<String, String> getBooleanEntryKeyMap() { return ImmutableMap.<String, String>of();}
   private static final Map<String, List<String>> BOOLEAN_LIST_SUBENTRY_KEY_MAP =
       ImmutableMap.of(
           "b13", Arrays.asList(
@@ -65,41 +56,10 @@ public class W2TaxYear2014 extends InputForm {
               "Retirement plan",
               "Third-party sick pay"
           ));
-  @Override
-  public Map<String, List<String>> getBooleanListSubentryKeyMap() { return BOOLEAN_LIST_SUBENTRY_KEY_MAP;}
   private static final Map<String, String> INT_LIST_ENTRY_KEY_MAP = ImmutableMap.of(
       "b12","See instrubtions for box 12",
       "b14","Others"
   );
-  @Override
-  public Map<String, String> getIntListEntryKeyMap() { return INT_LIST_ENTRY_KEY_MAP;}
-
-  private IntEntry b1 = new IntEntry();
-  private IntEntry b2 = new IntEntry();
-  private StringEntry bEmployerAddress = new StringEntry();
-  private IntEntry b3 = new IntEntry();
-  private IntEntry b4 = new IntEntry();
-  private IntEntry b5 = new IntEntry();
-  private IntEntry b6 = new IntEntry();
-  private IntEntry b7 = new IntEntry();
-  private IntEntry b8 = new IntEntry();
-  private StringEntry bEmployerIdentificationNumber = new StringEntry();
-  private IntEntry b10 = new IntEntry();
-  private IntEntry b11 = new IntEntry();
-  private IntListEntry b12 = new IntListEntry();
-  private BooleanListEntry b13 = new BooleanListEntry();
-  private IntListEntry b14 = new IntListEntry();
-  private StringEntry b15 = new StringEntry();
-  private StringEntry bEmployerStateIdNumber = new StringEntry();
-  private IntEntry b16 = new IntEntry();
-  private IntEntry b17 = new IntEntry();
-  private IntEntry b18 = new IntEntry();
-  private IntEntry b19 = new IntEntry();
-  private StringEntry b20 = new StringEntry();
-
-  private boolean fileImported = false;
-
-  private final TaxUtil util = new TaxUtil();
 
   public W2TaxYear2014() {}
 
@@ -114,154 +74,33 @@ public class W2TaxYear2014 extends InputForm {
   }
 
   @Override
-  public void readFromFile(String fileName) {
-    super.readFromFile(fileName);
+  public Map<String, String> getStringEntryKeyMap() {
+    return STRING_ENTRY_KEY_MAP;
+  }
+
+  @Override
+  public Map<String, String> getIntEntryKeyMap() {
+    return INT_ENTRY_KEY_MAP;
+  }
+
+  @Override
+  public Map<String, String> getBooleanListEntryKeyMap() {
+    return BOOLEAN_LIST_ENTRY_KEY_MAP;
+  }
+
+  @Override
+  public Map<String, List<String>> getBooleanListSubentryKeyMap() {
+    return BOOLEAN_LIST_SUBENTRY_KEY_MAP;
+  }
+
+  @Override
+  public Map<String, String> getIntListEntryKeyMap() {
+    return INT_LIST_ENTRY_KEY_MAP;
   }
 
   @Override
   public void prod() {
     readFromFile(TaxUtil.DATA_FOLDER + "/forms/input/w2taxyear2014.txt");
     System.out.print(this);
-  }
-
-  // TODO(kirktdev): extract to Forms abstract class
-
-  public Set<String> keySet() {
-    return entries.keySet();
-  }
-
-  public boolean isEntryValueEqual(String key, String expected) {
-    return keySet().contains(key) && entries.get(key).isEqualTo(expected);
-    // return entries.get(key).getClass();
-  }
-
-  /** Wages, tips, other compensation. */
-  public IntEntry getB1() {
-    return b1;
-  }
-
-  /** Federal income tax withheld. */
-  public IntEntry getB2() {
-    return b2;
-  }
-
-  /** Employer address */
-  public StringEntry getBEmployerAddress() {
-    return bEmployerAddress;
-  }
-  /** Social security wages. */
-  public IntEntry getB3() {
-    return b3;
-  }
-
-  /** Social security tax withheld. */
-  public IntEntry getB4() {
-    return b4;
-  }
-
-  /** Medicare wages and tips. */
-  public IntEntry getB5() {
-    return b5;
-  }
-
-  /** Medicare tax withheld. */
-  public IntEntry getB6() {
-    return b6;
-  }
-
-  /** Social security tips. */
-  public IntEntry getB7() {
-    return b7;
-  }
-
-  /** Allocated tips. */
-  public IntEntry getB8() {
-    return b8;
-  }
-
-  /** Employer identification number */
-  public StringEntry getBEmployerIdentificationNumber() {
-    return bEmployerIdentificationNumber;
-  }
-
-  /** Dependent care benefits. */
-  public IntEntry getB10() {
-    return b10;
-  }
-
-  /** Nonqualified plans. */
-  public IntEntry getB11() {
-    return b11;
-  }
-
-  /** Annotation codes. */
-  public IntListEntry getB12() {
-    return b12;
-  }
-
-  /**
-   * Special treatment checkboxes.
-   *
-   * [0] Statutory employee.
-   * [1] Retirement plan.
-   * [2] Thrid-party sick pay.
-   */
-  public BooleanListEntry getB13() {
-    return b13;
-  }
-
-  /** Other */
-  public IntListEntry getB14() {
-    return b14;
-  }
-
-  /** State */
-  public StringEntry getB15() {
-    return b15;
-  }
-
-  /** Employer state ID number */
-  public StringEntry getBEmployerStateIdNumber() {
-    return bEmployerStateIdNumber;
-  }
-
-  /** State wages, tips, etc. */
-  public IntEntry getB16() {
-    return b16;
-  }
-
-  /** State income tax. */
-  public IntEntry getB17() {
-    return b17;
-  }
-
-  /** Local income wages, tips, etc. */
-  public IntEntry getB18() {
-    return b18;
-  }
-
-  /** Local income tax. */
-  public IntEntry getB19() {
-    return b19;
-  }
-
-  /** Locality name. */
-  public StringEntry getB20() {
-    return b20;
-  }
-
-  @Override
-  public String toString() {
-    String result = "";
-    result += getFormType() + " Tax Year " + getTaxYear() + "\n";
-    result += "-----------------------\n";
-    result += "\n";
-
-    for (String key : entries.keySet()) {
-      result += ((Entry) entries.get(key)).print();
-    }
-    result += "\n-----------------------\n";
-
-    return result;
   }
 }

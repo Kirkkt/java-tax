@@ -164,7 +164,7 @@ public class F1040ScheduleATaxYear2014 extends AttachedForm {
   }
 
   public void readFromW2(W2TaxYear2014 form) {
-    readFromW2(form.getB17().getValue());
+    readFromW2((Integer) form.getValue("b17"));
   }
 
   public void readFromW2(int formB17) {
