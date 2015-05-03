@@ -52,6 +52,15 @@ public class BooleanListEntry extends Entry<List<BooleanEntry>> {
     return result;
   }
 
+  @Override
+  public boolean isEqualTo(String expected) {
+    String actual = "";
+    for (BooleanEntry item : value) {
+      actual += item.getValue() + " ";
+    }
+    return actual.trim().equals(expected);
+  }
+
   public BooleanListEntry setDisplayWords(String trueWord, String falseWord) {
     this.trueWord = trueWord;
     this.falseWord = falseWord;

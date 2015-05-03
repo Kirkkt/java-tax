@@ -37,4 +37,5 @@ public class BooleanEntry extends Entry<Boolean> {
   String getFalseWord() {
     return falseWord;
   }
+
 }

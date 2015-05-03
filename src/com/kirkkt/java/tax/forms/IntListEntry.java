@@ -46,6 +46,19 @@ public class IntListEntry extends Entry<List<IntEntry>> {
     return result;
   }
 
+  @Override
+  public boolean isEqualTo(String expected) {
+    String actual = "";
+    for (IntEntry item : value) {
+      if (item.getDescription().isEmpty()) {
+        actual += item.getValue() + " ";
+      } else {
+        actual += item.getDescription() + " " + item.getValue() + " ";
+      }
+    }
+    return actual.trim().equals(expected);
+  }
+
   public int getSum() {
     int result = 0;
     for (IntEntry entry : value) {

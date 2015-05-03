@@ -84,4 +84,8 @@ public class Entry<T> {
     result += ":\n  " + value + "\n";
     return result;
   }
+
+  public boolean isEqualTo(String expected) {
+    return String.valueOf(value).equals(expected);
+  }
 }

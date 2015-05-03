@@ -1,12 +1,18 @@
 package com.kirkkt.javatests.tax;
 
+import com.kirkkt.java.tax.forms.input.W2TaxYear2014;
+
+import com.google.common.base.Preconditions;
 import com.google.common.collect.UnmodifiableIterator;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
 
 public final class TestUtil {
 
@@ -29,5 +35,39 @@ public final class TestUtil {
       throw new IllegalArgumentException("Failed to read file " + fileName + " due to error " + e);
     }
     return goldBuilder.build().iterator();
+  }
+
+  public static Map<String, String> getGoldMap(String fileName) {
+    BufferedReader br;
+    String line;
+    ImmutableMap.Builder<String, String> goldBuilder = ImmutableMap.<String, String>builder();
+    try {
+      br = new BufferedReader(new FileReader(fileName));
+      while ((line = br.readLine()) != null) {
+        if (line.startsWith("# ")) {
+          // comments
+          continue;
+        }
+        String[] parts = line.split(": ");
+        goldBuilder.put(parts[0], (parts.length < 2) ? "" : parts[1]);
+      }
+      br.close();
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read file " + fileName + " due to error " + e);
+    }
+    return goldBuilder.build();
+  }
+
+  // TODO(kirktdev): use generics
+  public static void checkContains(Set<String> set, String item) {
+    Preconditions.checkState(set.contains(item), "Not true that set " + set + " contains item "
+        + item);
+  }
+
+  // TODO(kirktdev): take form
+  public static void checkFormEntryEquals(W2TaxYear2014 form, String key, String expected) {
+    Preconditions.checkState(form.isEntryValueEqual(key, expected), "Not true that entry " + key
+        + " in form " + form.getFormType() + " for tax year " + form.getTaxYear() + " has value ["
+        + expected + "].");
   }
 }
