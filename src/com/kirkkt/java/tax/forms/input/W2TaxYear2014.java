@@ -30,6 +30,7 @@ public class W2TaxYear2014 implements InputForm {
   private BooleanListEntry b13 = new BooleanListEntry();
   private IntListEntry b14 = new IntListEntry();
   private StringEntry b15 = new StringEntry();
+  private StringEntry bEmployerStateIdNumber = new StringEntry();
   private IntEntry b16 = new IntEntry();
   private IntEntry b17 = new IntEntry();
   private IntEntry b18 = new IntEntry();
@@ -112,11 +113,8 @@ public class W2TaxYear2014 implements InputForm {
         } else if (line.startsWith("b15 ")) {
           b15.readFromLine(line, "b15 ");
           b15.setDescription("State");
-        } else if (line.startsWith("employer's state id no.")) {
-          Preconditions.checkArgument(util.getEmployerStateIdNumber().equals(line.split(" ", 5)[4]),
-              Parser.genericParsingErrorMessage(line)
-                  + "\nExpecting:\n  "
-                  + util.getEmployerStateIdNumber());
+        } else if (line.startsWith("employer state id number ")) {
+          bEmployerStateIdNumber.readFromLine(line, "employer state id number ");
         } else if (line.startsWith("b16 ")) {
           b16.readFromLine(line, "b16 ");
           b16.setDescription("State wages, tipc, etc.");
@@ -225,6 +223,11 @@ public class W2TaxYear2014 implements InputForm {
     return b15;
   }
 
+  /** Employer state ID number */
+  public StringEntry getBEmployerStateIdNumber() {
+    return bEmployerStateIdNumber;
+  }
+
   /** State wages, tips, etc. */
   public IntEntry getB16() {
     return b16;
@@ -287,7 +290,7 @@ public class W2TaxYear2014 implements InputForm {
     result += "\n";
 
     result += b15.print();
-    result += "Employer's state ID No.:\n  " + util.getEmployerStateIdNumber() + "\n";
+    result += bEmployerStateIdNumber.print();
     result += b16.print();
     result += b17.print();
     result += b18.print();

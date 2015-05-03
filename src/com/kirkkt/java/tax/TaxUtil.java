@@ -18,7 +18,6 @@ public final class TaxUtil {
   private String checkingAccountAccountType;
   private String employerIdentificationNumber;
   private String employerAddress;
-  private String employerStateIdNumber;
 
   /**
    * Return a standard error message string describing that additional logic is
@@ -68,8 +67,6 @@ public final class TaxUtil {
           employerIdentificationNumber = line.split(" ", 4)[3];
         } else if (line.startsWith("employer address ")) {
           employerAddress = line.split(" ", 3)[2];
-        } else if (line.startsWith("employer state id number ")) {
-          employerStateIdNumber = line.split(" ", 5)[4];
         } else {
           br.close();
           throw new IllegalArgumentException("Invalid input line: " + line);
@@ -99,9 +96,5 @@ public final class TaxUtil {
 
   public String getEmployerAddress() {
     return employerAddress;
-  }
-
-  public String getEmployerStateIdNumber() {
-    return employerStateIdNumber;
   }
 }

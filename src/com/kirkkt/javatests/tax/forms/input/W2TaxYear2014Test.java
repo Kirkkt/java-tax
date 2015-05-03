@@ -50,6 +50,7 @@ public class W2TaxYear2014Test implements TestCase {
       assertEquals(gold.next(), String.valueOf(entry.getValue()));
     }
     assertEquals(gold.next(), String.valueOf(form.getB15().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getBEmployerStateIdNumber().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB16().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB17().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB18().getValue()));

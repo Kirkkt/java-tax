@@ -39,7 +39,6 @@ public class TaxUtilTest implements TestCase {
     assertEquals(gold.next(), String.valueOf(util.getCheckingAccountAccountNumber()));
     assertEquals(gold.next(), String.valueOf(util.getEmployerIdentificationNumber()));
     assertEquals(gold.next(), String.valueOf(util.getEmployerAddress()));
-    assertEquals(gold.next(), String.valueOf(util.getEmployerStateIdNumber()));
     assertFalse(gold.hasNext());
   }
 }
