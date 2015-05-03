@@ -16,8 +16,7 @@ public abstract class Form {
 
   private boolean hasReadFromFile = false;
 
-  // TODO(kirktdev): make private
-  public HashMap<String, Entry<?>> entries = new LinkedHashMap<String, Entry<?>>();
+  private HashMap<String, Entry<?>> entries = new LinkedHashMap<String, Entry<?>>();
 
   /**
    * Gets the type of this form.
@@ -33,7 +32,6 @@ public abstract class Form {
    */
   public abstract int getTaxYear();
 
-  // TODO(kirktdev): make abstract
   public Map<String, String> getBooleanEntryKeyMap() {
     return ImmutableMap.<String, String>of();
   }

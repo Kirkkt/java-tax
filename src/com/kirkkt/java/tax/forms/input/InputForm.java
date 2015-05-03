@@ -2,6 +2,7 @@ package com.kirkkt.java.tax.forms.input;
 
 import com.kirkkt.java.tax.forms.Form;
 
+// TODO(kirktdev): remove?
 /** A form that needs to read from a file. */
 public abstract class InputForm extends Form {
 

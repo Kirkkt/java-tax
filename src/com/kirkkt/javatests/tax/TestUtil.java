@@ -1,6 +1,6 @@
 package com.kirkkt.javatests.tax;
 
-import com.kirkkt.java.tax.forms.input.W2TaxYear2014;
+import com.kirkkt.java.tax.forms.Form;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.UnmodifiableIterator;
@@ -59,13 +59,13 @@ public final class TestUtil {
   }
 
   // TODO(kirktdev): use generics
-  public static void checkContains(Set<String> set, String item) {
+  public static void checkContains(Set<?> set, Object item) {
     Preconditions.checkState(set.contains(item), "Not true that set " + set + " contains item "
         + item);
   }
 
-  // TODO(kirktdev): take form
-  public static void checkFormEntryEquals(W2TaxYear2014 form, String key, String expected) {
+  public static void checkFormEntryEquals(Form form, String key, String expected) {
+    // TODO(kirktdev): expected value?
     Preconditions.checkState(form.isEntryValueEqual(key, expected), "Not true that entry " + key
         + " in form " + form.getFormType() + " for tax year " + form.getTaxYear() + " has value ["
         + expected + "].");

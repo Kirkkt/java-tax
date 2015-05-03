@@ -30,8 +30,11 @@ public class TestRunner {
       // input forms
       new F1099DivTaxYear2014Test(),
       new F1099GTaxYear2014Test(),
-      new F1099RTaxYear2014Test(),
-      new W2TaxYear2014Test()
+      new F1099RTaxYear2014Test()
+    );
+
+    ImmutableList<FormTest> formTests = ImmutableList.<FormTest>of(
+        new W2TaxYear2014Test()
     );
 
     for (TestCase testCase : testCases) {
@@ -42,6 +45,17 @@ public class TestRunner {
       message += " ...";
       System.out.print(message);
       testCase.test();
+      System.out.println(" \033[0;32mPASSED\033[0m.");
+    }
+
+    for (FormTest formTest : formTests) {
+      String message = "Testing form " + formTest.getForm().getFormType();
+      if (formTest.getForm().getTaxYear() > 0) {
+        message += " tax year " + formTest.getForm().getTaxYear();
+      }
+      message += " ...";
+      System.out.print(message);
+      formTest.test();
       System.out.println(" \033[0;32mPASSED\033[0m.");
     }
   }
