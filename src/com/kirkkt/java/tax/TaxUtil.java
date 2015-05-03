@@ -13,11 +13,10 @@ public final class TaxUtil {
   public static final String DATA_FOLDER = System.getenv("GITHUB_DIR")
       + "/../vim_notes/java_programs/data/com/kirkkt/java/tax";
 
+  // TODO(kirktdev): get rid of these global consts
   private String checkingAccountRoutingNumber;
   private String checkingAccountAccountNumber;
   private String checkingAccountAccountType;
-  private String employerIdentificationNumber;
-  private String employerAddress;
 
   /**
    * Return a standard error message string describing that additional logic is
@@ -56,17 +55,12 @@ public final class TaxUtil {
       while ((line = br.readLine()) != null) {
         if (line.equals("common")) {
           // heading
-          // TODO(kirktdev): switch to use custom parsing method?
         } else if (line.startsWith("checking account routing number ")) {
           checkingAccountRoutingNumber = line.split(" ", 5)[4];
         } else if (line.startsWith("checking account account number ")) {
           checkingAccountAccountNumber = line.split(" ", 5)[4];
         } else if (line.startsWith("checking account account type ")) {
           checkingAccountAccountType = line.split(" ", 5)[4];
-        } else if (line.startsWith("employer identification number ")) {
-          employerIdentificationNumber = line.split(" ", 4)[3];
-        } else if (line.startsWith("employer address ")) {
-          employerAddress = line.split(" ", 3)[2];
         } else {
           br.close();
           throw new IllegalArgumentException("Invalid input line: " + line);
@@ -88,13 +82,5 @@ public final class TaxUtil {
 
   public String getCheckingAccountAccountNumber() {
     return checkingAccountAccountNumber;
-  }
-
-  public String getEmployerIdentificationNumber() {
-    return employerIdentificationNumber;
-  }
-
-  public String getEmployerAddress() {
-    return employerAddress;
   }
 }

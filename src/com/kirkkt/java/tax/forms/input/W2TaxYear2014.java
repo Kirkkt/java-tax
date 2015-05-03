@@ -18,12 +18,14 @@ public class W2TaxYear2014 implements InputForm {
 
   private IntEntry b1 = new IntEntry();
   private IntEntry b2 = new IntEntry();
+  private StringEntry bEmployerAddress = new StringEntry();
   private IntEntry b3 = new IntEntry();
   private IntEntry b4 = new IntEntry();
   private IntEntry b5 = new IntEntry();
   private IntEntry b6 = new IntEntry();
   private IntEntry b7 = new IntEntry();
   private IntEntry b8 = new IntEntry();
+  private StringEntry bEmployerIdentificationNumber = new StringEntry();
   private IntEntry b10 = new IntEntry();
   private IntEntry b11 = new IntEntry();
   private IntListEntry b12 = new IntListEntry();
@@ -75,6 +77,9 @@ public class W2TaxYear2014 implements InputForm {
         } else if (line.startsWith("b2 ")) {
           b2.readFromLine(line, "b2 ");
           b2.setDescription("Federal income tax withheld");
+        } else if (line.startsWith("employer address ")) {
+          bEmployerAddress.readFromLine(line, "employer address ");
+          bEmployerAddress.setDescription("Employer's name, address, and ZIP code");
         } else if (line.startsWith("b3 ")) {
           b3.readFromLine(line, "b3 ");
           b3.setDescription("Social security wages");
@@ -93,6 +98,8 @@ public class W2TaxYear2014 implements InputForm {
         } else if (line.startsWith("b8 ")) {
           b8.readFromLine(line, "b8 ");
           b8.setDescription("Allocated tips");
+        } else if (line.startsWith("employer identification number ")) {
+          bEmployerIdentificationNumber.readFromLine(line, "employer identification number ");
         } else if (line.startsWith("b10 ")) {
           b10.readFromLine(line, "b10 ");
           b10.setDescription("Dependent care benefits");
@@ -157,6 +164,10 @@ public class W2TaxYear2014 implements InputForm {
     return b2;
   }
 
+  /** Employer address */
+  public StringEntry getBEmployerAddress() {
+    return bEmployerAddress;
+  }
   /** Social security wages. */
   public IntEntry getB3() {
     return b3;
@@ -185,6 +196,11 @@ public class W2TaxYear2014 implements InputForm {
   /** Allocated tips. */
   public IntEntry getB8() {
     return b8;
+  }
+
+  /** Employer identification number */
+  public StringEntry getBEmployerIdentificationNumber() {
+    return bEmployerIdentificationNumber;
   }
 
   /** Dependent care benefits. */
@@ -264,7 +280,7 @@ public class W2TaxYear2014 implements InputForm {
     result += b2.print();
     result += "\n";
 
-    result += "Employer's name, address, and ZIP code:\n  " + util.getEmployerAddress() + "\n";
+    result += bEmployerAddress.print();
     result += b3.print();
     result += b4.print();
     result += b5.print();
@@ -272,12 +288,9 @@ public class W2TaxYear2014 implements InputForm {
 
     result += b7.print();
     result += b8.print();
-    if (b7.isDirty() || b8.isDirty()) {
-      result += "\n";
-    }
+    result += bEmployerIdentificationNumber.print();
+    result += "\n";
 
-    result += "Employer identification number (EIN):\n  "
-        + util.getEmployerIdentificationNumber() + "\n";
     result += b10.print();
     result += "\n";
 

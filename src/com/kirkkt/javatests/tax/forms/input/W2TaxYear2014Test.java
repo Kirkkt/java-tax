@@ -30,12 +30,14 @@ public class W2TaxYear2014Test implements TestCase {
         TestUtil.getGold(TestUtil.TEST_DATA_FOLDER + "/forms/input/w2taxyear2014gold.txt");
     assertEquals(gold.next(), String.valueOf(form.getB1().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB2().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getBEmployerAddress().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB3().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB4().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB5().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB6().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB7().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB8().getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getBEmployerIdentificationNumber().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB10().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB11().getValue()));
     for (IntEntry entry : form.getB12().getValue()) {
