@@ -21,25 +21,6 @@ public final class Parser {
   private Parser() {} // COV_NF_LINE
 
   /**
-   * Parses a line of string and round the result into int. Throws error message on error.
-   *
-   * @param line a line of string. This entire line will be parsed into an integer.
-   */
-  public static int parseAndRound(String line) {
-    return parseAndRound(line, 1);
-  }
-  /**
-   * Parses a line of string and round the result into int. Throws error message on error.
-   *
-   * @param line a string with components separated by {@code " "}
-   * @param parts the number of components expected from this string. Only the last part, defined by
-   *   the sepration of {@code " "} will be parsed and rounded.
-   */
-  public static int parseAndRound(String line, int parts) {
-    return parseAndRound((parts == 1) ? line : line.split(" ", parts)[parts - 1], line);
-  }
-
-  /**
    * Parses a string and round the result into int. Throws error message on error.
    *
    * @param text the string to be parsed
@@ -53,49 +34,6 @@ public final class Parser {
       throw new IllegalArgumentException(
           genericParsingErrorMessage(lineContext) + "\nDetail:\n  " + e.toString());
     }
-  }
-
-  public static Map<String, Integer> parseListAndRound(String line, int parts) {
-    ImmutableMap.Builder<String, Integer> builder = ImmutableMap.<String, Integer>builder();
-    String toParse = line.split(" ", parts)[parts - 1];
-    String[] toParseArray = toParse.split(" ");
-    for (int i = 0; i < toParseArray.length; i += 2) {
-      builder.put(toParseArray[i], parseAndRound(toParseArray[i + 1], line));
-    }
-    return builder.build();
-  }
-
-  /**
-   * Parses a line of string into a boolean. Throws error message on error.
-   *
-   * @param line a string with components separated by {@code " "}
-   * @param parts the number of components expected from this string. Only the last part, defined by
-   *   the sepration of {@code " "} will be parsed.
-   */
-  public static boolean parseBoolean(String line, int parts) {
-    return Boolean.parseBoolean((parts == 1) ? line : line.split(" ", parts)[parts - 1]);
-  }
-
-  /**
-   * Parse a line of string into a boolean array. Throws error message on error.
-   *
-   * @param line a string with components separated by {@code " "}
-   * @param parts the number of components expected from this string. Only the last part, defined by
-   *   the sepration of {@code " "} will be parsed.
-   */
-  public static boolean[] parseBooleanArray(String line, int parts) {
-    String toParse = (parts == 1) ? line : line.split(" ", parts)[parts - 1];
-    String[] toParseArray = toParse.split(" ");
-    boolean[] result = new boolean[toParseArray.length];
-    try {
-      for (int i = 0; i < toParseArray.length; i++) {
-        result[i] = Boolean.parseBoolean(toParseArray[i]);
-      }
-    } catch (NumberFormatException e) {
-      throw new IllegalArgumentException(
-          genericParsingErrorMessage(line) + "\nDetail:\n  " + e.toString());
-    }
-    return result;
   }
 
   /**

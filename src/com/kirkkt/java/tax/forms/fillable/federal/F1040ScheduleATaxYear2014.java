@@ -1,14 +1,13 @@
 package com.kirkkt.java.tax.forms.fillable.federal;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
 
 import com.kirkkt.java.tax.Parser;
-import com.kirkkt.java.tax.TaxMath;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.BooleanEntry;
 import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.IntEntry;
+import com.kirkkt.java.tax.forms.IntListEntry;
 import com.kirkkt.java.tax.forms.StringEntry;
 import com.kirkkt.java.tax.forms.fillable.AttachedForm;
 import com.kirkkt.java.tax.forms.fillable.federal.worksheets.ItemizedDeductionsWorksheetTaxYear2014;
@@ -18,7 +17,6 @@ import com.kirkkt.java.tax.forms.input.W2TaxYear2014;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Map;
 
 // TODO(kirktdev): write tests
 // TODO(kirktdev): separate prod input txt and test input txt
@@ -33,13 +31,12 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   private IntEntry b5 = new IntEntry();
   private IntEntry b6 = new IntEntry();
   private IntEntry b7 = new IntEntry();
-  // TODO(kirktdev): use entry object
-  private Map<String, Integer> b8List = ImmutableMap.<String, Integer>of();
+  private IntListEntry b8List = new IntListEntry();
   private IntEntry b8 = new IntEntry();
   private IntEntry b9 = new IntEntry();
 
   private IntEntry b10 = new IntEntry();
-  private Map<String, Integer> b11List = ImmutableMap.<String, Integer>of();
+  private IntListEntry b11List = new IntListEntry();
   private IntEntry b11 = new IntEntry();
   private IntEntry b12 = new IntEntry();
   private IntEntry b13 = new IntEntry();
@@ -53,17 +50,17 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
 
   private IntEntry b20 = new IntEntry();
 
-  private Map<String, Integer> b21List = ImmutableMap.<String, Integer>of();
+  private IntListEntry b21List = new IntListEntry();
   private IntEntry b21 = new IntEntry();
   private IntEntry b22 = new IntEntry();
-  private Map<String, Integer> b23List = ImmutableMap.<String, Integer>of();
+  private IntListEntry b23List = new IntListEntry();
   private IntEntry b23 = new IntEntry();
   private IntEntry b24 = new IntEntry();
   private IntEntry b25 = new IntEntry();
   private IntEntry b26 = new IntEntry();
   private IntEntry b27 = new IntEntry();
 
-  private Map<String, Integer> b28List = ImmutableMap.<String, Integer>of();
+  private IntListEntry b28List = new IntListEntry();
   private IntEntry b28 = new IntEntry();
 
   private BooleanEntry b29Checkbox = new BooleanEntry();
@@ -85,13 +82,14 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
 
   @Override
   public void readFromMotherForm(Form motherForm) {
-    // readFromF1040(((F1040TaxYear2014) motherForm).getB38());
+    // readFromF1040(((F1040TaxYear2014) motherForm).getB38().getValue());
   }
 
   @Override
   public void readFromFile(String fileName) {
     if (fileImported) {
-      throw new IllegalStateException("Form " + getFormType() + " for tax year " + getTaxYear() + " can't read from multiple files.");
+      throw new IllegalStateException("Form " + getFormType() + " for tax year " + getTaxYear()
+          + " can't read from multiple files.");
     }
     fileImported = true;
 
@@ -112,11 +110,13 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
         } else if (line.startsWith("b7 ")) {
           b7.readFromLine(line, "b7 ");
         } else if (line.startsWith("b8list ")) {
-          b8List = Parser.parseListAndRound(line, 2);
+          b8List.readFromLine(line, "b8list ");
+          b8.setValue(b8List.getSum());
         } else if (line.startsWith("b10 ")) {
           b10.readFromLine(line, "b10 ");
         } else if (line.startsWith("b11list ")) {
-          b11List = Parser.parseListAndRound(line, 2);
+          b11List.readFromLine(line, "b11list ");
+          b11.setValue(b11List.getSum());
         } else if (line.startsWith("b12 ")) {
           b12.readFromLine(line, "b12 ");
         } else if (line.startsWith("b13 ")) {
@@ -132,13 +132,16 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
         } else if (line.startsWith("b20 ")) {
           b20.readFromLine(line, "b20 ");
         } else if (line.startsWith("b21list ")) {
-          b21List = Parser.parseListAndRound(line, 2);
+          b21List.readFromLine(line, "b21list ");
+          b21.setValue(b21List.getSum());
         } else if (line.startsWith("b22 ")) {
           b22.readFromLine(line, "b22 ");
         } else if (line.startsWith("b23list ")) {
-          b23List = Parser.parseListAndRound(line, 2);
+          b23List.readFromLine(line, "b23list ");
+          b23.setValue(b23List.getSum());
         } else if (line.startsWith("b28list ")) {
-          b28List = Parser.parseListAndRound(line, 2);
+          b28List.readFromLine(line, "b28list ");
+          b28.setValue(b28List.getSum());
         } else if (line.startsWith("b30 ")) {
           b30.readFromLine(line, "b30 ");
         } else {
@@ -211,7 +214,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** other taxes list */
-  public Map<String, Integer> getB8List() {
+  public IntListEntry getB8List() {
     return b8List;
   }
 
@@ -231,7 +234,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** unreported home morgage interest payee info */
-  public Map<String, Integer> getB11List() {
+  public IntListEntry getB11List() {
     return b11List;
   }
 
@@ -286,7 +289,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** unreimbursed employee expenses list */
-  public Map<String, Integer> getB21List() {
+  public IntListEntry getB21List() {
     return b21List;
   }
 
@@ -301,7 +304,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** other expenses list */
-  public Map<String, Integer> getB23List() {
+  public IntListEntry getB23List() {
   return b23List;
   }
 
@@ -331,7 +334,7 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
   }
 
   /** other list */
-  public Map<String, Integer> getB28List() {
+  public IntListEntry getB28List() {
     return b28List;
   }
 
@@ -380,17 +383,13 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     result += b5.print();
     result += b6.print();
     result += b7.print();
-    if (!getB8List().isEmpty()) {
-      // result += "b8: list\n  " + Printer.print(getB8List()) + "\n";
-    }
+    result += b8List.print();
     result += b8.print();
-    result += "b9:\n  " + getB9() + "\n";
+    result += b9.print();
     result += "\n";
 
     result += b10.print();
-    if (!getB11List().isEmpty()) {
-      // result += "b11 list:\n" + Printer.print(getB11List()) + "\n";
-    }
+    result += b11List.print();
     result += b11.print();
     result += b12.print();
     result += b13.print();
@@ -407,14 +406,10 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     result += b20.print();
     result += "\n";
 
-    if (!getB21List().isEmpty()) {
-      // result += "b21 list:\n  " + Printer.print(getB21List()) + "\n";
-    }
+    result += b21List.print();
     result += b21.print();
     result += b22.print();
-    if (!getB23List().isEmpty()) {
-      // result += "b23 list:\n  " + Printer.print(getB23List()) + "\n";
-    }
+    result += b23List.print();
     result += b23.print();
     result += b24.print();
     result += b25.print();
@@ -422,14 +417,12 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     result += b27.print();
     result += "\n";
 
-    if (!getB28List().isEmpty()) {
-      // result += "b28 list:\n  " + Printer.print(getB28List()) + "\n";
-    }
+    result += b28List.print();
     result += b28.print();
     result += "\n";
 
     result += b29Checkbox.print();
-    result += "b29:\n  " + getB29() + "\n";
+    result += b29.print();
     result += b30.print();
 
     result += "-----------------------\n";
@@ -444,33 +437,18 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
       b4.setValue(Math.max(0, b1.getValue() - b3.getValue()));
     }
 
-    if (TaxMath.getSum(b8List) > 0) {
-      b8.setValue(TaxMath.getSum(b8List));
-    }
     b9.setValue(b5.getValue() + b6.getValue() + b7.getValue() + b8.getValue());
 
-    if (TaxMath.getSum(b11List) > 0) {
-      b11.setValue(TaxMath.getSum(b11List));
-    }
     b15.setValue(b10.getValue() + b11.getValue() + b12.getValue() + b13.getValue()
         + b14.getValue());
 
     b19.setValue(b16.getValue() + b17.getValue() + b18.getValue());
 
-    if (TaxMath.getSum(b21List) > 0) {
-      b21.setValue(TaxMath.getSum(b21List));
-    }
-    if (TaxMath.getSum(b23List) > 0) {
-      b23.setValue(TaxMath.getSum(b23List));
-    }
     b24.setValue(b21.getValue() + b22.getValue() + b23.getValue());
     if (b25.getValue() > 0) {
       b26.setValue(Math.round(.02f * b25.getValue()));
     }
     b27.setValue(Math.max(b24.getValue() - b26.getValue(), 0));
-    if (TaxMath.getSum(b28List) > 0) {
-      b28.setValue(TaxMath.getSum(b28List));
-    }
 
     if (!b29Checkbox.getValue()) {
       b29.setValue(b4.getValue() + b9.getValue() + b15.getValue() + b19.getValue()

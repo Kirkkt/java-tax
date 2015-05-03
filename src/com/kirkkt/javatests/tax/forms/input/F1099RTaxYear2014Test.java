@@ -7,6 +7,7 @@ import com.kirkkt.javatests.tax.TestCase;
 import com.kirkkt.javatests.tax.TestUtil;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
+import com.kirkkt.java.tax.forms.BooleanEntry;
 import com.kirkkt.java.tax.forms.input.F1099RTaxYear2014;
 
 import com.google.common.collect.UnmodifiableIterator;
@@ -33,8 +34,9 @@ public class F1099RTaxYear2014Test implements TestCase {
     assertEquals(gold.next(), String.valueOf(form.getBAccountNumber().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB1().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB2a().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB2b().getValue().get(0).getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB2b().getValue().get(1).getValue()));
+    for (BooleanEntry entry : form.getB2b().getValue()) {
+      assertEquals(gold.next(), String.valueOf(entry.getValue()));
+    }
     assertEquals(gold.next(), String.valueOf(form.getB3().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB4().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB5().getValue()));

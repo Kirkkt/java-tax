@@ -42,7 +42,6 @@ public class TestRunner {
       message += " ...";
       System.out.print(message);
       testCase.test();
-      // TODO(kirktdev): output this in green
       System.out.println(" \033[0;32mPASSED\033[0m.");
     }
   }
