@@ -12,7 +12,7 @@ import com.google.common.collect.UnmodifiableIterator;
 
 public class TaxUtilTest implements TestCase {
 
-  public class FakeForm implements Form {
+  public class FakeForm extends Form {
     @Override
     public String getFormType() {
       return "Tax Util";

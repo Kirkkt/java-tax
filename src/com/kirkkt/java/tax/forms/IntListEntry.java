@@ -42,7 +42,6 @@ public class IntListEntry extends Entry<List<IntEntry>> {
       result += "  " + (entry.getDescription().isEmpty() ? "" : (entry.getDescription() + " "))
           + entry.getValue() + "\n";
     }
-    result += "\n";
     return result;
   }
 

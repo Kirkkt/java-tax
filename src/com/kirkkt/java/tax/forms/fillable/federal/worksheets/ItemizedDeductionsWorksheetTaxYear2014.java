@@ -4,7 +4,7 @@ import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.fillable.AttachedForm;
 import com.kirkkt.java.tax.forms.fillable.federal.F1040ScheduleATaxYear2014;
 
-public class ItemizedDeductionsWorksheetTaxYear2014 implements AttachedForm {
+public class ItemizedDeductionsWorksheetTaxYear2014 extends AttachedForm {
 
   private int b1 = 0;
   private int b2 = 0;

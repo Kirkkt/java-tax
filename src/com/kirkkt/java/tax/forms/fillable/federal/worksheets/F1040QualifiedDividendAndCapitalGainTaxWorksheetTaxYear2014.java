@@ -8,7 +8,7 @@ import com.kirkkt.java.tax.TaxUtil;
 
 import com.google.common.base.Preconditions;
 
-public class F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014 implements AttachedForm {
+public class F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014 extends AttachedForm {
 
   private int b1 = 0;
   private int b2 = 0;

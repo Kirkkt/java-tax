@@ -11,7 +11,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class F1099GTaxYear2014 implements InputForm {
+public class F1099GTaxYear2014 extends InputForm {
 
   private StringEntry bPayerInfo = new StringEntry();
   private StringEntry bPayerFEIN = new StringEntry();

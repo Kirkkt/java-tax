@@ -48,7 +48,6 @@ public class BooleanListEntry extends Entry<List<BooleanEntry>> {
             + (entry.getValue() ? trueWord : falseWord) + "\n";
       }
     }
-    result += "\n";
     return result;
   }
 

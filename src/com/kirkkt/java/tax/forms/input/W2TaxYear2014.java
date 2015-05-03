@@ -17,11 +17,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
 
-public class W2TaxYear2014 implements InputForm {
+public class W2TaxYear2014 extends InputForm {
 // TODO(kirktdev): use collections instead of declaring individual entries
 
   private static final Map<String, String> STRING_ENTRY_KEY_MAP = ImmutableMap.of(
@@ -63,7 +64,7 @@ public class W2TaxYear2014 implements InputForm {
       "b14","Others"
   );
 
-  private HashMap<String, Entry<?>> entries = new HashMap<String, Entry<?>>();
+  private HashMap<String, Entry<?>> entries = new LinkedHashMap<String, Entry<?>>();
 
   private IntEntry b1 = new IntEntry();
   private IntEntry b2 = new IntEntry();
@@ -118,7 +119,6 @@ public class W2TaxYear2014 implements InputForm {
     try {
       br = new BufferedReader(new FileReader(fileName));
       while ((line = br.readLine()) != null) {
-if (true) {
         if (line.equals("w2 " + getTaxYear()) || line.startsWith("# ")) {
           // heading or comments
           continue;
@@ -151,80 +151,6 @@ if (true) {
         } else {
           throw new IllegalArgumentException("Invalid input line: " + line);
         }
-        continue;
-}
-        if (line.equals("w2 " + getTaxYear())) {
-          // heading
-        } else if (line.startsWith("b1 ")) {
-          b1.readFromLine(line, "b1 ");
-          b1.setDescription("Wages, tips, other compensation");
-        } else if (line.startsWith("b2 ")) {
-          b2.readFromLine(line, "b2 ");
-          b2.setDescription("Federal income tax withheld");
-        } else if (line.startsWith("employer address ")) {
-          bEmployerAddress.readFromLine(line, "employer address ");
-          bEmployerAddress.setDescription("Employer's name, address, and ZIP code");
-        } else if (line.startsWith("b3 ")) {
-          b3.readFromLine(line, "b3 ");
-          b3.setDescription("Social security wages");
-        } else if (line.startsWith("b4 ")) {
-          b4.readFromLine(line, "b4 ");
-          b4.setDescription("Secial security tax withheld");
-        } else if (line.startsWith("b5 ")) {
-          b5.readFromLine(line, "b5 ");
-          b5.setDescription("Medicare wages and tips");
-        } else if (line.startsWith("b6 ")) {
-          b6.readFromLine(line, "b6 ");
-          b6.setDescription("Medicare tax withheld");
-        } else if (line.startsWith("b7 ")) {
-          b7.readFromLine(line, "b7 ");
-          b7.setDescription("Social security tips");
-        } else if (line.startsWith("b8 ")) {
-          b8.readFromLine(line, "b8 ");
-          b8.setDescription("Allocated tips");
-        } else if (line.startsWith("employer identification number ")) {
-          bEmployerIdentificationNumber.readFromLine(line, "employer identification number ");
-        } else if (line.startsWith("b10 ")) {
-          b10.readFromLine(line, "b10 ");
-          b10.setDescription("Dependent care benefits");
-        } else if (line.startsWith("b11 ")) {
-          b11.readFromLine(line, "b11 ");
-          b11.setDescription("Nonqualified plans");
-        } else if (line.startsWith("b12 ")) {
-          b12.readFromLine(line, "b12 ");
-          b12.setDescription("See instrubtions for box 12");
-        } else if (line.startsWith("b13 ")) {
-          b13.readFromLine(line, "b13 ");
-          b13.getValue().get(0).setDescription("Statutory employee");
-          b13.getValue().get(1).setDescription("Retirement plan");
-          b13.getValue().get(2).setDescription("Third-party sick pay");
-        } else if (line.startsWith("b14 ")) {
-          b14.readFromLine(line, "b14 ");
-          b14.setDescription("Others");
-        } else if (line.startsWith("b15 ")) {
-          b15.readFromLine(line, "b15 ");
-          b15.setDescription("State");
-        } else if (line.startsWith("employer state id number ")) {
-          bEmployerStateIdNumber.readFromLine(line, "employer state id number ");
-        } else if (line.startsWith("b16 ")) {
-          b16.readFromLine(line, "b16 ");
-          b16.setDescription("State wages, tipc, etc.");
-        } else if (line.startsWith("b17 ")) {
-          b17.readFromLine(line, "b17 ");
-          b17.setDescription("State income tax");
-        } else if (line.startsWith("b18 ")) {
-          b18.readFromLine(line, "b18 ");
-          b18.setDescription("Local wages, tips, etc.");
-        } else if (line.startsWith("b19 ")) {
-          b19.readFromLine(line, "b19 ");
-          b19.setDescription("Local income tax");
-        } else if (line.startsWith("b20 ")) {
-          b20.readFromLine(line, "b20 ");
-          b20.setDescription("Locality name");
-        } else {
-          br.close();
-          throw new IllegalArgumentException("Invalid input line: " + line);
-        }
       }
       br.close();
     } catch (IOException e) {
@@ -239,10 +165,6 @@ if (true) {
   }
 
   // TODO(kirktdev): extract to Forms abstract class
-  // TODO(kirktdev): don't expose this!!
-  // Map<String, <Entry<?>> getEntries() {
-  //   return entries;
-  // }
 
   public boolean doesKeyExist(String key) {
     return entries.keySet().contains(key);
@@ -379,51 +301,10 @@ if (true) {
     result += "-----------------------\n";
     result += "\n";
 
-if (true) {
     for (String key : entries.keySet()) {
       result += ((Entry) entries.get(key)).print();
     }
     result += "\n-----------------------\n";
-
-    return result;
-}
-
-    result += b1.print();
-    result += b2.print();
-    result += "\n";
-
-    result += bEmployerAddress.print();
-    result += b3.print();
-    result += b4.print();
-    result += b5.print();
-    result += b6.print();
-
-    result += b7.print();
-    result += b8.print();
-    result += bEmployerIdentificationNumber.print();
-    result += "\n";
-
-    result += b10.print();
-    result += "\n";
-
-    result += b11.print();
-    result += b13.print();
-    result += "\n";
-
-    result += b12.print();
-    result += b14.print();
-    result += "\n";
-
-    result += b15.print();
-    result += bEmployerStateIdNumber.print();
-    result += b16.print();
-    result += b17.print();
-    result += b18.print();
-    result += b19.print();
-    result += b20.print();
-    result += "\n";
-
-    result += "-----------------------\n";
 
     return result;
   }

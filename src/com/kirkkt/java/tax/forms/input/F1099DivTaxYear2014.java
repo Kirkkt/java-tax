@@ -9,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class F1099DivTaxYear2014 implements InputForm {
+public class F1099DivTaxYear2014 extends InputForm {
 
   private StringEntry bPayerName = new StringEntry();
   private IntEntry b1a = new IntEntry();

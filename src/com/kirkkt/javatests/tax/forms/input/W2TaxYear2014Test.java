@@ -31,54 +31,17 @@ public class W2TaxYear2014Test implements TestCase {
     form.readFromFile(TaxUtil.DATA_FOLDER + "/forms/input/w2taxyear2014.txt");
     assertEquals("W2", form.getFormType());
     assertEquals(2014, form.getTaxYear());
-    UnmodifiableIterator<String> gold =
-        TestUtil.getGold(TestUtil.TEST_DATA_FOLDER + "/forms/input/w2taxyear2014gold.txt");
-if (true) {
+
     Map<String, String> goldMap =
         TestUtil.getGoldMap(TestUtil.TEST_DATA_FOLDER + "/forms/input/w2taxyear2014gold.txt");
     for (String key : goldMap.keySet()) {
       TestUtil.checkContains(form.keySet(), key);
-      assertTrue(form.keySet().contains(key));
     }
     for (String key : form.keySet()) {
       TestUtil.checkContains(goldMap.keySet(), key);
     }
     for (String key : form.keySet()) {
       TestUtil.checkFormEntryEquals(form, key, goldMap.get(key));
-      // assertEquals(goldMap.get(key), String.valueOf(form.get(key)));
     }
-    return;
-}
-    assertEquals(gold.next(), String.valueOf(form.getB1().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB2().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getBEmployerAddress().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB3().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB4().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB5().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB6().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB7().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB8().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getBEmployerIdentificationNumber().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB10().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB11().getValue()));
-    for (IntEntry entry : form.getB12().getValue()) {
-      assertEquals(gold.next(), entry.getDescription());
-      assertEquals(gold.next(), String.valueOf(entry.getValue()));
-    }
-    for (BooleanEntry entry : form.getB13().getValue()) {
-      assertEquals(gold.next(), String.valueOf(entry.getValue()));
-    }
-    for (IntEntry entry : form.getB14().getValue()) {
-      assertEquals(gold.next(), entry.getDescription());
-      assertEquals(gold.next(), String.valueOf(entry.getValue()));
-    }
-    assertEquals(gold.next(), String.valueOf(form.getB15().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getBEmployerStateIdNumber().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB16().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB17().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB18().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB19().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB20().getValue()));
-    assertFalse(gold.hasNext());
   }
 }

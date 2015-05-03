@@ -20,7 +20,7 @@ import java.io.IOException;
 
 // TODO(kirktdev): write tests
 // TODO(kirktdev): separate prod input txt and test input txt
-public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
+public class F1040ScheduleATaxYear2014 extends AttachedForm {
 
   private IntEntry b1 = new IntEntry();
   private IntEntry b2 = new IntEntry();
@@ -85,7 +85,6 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     // readFromF1040(((F1040TaxYear2014) motherForm).getB38().getValue());
   }
 
-  @Override
   public void readFromFile(String fileName) {
     if (fileImported) {
       throw new IllegalStateException("Form " + getFormType() + " for tax year " + getTaxYear()
@@ -358,7 +357,6 @@ public class F1040ScheduleATaxYear2014 implements AttachedForm, InputForm {
     return b30;
   }
 
-  @Override
   public void prod() {
     F1040ScheduleATaxYear2014 form = new F1040ScheduleATaxYear2014();
     // TODO(kirktdev): init

@@ -7,7 +7,7 @@ import com.kirkkt.java.tax.forms.fillable.AttachedForm;
 
 import com.google.common.base.Preconditions;
 
-public class F6251ExemptionWorksheetTaxYear2014 implements AttachedForm {
+public class F6251ExemptionWorksheetTaxYear2014 extends AttachedForm {
 
   private int b1 = 0;
   private int b2 = 0;
