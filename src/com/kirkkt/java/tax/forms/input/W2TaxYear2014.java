@@ -23,8 +23,6 @@ import java.util.Set;
 import java.util.List;
 
 public class W2TaxYear2014 extends InputForm {
-// TODO(kirktdev): use collections instead of declaring individual entries
-
   private static final Map<String, String> STRING_ENTRY_KEY_MAP = ImmutableMap.of(
       "employer address", "Employer address",
       "employer identification number", "Empyter identification number",
@@ -32,6 +30,8 @@ public class W2TaxYear2014 extends InputForm {
       "employer state id number", "Employer state ID number",
       "b20", "Locality name"
       );
+  @Override
+  public Map<String, String> getStringEntryKeyMap() { return STRING_ENTRY_KEY_MAP;}
   private static final Map<String, String> INT_ENTRY_KEY_MAP =
       ImmutableMap.<String, String>builder()
           .put("b1", "Wages, tips, other compensation")
@@ -49,22 +49,30 @@ public class W2TaxYear2014 extends InputForm {
           .put("b18", "Local wages, tips, etc.")
           .put("b19", "Local income tax")
           .build();
+  @Override
+  public Map<String, String> getIntEntryKeyMap() { return INT_ENTRY_KEY_MAP;}
   private static final Map<String, String> BOOLEAN_LIST_ENTRY_KEY_MAP = ImmutableMap.of(
       "b13", ""
   );
-  private static final Map<String, List<String>> BOOLEAN_LIST_ENTRY_SUBENTRY_KEY_MAP =
+  @Override
+  public Map<String, String> getBooleanListEntryKeyMap() { return BOOLEAN_LIST_ENTRY_KEY_MAP;}
+  @Override
+  public Map<String, String> getBooleanEntryKeyMap() { return ImmutableMap.<String, String>of();}
+  private static final Map<String, List<String>> BOOLEAN_LIST_SUBENTRY_KEY_MAP =
       ImmutableMap.of(
           "b13", Arrays.asList(
               "Statutory employee",
               "Retirement plan",
               "Third-party sick pay"
           ));
+  @Override
+  public Map<String, List<String>> getBooleanListSubentryKeyMap() { return BOOLEAN_LIST_SUBENTRY_KEY_MAP;}
   private static final Map<String, String> INT_LIST_ENTRY_KEY_MAP = ImmutableMap.of(
       "b12","See instrubtions for box 12",
       "b14","Others"
   );
-
-  private HashMap<String, Entry<?>> entries = new LinkedHashMap<String, Entry<?>>();
+  @Override
+  public Map<String, String> getIntListEntryKeyMap() { return INT_LIST_ENTRY_KEY_MAP;}
 
   private IntEntry b1 = new IntEntry();
   private IntEntry b2 = new IntEntry();
@@ -107,55 +115,7 @@ public class W2TaxYear2014 extends InputForm {
 
   @Override
   public void readFromFile(String fileName) {
-    if (fileImported) {
-      throw new IllegalStateException("Form " + getFormType() + " for tax year " + getTaxYear()
-          + " can't read from files more than once.");
-    }
-    fileImported = true;
-
-    BufferedReader br;
-    String line;
-
-    try {
-      br = new BufferedReader(new FileReader(fileName));
-      while ((line = br.readLine()) != null) {
-        if (line.equals("w2 " + getTaxYear()) || line.startsWith("# ")) {
-          // heading or comments
-          continue;
-        }
-
-        String header = line.split(": ")[0];
-        if (STRING_ENTRY_KEY_MAP.keySet().contains(header)) {
-          StringEntry entry = new StringEntry();
-          entry.readFromLine(line, header + ": ");
-          entry.setDescription(STRING_ENTRY_KEY_MAP.get(header));
-          entries.put(header, entry);
-        } else if (INT_ENTRY_KEY_MAP.keySet().contains(header)) {
-          IntEntry entry = new IntEntry();
-          entry.readFromLine(line, header + ": ");
-          entry.setDescription(INT_ENTRY_KEY_MAP.get(header));
-          entries.put(header, entry);
-        } else if (BOOLEAN_LIST_ENTRY_KEY_MAP.keySet().contains(header)) {
-          BooleanListEntry entry = new BooleanListEntry();
-          entry.readFromLine(line, header + ": ");
-          entry.setDescription(BOOLEAN_LIST_ENTRY_KEY_MAP.get(header));
-          for (BooleanEntry subentry : entry.getValue()) {
-            subentry.setDescription(BOOLEAN_LIST_ENTRY_SUBENTRY_KEY_MAP.get(header).iterator().next());
-          }
-          entries.put(header, entry);
-        } else if (INT_LIST_ENTRY_KEY_MAP.keySet().contains(header)) {
-          IntListEntry entry = new IntListEntry();
-          entry.readFromLine(line, header + ": ");
-          entry.setDescription(INT_LIST_ENTRY_KEY_MAP.get(header));
-          entries.put(header, entry);
-        } else {
-          throw new IllegalArgumentException("Invalid input line: " + line);
-        }
-      }
-      br.close();
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read file " + fileName + " due to error " + e);
-    }
+    super.readFromFile(fileName);
   }
 
   @Override
@@ -166,16 +126,12 @@ public class W2TaxYear2014 extends InputForm {
 
   // TODO(kirktdev): extract to Forms abstract class
 
-  public boolean doesKeyExist(String key) {
-    return entries.keySet().contains(key);
-  }
-
   public Set<String> keySet() {
     return entries.keySet();
   }
 
   public boolean isEntryValueEqual(String key, String expected) {
-    return doesKeyExist(key) && entries.get(key).isEqualTo(expected);
+    return keySet().contains(key) && entries.get(key).isEqualTo(expected);
     // return entries.get(key).getClass();
   }
 
