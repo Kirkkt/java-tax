@@ -41,7 +41,7 @@ public class BooleanListEntry extends Entry<List<BooleanEntry>> {
   @Override
   public String forcePrint() {
     String result = "";
-    result += getId() + ":\n  ";
+    result += getId() + ":\n";
     for (BooleanEntry entry : value) {
       if (!falseWord.isEmpty() || entry.getValue()) {
         result += "  " + (entry.getDescription().isEmpty() ? "" : (entry.getDescription() + " "))

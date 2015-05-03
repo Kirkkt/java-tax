@@ -8,6 +8,7 @@ import com.kirkkt.javatests.tax.TestUtil;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.IntEntry;
+import com.kirkkt.java.tax.forms.BooleanEntry;
 import com.kirkkt.java.tax.forms.input.W2TaxYear2014;
 
 import com.google.common.collect.UnmodifiableIterator;
@@ -41,8 +42,8 @@ public class W2TaxYear2014Test implements TestCase {
       assertEquals(gold.next(), entry.getDescription());
       assertEquals(gold.next(), String.valueOf(entry.getValue()));
     }
-    for (boolean value : form.getB13()) {
-      assertEquals(gold.next(), String.valueOf(value));
+    for (BooleanEntry entry : form.getB13().getValue()) {
+      assertEquals(gold.next(), String.valueOf(entry.getValue()));
     }
     for (IntEntry entry : form.getB14().getValue()) {
       assertEquals(gold.next(), entry.getDescription());

@@ -6,6 +6,7 @@ import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.IntEntry;
 import com.kirkkt.java.tax.forms.IntListEntry;
+import com.kirkkt.java.tax.forms.BooleanListEntry;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -25,8 +26,7 @@ public class W2TaxYear2014 implements InputForm {
   private IntEntry b10 = new IntEntry();
   private IntEntry b11 = new IntEntry();
   private IntListEntry b12 = new IntListEntry();
-  // TODO(kirktdev): switch to booleanlistentyr
-  private boolean[] b13 = new boolean[3];
+  private BooleanListEntry b13 = new BooleanListEntry();
   private IntListEntry b14 = new IntListEntry();
   private IntEntry b16 = new IntEntry();
   private IntEntry b17 = new IntEntry();
@@ -100,7 +100,10 @@ public class W2TaxYear2014 implements InputForm {
           b12.readFromLine(line, "b12 ");
           b12.setDescription("See instrubtions for box 12");
         } else if (line.startsWith("b13 ")) {
-          b13 = Parser.parseBooleanArray(line, 2);
+          b13.readFromLine(line, "b13 ");
+          b13.getValue().get(0).setDescription("Statutory employee");
+          b13.getValue().get(1).setDescription("Retirement plan");
+          b13.getValue().get(2).setDescription("Third-party sick pay");
         } else if (line.startsWith("b14 ")) {
           b14.readFromLine(line, "b14 ");
           b14.setDescription("Others");
@@ -205,7 +208,7 @@ public class W2TaxYear2014 implements InputForm {
    * [1] Retirement plan.
    * [2] Thrid-party sick pay.
    */
-  public boolean[] getB13() {
+  public BooleanListEntry getB13() {
     return b13;
   }
 
@@ -268,10 +271,7 @@ public class W2TaxYear2014 implements InputForm {
     result += "\n";
 
     result += b11.print();
-    result += "13\n";
-    result += String.format("  Statutory employee: [%s]\n", b13[0] ? "X" : " ");
-    result += String.format("  Retirement plan: [%s]\n", b13[1] ? "X" : " ");
-    result += String.format("  Third-party sick pay: [%s]\n", b13[2] ? "X" : " ");
+    result += b13.print();
     result += "\n";
 
     result += b12.print();
