@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.IntEntry;
+import com.kirkkt.java.tax.forms.StringEntry;
 import com.kirkkt.java.tax.forms.IntListEntry;
 import com.kirkkt.java.tax.forms.BooleanListEntry;
 
@@ -28,11 +29,12 @@ public class W2TaxYear2014 implements InputForm {
   private IntListEntry b12 = new IntListEntry();
   private BooleanListEntry b13 = new BooleanListEntry();
   private IntListEntry b14 = new IntListEntry();
+  private StringEntry b15 = new StringEntry();
   private IntEntry b16 = new IntEntry();
   private IntEntry b17 = new IntEntry();
   private IntEntry b18 = new IntEntry();
   private IntEntry b19 = new IntEntry();
-  private String b20 = "";
+  private StringEntry b20 = new StringEntry();
 
   private boolean fileImported = false;
 
@@ -108,8 +110,8 @@ public class W2TaxYear2014 implements InputForm {
           b14.readFromLine(line, "b14 ");
           b14.setDescription("Others");
         } else if (line.startsWith("b15 ")) {
-          Preconditions.checkArgument("CA".equals(line.split(" ", 2)[1]),
-              Parser.genericParsingErrorMessage(line) + "\nExpecting:\n  CA");
+          b15.readFromLine(line, "b15 ");
+          b15.setDescription("State");
         } else if (line.startsWith("employer's state id no.")) {
           Preconditions.checkArgument(util.getEmployerStateIdNumber().equals(line.split(" ", 5)[4]),
               Parser.genericParsingErrorMessage(line)
@@ -128,7 +130,8 @@ public class W2TaxYear2014 implements InputForm {
           b19.readFromLine(line, "b19 ");
           b19.setDescription("Local income tax");
         } else if (line.startsWith("b20 ")) {
-          b20 = line.split(" ", 2)[1];
+          b20.readFromLine(line, "b20 ");
+          b20.setDescription("Locality name");
         } else {
           br.close();
           throw new IllegalArgumentException("Invalid input line: " + line);
@@ -217,6 +220,11 @@ public class W2TaxYear2014 implements InputForm {
     return b14;
   }
 
+  /** State */
+  public StringEntry getB15() {
+    return b15;
+  }
+
   /** State wages, tips, etc. */
   public IntEntry getB16() {
     return b16;
@@ -238,7 +246,7 @@ public class W2TaxYear2014 implements InputForm {
   }
 
   /** Locality name. */
-  public String getB20() {
+  public StringEntry getB20() {
     return b20;
   }
 
@@ -278,13 +286,13 @@ public class W2TaxYear2014 implements InputForm {
     result += b14.print();
     result += "\n";
 
-    result += "15 State:\n  CA\n";
+    result += b15.print();
     result += "Employer's state ID No.:\n  " + util.getEmployerStateIdNumber() + "\n";
     result += b16.print();
     result += b17.print();
     result += b18.print();
     result += b19.print();
-    result += "20 Locality name:\n  " + b20 + "\n";
+    result += b20.print();
     result += "\n";
 
     result += "-----------------------\n";
