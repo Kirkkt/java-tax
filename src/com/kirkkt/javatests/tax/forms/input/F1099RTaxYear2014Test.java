@@ -33,8 +33,8 @@ public class F1099RTaxYear2014Test implements TestCase {
     assertEquals(gold.next(), String.valueOf(form.getBAccountNumber().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB1().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB2a().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB2b()[0]));
-    assertEquals(gold.next(), String.valueOf(form.getB2b()[1]));
+    assertEquals(gold.next(), String.valueOf(form.getB2b().getValue().get(0).getValue()));
+    assertEquals(gold.next(), String.valueOf(form.getB2b().getValue().get(1).getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB3().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB4().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB5().getValue()));

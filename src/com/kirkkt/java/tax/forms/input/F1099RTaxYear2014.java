@@ -3,6 +3,7 @@ package com.kirkkt.java.tax.forms.input;
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.BooleanEntry;
+import com.kirkkt.java.tax.forms.BooleanListEntry;
 import com.kirkkt.java.tax.forms.IntEntry;
 import com.kirkkt.java.tax.forms.StringEntry;
 
@@ -16,8 +17,7 @@ public class F1099RTaxYear2014 implements InputForm {
   private StringEntry bPayerName = new StringEntry();
   private IntEntry b1 = new IntEntry();
   private IntEntry b2a = new IntEntry();
-  // TODO(kirktdev): switch to entry objects
-  private boolean[] b2b = new boolean[2];
+  private BooleanListEntry b2b = new BooleanListEntry();
   private IntEntry b3 = new IntEntry();
   private IntEntry b4 = new IntEntry();
   private IntEntry b5 = new IntEntry();
@@ -73,7 +73,9 @@ public class F1099RTaxYear2014 implements InputForm {
           b2a.readFromLine(line, "b2a ");
           b2a.setDescription("Taxable amount");
         } else if (line.startsWith("b2b ")) {
-          b2b = Parser.parseBooleanArray(line, 2);
+          b2b.readFromLine(line, "b2b ");
+          b2b.getValue().get(0).setDescription("Taxable amount not determined");
+          b2b.getValue().get(1).setDescription("Total distribution");
         } else if (line.startsWith("b3 ")) {
           b3.readFromLine(line, "b3 ");
           b3.setDescription("Capital gain");
@@ -155,7 +157,7 @@ public class F1099RTaxYear2014 implements InputForm {
    * [0] Taxablea mount not determined.
    * [1] Total distribution.
    */
-  public boolean[] getB2b() {
+  public BooleanListEntry getB2b() {
     return b2b;
   }
 
@@ -250,21 +252,10 @@ public class F1099RTaxYear2014 implements InputForm {
     result += "\n";
 
     result += b2a.print();
-
-    if (b2b[0]) {
-      result += "2b Taxable amount not determined:\n  X" + "\n";
-    }
-    if (b2b[1]) {
-      result += "2b Total distribution:\n  X" + "\n";
-    }
-    if (b2b[0] || b2b[1])
-      result += "\n";
-
+    result += b2b.print();
     result += b3.print();
     result += b4.print();
-    // if (b3.isDirty() || b4.isDirty()) {
-      result += "\n";
-    // }
+    result += "\n";
 
     result += b5.print();
     result += b6.print();
