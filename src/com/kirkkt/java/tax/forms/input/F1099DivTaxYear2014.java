@@ -3,7 +3,6 @@ package com.kirkkt.java.tax.forms.input;
 import com.google.common.collect.ImmutableMap;
 
 import com.kirkkt.java.tax.Parser;
-import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.IntEntry;
 import com.kirkkt.java.tax.forms.StringEntry;
 
@@ -35,8 +34,6 @@ public class F1099DivTaxYear2014 extends InputForm {
           .put("b11", "Specified private activity bond interest dividends")
           .put("b14", "State tax withheld")
           .build();
-  // TODO(kirktdev): remove?
-  private final TaxUtil util = new TaxUtil();
 
   public F1099DivTaxYear2014() {}
 

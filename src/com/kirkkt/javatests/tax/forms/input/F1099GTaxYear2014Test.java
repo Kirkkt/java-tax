@@ -1,17 +1,12 @@
 package com.kirkkt.javatests.tax.forms.input;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
-import com.kirkkt.javatests.tax.TestCase;
-import com.kirkkt.javatests.tax.TestUtil;
-import com.kirkkt.java.tax.TaxUtil;
+import com.kirkkt.javatests.tax.FormTest;
 import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.input.F1099GTaxYear2014;
 
-import com.google.common.collect.UnmodifiableIterator;
-
-public class F1099GTaxYear2014Test implements TestCase {
+public class F1099GTaxYear2014Test extends FormTest {
 
   @Override
   public Form getForm() {
@@ -19,18 +14,19 @@ public class F1099GTaxYear2014Test implements TestCase {
   }
 
   @Override
-  public void test() {
-    F1099GTaxYear2014 form = new F1099GTaxYear2014();
-    form.readFromFile(TaxUtil.DATA_FOLDER + "/forms/input/f1099gtaxyear2014.txt");
-    assertEquals("F1099G", form.getFormType());
-    assertEquals(2014, form.getTaxYear());
-    UnmodifiableIterator<String> gold =
-        TestUtil.getGold(TestUtil.TEST_DATA_FOLDER + "/forms/input/f1099gtaxyear2014gold.txt");
+  public String getInputFilePath() {
+    return "/forms/input/f1099gtaxyear2014.txt";
+  }
 
-    assertEquals(gold.next(), String.valueOf(form.getBPayerInfo().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getBPayerFEIN().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB2().getValue()));
-    assertEquals(gold.next(), String.valueOf(form.getB3().getValue()));
-    assertFalse(gold.hasNext());
+  @Override
+  public String getGoldFilePath() {
+    return "/forms/input/f1099gtaxyear2014gold.txt";
+  }
+
+  @Override
+  public void test() {
+    assertEquals("F1099G", getForm().getFormType());
+    assertEquals(2014, getForm().getTaxYear());
+    super.test();
   }
 }

@@ -1,11 +1,8 @@
 package com.kirkkt.javatests.tax.forms.input;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
-import com.kirkkt.javatests.tax.TestCase;
 import com.kirkkt.javatests.tax.FormTest;
-import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.input.F1099DivTaxYear2014;
 
