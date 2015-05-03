@@ -2,15 +2,6 @@ package com.kirkkt.java.tax.forms.input;
 
 import com.google.common.collect.ImmutableMap;
 
-import com.kirkkt.java.tax.Parser;
-import com.kirkkt.java.tax.TaxUtil;
-import com.kirkkt.java.tax.forms.IntEntry;
-import com.kirkkt.java.tax.forms.Entry;
-import com.kirkkt.java.tax.forms.BooleanEntry;
-import com.kirkkt.java.tax.forms.StringEntry;
-import com.kirkkt.java.tax.forms.IntListEntry;
-import com.kirkkt.java.tax.forms.BooleanListEntry;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -99,8 +90,7 @@ public class W2TaxYear2014 extends InputForm {
   }
 
   @Override
-  public void prod() {
-    readFromFile(TaxUtil.DATA_FOLDER + "/forms/input/w2taxyear2014.txt");
-    System.out.print(this);
+  public String getInputFilePath() {
+    return "/forms/input/w2taxyear2014.txt";
   }
 }

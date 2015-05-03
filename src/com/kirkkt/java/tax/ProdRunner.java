@@ -16,13 +16,13 @@ public class ProdRunner {
   }
 
   private ProdRunner() {
-    ImmutableList<InputForm> forms = ImmutableList.<InputForm>of(
+    ImmutableList<InputForm> forms = ImmutableList.<InputForm>builder()
       // Add new tests here.
-      new F1099DivTaxYear2014(),
-      new F1099GTaxYear2014(),
-      new F1099RTaxYear2014(),
-      new W2TaxYear2014()
-    );
+      .add(new F1099DivTaxYear2014())
+      .add(new F1099GTaxYear2014())
+      .add(new F1099RTaxYear2014())
+      // .add(new W2TaxYear2014())
+      .build();
 
     for (InputForm form : forms) {
       form.prod();

@@ -129,12 +129,6 @@ public class F1099RTaxYear2014 extends InputForm {
     }
   }
 
-  @Override
-  public void prod() {
-    readFromFile(TaxUtil.DATA_FOLDER + "/forms/input/f1099rtaxyear2014.txt");
-    System.out.print(this);
-  }
-
   public StringEntry getBPayerFederalIdentificationNumber() {
     return bPayerFederalIdentificationNumber;
   }
@@ -289,5 +283,10 @@ public class F1099RTaxYear2014 extends InputForm {
     result += "-----------------------\n";
 
     return result;
+  }
+
+  @Override
+  public String getInputFilePath() {
+    return "/forms/input/f1099rtaxyear2014.txt";
   }
 }
