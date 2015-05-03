@@ -27,5 +27,6 @@ public class W2TaxYear2014Test extends FormTest {
   public void test() {
     assertEquals("W2", getForm().getFormType());
     assertEquals(2014, getForm().getTaxYear());
+    super.test();
   }
 }
