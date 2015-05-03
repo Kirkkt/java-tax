@@ -44,8 +44,8 @@ public class BooleanListEntry extends Entry<List<BooleanEntry>> {
     result += getId() + ":\n  ";
     for (BooleanEntry entry : value) {
       if (!falseWord.isEmpty() || entry.getValue()) {
-        result += (entry.getDescription().isEmpty() ? "" : (entry.getDescription() + " "))
-            + (entry.getValue() ? trueWord : falseWord) + " ";
+        result += "  " + (entry.getDescription().isEmpty() ? "" : (entry.getDescription() + " "))
+            + (entry.getValue() ? trueWord : falseWord) + "\n";
       }
     }
     result += "\n";

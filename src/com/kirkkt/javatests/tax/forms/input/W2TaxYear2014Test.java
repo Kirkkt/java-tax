@@ -7,6 +7,7 @@ import com.kirkkt.javatests.tax.TestCase;
 import com.kirkkt.javatests.tax.TestUtil;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
+import com.kirkkt.java.tax.forms.IntEntry;
 import com.kirkkt.java.tax.forms.input.W2TaxYear2014;
 
 import com.google.common.collect.UnmodifiableIterator;
@@ -36,16 +37,16 @@ public class W2TaxYear2014Test implements TestCase {
     assertEquals(gold.next(), String.valueOf(form.getB8().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB10().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB11().getValue()));
-    for (String key : form.getB12().keySet()) {
-      assertEquals(gold.next(), String.valueOf(key));
-      assertEquals(gold.next(), String.valueOf(form.getB12().get(key)));
+    for (IntEntry entry : form.getB12().getValue()) {
+      assertEquals(gold.next(), entry.getDescription());
+      assertEquals(gold.next(), String.valueOf(entry.getValue()));
     }
     for (boolean value : form.getB13()) {
       assertEquals(gold.next(), String.valueOf(value));
     }
-    for (String key : form.getB14().keySet()) {
-      assertEquals(gold.next(), String.valueOf(key));
-      assertEquals(gold.next(), String.valueOf(form.getB14().get(key)));
+    for (IntEntry entry : form.getB14().getValue()) {
+      assertEquals(gold.next(), entry.getDescription());
+      assertEquals(gold.next(), String.valueOf(entry.getValue()));
     }
     assertEquals(gold.next(), String.valueOf(form.getB16().getValue()));
     assertEquals(gold.next(), String.valueOf(form.getB17().getValue()));

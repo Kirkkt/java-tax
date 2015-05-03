@@ -1,11 +1,11 @@
 package com.kirkkt.java.tax.forms.input;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
 
 import com.kirkkt.java.tax.Parser;
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.IntEntry;
+import com.kirkkt.java.tax.forms.IntListEntry;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,11 +24,10 @@ public class W2TaxYear2014 implements InputForm {
   private IntEntry b8 = new IntEntry();
   private IntEntry b10 = new IntEntry();
   private IntEntry b11 = new IntEntry();
-  // TODO(kirktdev): switch to entry object
-  private ImmutableMap<String, Integer> b12 = null;
-  // TODO(kirktdev): switch to entry object
+  private IntListEntry b12 = new IntListEntry();
+  // TODO(kirktdev): switch to booleanlistentyr
   private boolean[] b13 = new boolean[3];
-  private ImmutableMap<String, Integer> b14 = null;
+  private IntListEntry b14 = new IntListEntry();
   private IntEntry b16 = new IntEntry();
   private IntEntry b17 = new IntEntry();
   private IntEntry b18 = new IntEntry();
@@ -98,21 +97,13 @@ public class W2TaxYear2014 implements InputForm {
           b11.readFromLine(line, "b11 ");
           b11.setDescription("Nonqualified plans");
         } else if (line.startsWith("b12 ")) {
-          String[] words = line.split(" ");
-          ImmutableMap.Builder<String, Integer> b12MapBuilder = ImmutableMap.builder();
-          for (int i = 1; i < words.length - 1; i += 2) {
-            b12MapBuilder.put(words[i], Parser.parseAndRound(words[i + 1], 1));
-          }
-          b12 = b12MapBuilder.build();
+          b12.readFromLine(line, "b12 ");
+          b12.setDescription("See instrubtions for box 12");
         } else if (line.startsWith("b13 ")) {
           b13 = Parser.parseBooleanArray(line, 2);
         } else if (line.startsWith("b14 ")) {
-          String[] words = line.split(" ");
-          ImmutableMap.Builder<String, Integer> b14MapBuilder = ImmutableMap.builder();
-          for (int i = 1; i < words.length - 1; i += 2) {
-            b14MapBuilder.put(words[1], Parser.parseAndRound(words[i + 1], 1));
-          }
-          b14 = b14MapBuilder.build();
+          b14.readFromLine(line, "b14 ");
+          b14.setDescription("Others");
         } else if (line.startsWith("b15 ")) {
           Preconditions.checkArgument("CA".equals(line.split(" ", 2)[1]),
               Parser.genericParsingErrorMessage(line) + "\nExpecting:\n  CA");
@@ -203,7 +194,7 @@ public class W2TaxYear2014 implements InputForm {
   }
 
   /** Annotation codes. */
-  public ImmutableMap<String, Integer> getB12() {
+  public IntListEntry getB12() {
     return b12;
   }
 
@@ -219,7 +210,7 @@ public class W2TaxYear2014 implements InputForm {
   }
 
   /** Other */
-  public ImmutableMap<String, Integer> getB14() {
+  public IntListEntry getB14() {
     return b14;
   }
 
@@ -282,25 +273,10 @@ public class W2TaxYear2014 implements InputForm {
     result += String.format("  Retirement plan: [%s]\n", b13[1] ? "X" : " ");
     result += String.format("  Third-party sick pay: [%s]\n", b13[2] ? "X" : " ");
     result += "\n";
-    if (b11.isDirty() || b13[0] || b13[1] || b13[2]) {
-      result += "\n";
-    }
 
-    if (b12 != null) {
-      result += "12 See instrubtions for box 12\n";
-      for (String key : b12.keySet()) {
-        result += "  " + key + "\t" + b12.get(key) + "\n";
-      }
-    }
-    if (b14 != null) {
-      result += "14 Other\n";
-      for (String key : b14.keySet()) {
-        result += "  " + key + "\t" + b14.get(key) + "\n";
-      }
-    }
-    if (b12 != null || b14 != null) {
-      result += "\n";
-    }
+    result += b12.print();
+    result += b14.print();
+    result += "\n";
 
     result += "15 State:\n  CA\n";
     result += "Employer's state ID No.:\n  " + util.getEmployerStateIdNumber() + "\n";

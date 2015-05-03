@@ -73,6 +73,7 @@ public class Entry<T> {
       throw new IllegalArgumentException("line " + line + " doesn't start with " + prefix);
     }
     setId(prefix.trim());
+    this.dirty = true;
   }
 
   public String forcePrint() {
