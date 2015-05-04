@@ -21,10 +21,9 @@ public class TestRunner {
     ImmutableList<TestCase> testCases = ImmutableList.<TestCase>of(
       // Add new tests here.
       // worksheets
-      new F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014Test(),
-      new F1040TaxComputationWorksheetTaxYear2014Test(),
-      new F6251ExemptionWorksheetTaxYear2014Test(),
-      new ItemizedDeductionsWorksheetTaxYear2014Test()
+      // new F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014Test(),
+      // new F1040TaxComputationWorksheetTaxYear2014Test(),
+      // new F6251ExemptionWorksheetTaxYear2014Test(),
     );
 
     ImmutableList<FormTest> formTests = ImmutableList.<FormTest>builder()
@@ -33,6 +32,7 @@ public class TestRunner {
         .add(new F1099GTaxYear2014Test())
         .add(new F1099RTaxYear2014Test())
         .add(new W2TaxYear2014Test())
+        .add(new ItemizedDeductionsWorksheetTaxYear2014Test())
         .build();
 
     for (TestCase testCase : testCases) {

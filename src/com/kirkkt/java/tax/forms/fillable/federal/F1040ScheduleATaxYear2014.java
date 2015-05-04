@@ -455,7 +455,7 @@ public class F1040ScheduleATaxYear2014 extends AttachedForm {
       ItemizedDeductionsWorksheetTaxYear2014 worksheet =
           new ItemizedDeductionsWorksheetTaxYear2014();
       worksheet.readFromMotherForm(this);
-      b29.setValue(worksheet.getBResult());
+      b29.setValue(worksheet.getIntValue("bresult"));
     }
   }
 

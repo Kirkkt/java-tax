@@ -2,7 +2,6 @@ package com.kirkkt.javatests.tax;
 
 import static org.junit.Assert.assertEquals;
 
-import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.javatests.tax.TestUtil;
 
@@ -12,7 +11,7 @@ public abstract class FormTest {
   /** Runs the test. */
   public void test() {
     Form form = getForm();
-    form.readFromFile(TaxUtil.DATA_FOLDER + getInputFilePath());
+    form.readFromFile(TestUtil.TEST_DATA_FOLDER + getInputFilePath());
 
     Map<String, String> goldMap =
         TestUtil.getGoldMap(TestUtil.TEST_DATA_FOLDER + getGoldFilePath());

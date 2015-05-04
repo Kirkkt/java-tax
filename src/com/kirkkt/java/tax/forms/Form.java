@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -129,11 +130,67 @@ public abstract class Form {
     return keySet().contains(key) && entries.get(key).isEqualTo(expected);
   }
 
+  public void setValue(String key, Object value) {
+    if (!fullKeySet().contains(key)) {
+      return;
+    }
+    if (!keySet().contains(key)) {
+      if (getIntEntryKeyMap().keySet().contains(key)) {
+        entries.put(key, new IntEntry());
+      } else if (getStringEntryKeyMap().keySet().contains(key)) {
+        entries.put(key, new StringEntry());
+      } else if (getBooleanEntryKeyMap().keySet().contains(key)) {
+        entries.put(key, new BooleanEntry());
+      } else if (getBooleanListEntryKeyMap().keySet().contains(key)) {
+        entries.put(key, new BooleanListEntry());
+      } else if (getIntListEntryKeyMap().keySet().contains(key)) {
+        entries.put(key, new IntListEntry());
+      }
+    }
+
+    if (entries.get(key) instanceof IntEntry) {
+      ((IntEntry) entries.get(key)).setValue((Integer) value);
+    } else if (entries.get(key) instanceof BooleanEntry) {
+      ((BooleanEntry) entries.get(key)).setValue((Boolean) value);
+    } else if (entries.get(key) instanceof StringEntry) {
+      ((StringEntry) entries.get(key)).setValue((String) value);
+    }
+  }
+
+  private Set<String> fullKeySet() {
+    HashSet<String> result = new HashSet<String>();
+    result.addAll(getIntListEntryKeyMap().keySet());
+    result.addAll(getBooleanListEntryKeyMap().keySet());
+    result.addAll(getIntEntryKeyMap().keySet());
+    result.addAll(getBooleanEntryKeyMap().keySet());
+    result.addAll(getStringEntryKeyMap().keySet());
+    return result;
+  }
+
+  public void resetValue(String key) {
+    if (!keySet().contains(key)) {
+      return;
+    }
+    entries.get(key).reset();
+  }
+
   public Object getValue(String key) {
-    if (keySet().contains(key)) {
+    if (!keySet().contains(key)) {
       return null;
     }
     return entries.get(key).getValue();
+  }
+
+  public Integer getIntValue(String key) {
+    return (getValue(key) == null) ? 0 : (Integer) getValue(key);
+  }
+
+  public Boolean getBooleanValue(String key) {
+    return (getValue(key) == null) ? false : (Boolean) getValue(key);
+  }
+
+  public String getStringValue(String key) {
+    return (getValue(key) == null) ? "" : (String) getValue(key);
   }
 
   public String toString() {

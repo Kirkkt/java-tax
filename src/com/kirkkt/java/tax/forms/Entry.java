@@ -21,6 +21,10 @@ public class Entry<T> {
     value = getDefaultValue();
   }
 
+  public void reset() {
+    init();
+  }
+
   public Entry<T> setId(String id) {
     this.id = id;
     return this;
