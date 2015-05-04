@@ -19,11 +19,6 @@ public class TestRunner {
   }
 
   private TestRunner() {
-    ImmutableList<TestCase> testCases = ImmutableList.<TestCase>of(
-      // Add new tests here.
-      // new F6251ExemptionWorksheetTaxYear2014Test(),
-    );
-
     ImmutableList<FormTest> formTests = ImmutableList.<FormTest>builder()
         // input forms
         .add(new F1099DivTaxYear2014Test())
@@ -34,19 +29,9 @@ public class TestRunner {
         .add(new F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014Test())
         .add(new F1040TaxComputationWorksheetTaxYear2014Test())
         .add(new F1040TaxComputationWorksheetTaxYear2014Test2())
+        .add(new F6251ExemptionWorksheetTaxYear2014Test())
         .add(new ItemizedDeductionsWorksheetTaxYear2014Test())
         .build();
-
-    for (TestCase testCase : testCases) {
-      String message = "Testing form " + testCase.getForm().getFormType();
-      if (testCase.getForm().getTaxYear() > 0) {
-        message += " tax year " + testCase.getForm().getTaxYear();
-      }
-      message += " ...";
-      System.out.print(message);
-      testCase.test();
-      System.out.println(" \033[0;32mPASSED\033[0m.");
-    }
 
     for (FormTest formTest : formTests) {
       String message = "Testing form " + formTest.getForm().getFormType();

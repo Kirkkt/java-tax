@@ -14,6 +14,7 @@ public class F6251ExemptionWorksheetTaxYear2014 extends AttachedForm {
 
   private static final Map<String, String> INT_ENTRY_KEY_MAP =
       ImmutableMap.<String, String>builder()
+          .put("formb28", "")
           .put("b1", "")
           .put("b2", "")
           .put("b3", "")
@@ -43,18 +44,19 @@ public class F6251ExemptionWorksheetTaxYear2014 extends AttachedForm {
     // readFromF6251(form.getB28());
   }
 
-  public void readFromMotherForm(int formB28) {
-    if (formB28 >= 328500) {
-      setValue("bresult", formB28);
+  @Override
+  public void doMath() {
+    if (getIntValue("formb28") >= 328500) {
+      setValue("bresult", getIntValue("formb28"));
       return;
     }
 
     setValue("b1", 52800);
-    setValue("b2", formB28);
+    setValue("b2", getIntValue("formb28"));
     setValue("b3", 117300);
     setValue("b4", Math.max(0, getIntValue("b2") - getIntValue("b3")));
     setValue("b5", Math.round(.25f * getIntValue("b4")));
-    setValue("b6", Math.max(0, getIntValue("b4") - getIntValue("b4")));
-    setValue("bresult", getIntValue("b4"));
+    setValue("b6", Math.max(0, getIntValue("b1") - getIntValue("b5")));
+    setValue("bresult", getIntValue("b6"));
   }
 }
