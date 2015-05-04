@@ -13,7 +13,6 @@ import java.util.Map;
  * A helper class to host all static parsing logic.
  * </p> Should never be instantiated.
  */
-// TODO(kirktdev): parse boolean
 public final class Parser {
 
   private static final String GENERAL_PARSING_ERROR_MESSAGE = "Error processing line";

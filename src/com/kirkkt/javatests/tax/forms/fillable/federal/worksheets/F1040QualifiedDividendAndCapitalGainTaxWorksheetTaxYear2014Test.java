@@ -1,11 +1,8 @@
 package com.kirkkt.javatests.tax.forms.fillable.federal.worksheets;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 import com.kirkkt.javatests.tax.FormTest;
-import com.kirkkt.javatests.tax.TestUtil;
-import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.fillable.federal.worksheets.F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014;
 

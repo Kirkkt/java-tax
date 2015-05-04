@@ -79,7 +79,7 @@ public class ItemizedDeductionsWorksheetTaxYear2014 extends AttachedForm {
         + getIntValue("formb19") + getIntValue("formb20") + getIntValue("formb27")
         + getIntValue("formb28"));
     setValue("b2", getIntValue("formb4") + getIntValue("formb14") + getIntValue("formb20"));
-    setValue("b3checkbox", getIntValue("b2") < getIntValue("b1"));
+    forceSetValue("b3checkbox", getIntValue("b2") < getIntValue("b1"));
     setValue("b5", getIntValue("formb2"));
 
     if (!getBooleanValue("b3checkbox")) {
@@ -92,7 +92,7 @@ public class ItemizedDeductionsWorksheetTaxYear2014 extends AttachedForm {
     setValue("b4", Math.round(.8f * getIntValue("b3")));
 
     setValue("b6", 254200);
-    setValue("b7checkbox", getIntValue("b6") < getIntValue("b5"));
+    forceSetValue("b7checkbox", getIntValue("b6") < getIntValue("b5"));
     if (!getBooleanValue("b7checkbox")) {
       setValue("bresult", getIntValue("b1"));
       return;

@@ -64,4 +64,8 @@ public class IntListEntry extends Entry<List<IntEntry>> {
     }
     return result;
   }
+
+  public void add(IntEntry entry) {
+    value.add(entry);
+  }
 }

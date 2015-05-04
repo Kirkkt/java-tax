@@ -1,6 +1,9 @@
 package com.kirkkt.javatests.tax;
 
 import com.kirkkt.java.tax.forms.Form;
+import com.kirkkt.java.tax.forms.Entry;
+import com.kirkkt.java.tax.forms.BooleanEntry;
+import com.kirkkt.java.tax.forms.IntEntry;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.UnmodifiableIterator;
@@ -11,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -58,16 +62,30 @@ public final class TestUtil {
     return goldBuilder.build();
   }
 
-  // TODO(kirktdev): use generics
   public static void checkContains(Set<?> set, Object item) {
     Preconditions.checkState(set.contains(item), "Not true that set " + set + " contains item "
         + item);
   }
 
   public static void checkFormEntryEquals(Form form, String key, String expected) {
-    // TODO(kirktdev): expected value?
-    Preconditions.checkState(form.isEntryValueEqual(key, expected), "Not true that entry " + key
-        + " in form " + form.getFormType() + " for tax year " + form.getTaxYear() + " has value ["
-        + expected + "].");
+    Preconditions.checkState(form.keySet().contains(key), "Key " + key + " cannot be found in form "
+        + form.getFormType() + " for tax year " + form.getTaxYear());
+    String actual = "";
+    if (form.getValue(key) instanceof List<?>) {
+      for (Object item : ((List<?>) form.getValue(key))) {
+        Entry<?> entry = (Entry) item;
+        if (item instanceof IntEntry) {
+          actual += entry.getDescription() + " ";
+        }
+        actual += String.valueOf(entry.getValue()) + " ";
+      }
+      actual = actual.trim();
+    } else {
+      actual = String.valueOf(form.getValue(key));
+    }
+    Preconditions.checkState(actual.equals(expected),
+        "Not true that entry " + key + " in form " + form.getFormType() + " for tax year "
+            + form.getTaxYear() + " has value [" + expected + "]. Actual: ["
+            + actual + "].");
   }
 }

@@ -9,7 +9,6 @@ public class Entry<T> {
   private String id;
   private boolean mustPrint;
 
-  private boolean dirty;
   private String description;
 
   public Entry() {
@@ -17,7 +16,6 @@ public class Entry<T> {
   }
 
   void init() {
-    dirty = false;
     value = getDefaultValue();
   }
 
@@ -45,7 +43,7 @@ public class Entry<T> {
   }
 
   public boolean shouldPrint() {
-    return mustPrint || dirty;
+    return mustPrint || isDirty();
   }
 
   public T getValue() {
@@ -54,9 +52,6 @@ public class Entry<T> {
 
   public void setValue(T value) {
     this.value = value;
-    if (value != getDefaultValue() || (value != null && !value.equals(getDefaultValue()))) {
-      this.dirty = true;
-    }
   }
 
   public T getDefaultValue() {
@@ -64,7 +59,7 @@ public class Entry<T> {
   }
 
   public boolean isDirty() {
-    return dirty;
+    return (value != getDefaultValue()) && (value != null && !value.equals(getDefaultValue()));
   }
 
   public String print() {
@@ -84,7 +79,6 @@ public class Entry<T> {
       throw new IllegalArgumentException("line " + line + " doesn't start with " + prefix);
     }
     setId(prefix.trim().split(":")[0]);
-    this.dirty = true;
   }
 
   public String forcePrint() {

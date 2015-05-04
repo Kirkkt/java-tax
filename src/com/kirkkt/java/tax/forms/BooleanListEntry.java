@@ -69,4 +69,8 @@ public class BooleanListEntry extends Entry<List<BooleanEntry>> {
     this.falseWord = falseWord;
     return this;
   }
+
+  public void add(BooleanEntry entry) {
+    value.add(entry);
+  }
 }

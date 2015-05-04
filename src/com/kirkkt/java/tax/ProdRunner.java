@@ -1,7 +1,8 @@
 package com.kirkkt.java.tax;
 
 import com.kirkkt.java.tax.forms.input.InputForm;
-import com.kirkkt.java.tax.forms.fillable.federal.worksheets.ItemizedDeductionsWorksheetTaxYear2014;
+import com.kirkkt.java.tax.forms.fillable.federal.F1040ScheduleATaxYear2014;
+import com.kirkkt.java.tax.forms.fillable.federal.F1040ScheduleBTaxYear2014;
 import com.kirkkt.java.tax.forms.input.F1099DivTaxYear2014;
 import com.kirkkt.java.tax.forms.input.F1099GTaxYear2014;
 import com.kirkkt.java.tax.forms.input.F1099RTaxYear2014;
@@ -17,11 +18,13 @@ public class ProdRunner {
 
   private ProdRunner() {
     ImmutableList<InputForm> forms = ImmutableList.<InputForm>builder()
-      // Add new tests here.
-      .add(new F1099DivTaxYear2014())
-      .add(new F1099GTaxYear2014())
-      .add(new F1099RTaxYear2014())
-      .add(new W2TaxYear2014())
+      // Add new prod here.
+      // .add(new F1099DivTaxYear2014())
+      // .add(new F1099GTaxYear2014())
+      // .add(new F1099RTaxYear2014())
+      // .add(new W2TaxYear2014())
+      // .add (new F1040ScheduleATaxYear2014())
+      // .add (new F1040ScheduleBTaxYear2014())
       .build();
 
     for (InputForm form : forms) {

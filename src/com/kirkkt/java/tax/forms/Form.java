@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -15,8 +16,6 @@ import java.util.Set;
 
 /** A form. */
 public abstract class Form {
-
-  private boolean hasReadFromFile = false;
 
   private HashMap<String, Entry<?>> entries = new LinkedHashMap<String, Entry<?>>();
 
@@ -65,12 +64,6 @@ public abstract class Form {
    * @param fileName the absolute path to the file
    */
   public void readFromFile(String fileName) {
-    if (hasReadFromFile) {
-      throw new IllegalStateException("Form " + getFormType() + " for tax year " + getTaxYear()
-          + " can't read from files more than once.");
-    }
-    hasReadFromFile = true;
-
     BufferedReader br;
     String line;
 
@@ -108,6 +101,7 @@ public abstract class Form {
           }
           entries.put(header, entry);
         } else if (getIntListEntryKeyMap().keySet().contains(header)) {
+          // TODO(kirktdev): improve readind lists from file
           IntListEntry entry = new IntListEntry();
           entry.readFromLine(line, header + ": ");
           entry.setDescription(getIntListEntryKeyMap().get(header));
@@ -130,11 +124,39 @@ public abstract class Form {
     return entries.keySet();
   }
 
-  public boolean isEntryValueEqual(String key, String expected) {
-    return keySet().contains(key) && entries.get(key).isEqualTo(expected);
+  public void setValue(String key, Object value) {
+    if (!fullKeySet().contains(key)) {
+      throw new IllegalStateException("Invalid key: " + key);
+    }
+    if (!keySet().contains(key)) {
+      if (getIntEntryKeyMap().keySet().contains(key)
+          && !(new IntEntry()).getDefaultValue().equals(value)) {
+        entries.put(key, new IntEntry());
+      } else if (getStringEntryKeyMap().keySet().contains(key)
+          && !(new StringEntry()).getDefaultValue().equals(value)) {
+        entries.put(key, new StringEntry());
+      } else if (getBooleanEntryKeyMap().keySet().contains(key)
+          && !(new BooleanEntry()).getDefaultValue().equals(value)) {
+        entries.put(key, new BooleanEntry());
+      } else if (getBooleanListEntryKeyMap().keySet().contains(key)
+          && !(new BooleanListEntry()).getDefaultValue().equals(value)) {
+        entries.put(key, new BooleanListEntry());
+      } else if (getIntListEntryKeyMap().keySet().contains(key)
+          && !(new IntListEntry()).getDefaultValue().equals(value)) {
+        entries.put(key, new IntListEntry());
+      }
+    }
+
+    if (entries.get(key) instanceof IntEntry) {
+      ((IntEntry) entries.get(key)).setValue((Integer) value);
+    } else if (entries.get(key) instanceof BooleanEntry) {
+      ((BooleanEntry) entries.get(key)).setValue((Boolean) value);
+    } else if (entries.get(key) instanceof StringEntry) {
+      ((StringEntry) entries.get(key)).setValue((String) value);
+    }
   }
 
-  public void setValue(String key, Object value) {
+  public void forceSetValue(String key, Object value) {
     if (!fullKeySet().contains(key)) {
       throw new IllegalStateException("Invalid key: " + key);
     }
@@ -158,6 +180,26 @@ public abstract class Form {
       ((BooleanEntry) entries.get(key)).setValue((Boolean) value);
     } else if (entries.get(key) instanceof StringEntry) {
       ((StringEntry) entries.get(key)).setValue((String) value);
+    }
+
+    entries.get(key).setMustPrint(true);
+  }
+
+  public void addValue(String key, Entry<?> entry) {
+    if (!fullKeySet().contains(key)) {
+      throw new IllegalStateException("Invalid key: " + key);
+    }
+    if (!keySet().contains(key)) {
+      if (getIntListEntryKeyMap().keySet().contains(key)) {
+        entries.put(key, new IntListEntry());
+      } else if (getBooleanListEntryKeyMap().keySet().contains(key)) {
+        entries.put(key, new BooleanListEntry());
+      }
+    }
+    if (getIntListEntryKeyMap().keySet().contains(key)) {
+      ((IntListEntry) entries.get(key)).add((IntEntry) entry);
+    } else if (getBooleanListEntryKeyMap().keySet().contains(key)) {
+      ((BooleanListEntry) entries.get(key)).add((BooleanEntry) entry);
     }
   }
 
@@ -198,6 +240,10 @@ public abstract class Form {
 
   public String getStringValue(String key) {
     return (getValue(key) == null) ? "" : (String) getValue(key);
+  }
+
+  public Integer getSumValue(String key) {
+    return (getValue(key) == null) ? 0 : ((IntListEntry) entries.get(key)).getSum();
   }
 
   public String toString() {

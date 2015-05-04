@@ -2,6 +2,7 @@ package com.kirkkt.javatests.tax;
 
 import static org.junit.Assert.assertEquals;
 
+import com.kirkkt.java.tax.forms.Entry;
 import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.javatests.tax.TestUtil;
 

@@ -5,6 +5,8 @@ import com.kirkkt.javatests.tax.forms.fillable.federal.worksheets.F1040Qualified
 import com.kirkkt.javatests.tax.forms.fillable.federal.worksheets.F1040TaxComputationWorksheetTaxYear2014Test;
 import com.kirkkt.javatests.tax.forms.fillable.federal.worksheets.F1040TaxComputationWorksheetTaxYear2014Test2;
 import com.kirkkt.javatests.tax.forms.fillable.federal.worksheets.F6251ExemptionWorksheetTaxYear2014Test;
+import com.kirkkt.javatests.tax.forms.fillable.federal.F1040ScheduleATaxYear2014Test;
+import com.kirkkt.javatests.tax.forms.fillable.federal.F1040ScheduleBTaxYear2014Test;
 import com.kirkkt.javatests.tax.forms.input.F1099DivTaxYear2014Test;
 import com.kirkkt.javatests.tax.forms.input.F1099GTaxYear2014Test;
 import com.kirkkt.javatests.tax.forms.input.F1099RTaxYear2014Test;
@@ -31,6 +33,9 @@ public class TestRunner {
         .add(new F1040TaxComputationWorksheetTaxYear2014Test2())
         .add(new F6251ExemptionWorksheetTaxYear2014Test())
         .add(new ItemizedDeductionsWorksheetTaxYear2014Test())
+        // fillable forms
+        .add(new F1040ScheduleATaxYear2014Test())
+        .add(new F1040ScheduleBTaxYear2014Test())
         .build();
 
     for (FormTest formTest : formTests) {
