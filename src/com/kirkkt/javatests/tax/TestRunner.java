@@ -1,6 +1,5 @@
 package com.kirkkt.javatests.tax;
 
-import com.kirkkt.javatests.tax.forms.TaxUtilTest;
 import com.kirkkt.javatests.tax.forms.fillable.federal.worksheets.ItemizedDeductionsWorksheetTaxYear2014Test;
 import com.kirkkt.javatests.tax.forms.fillable.federal.worksheets.F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014Test;
 import com.kirkkt.javatests.tax.forms.fillable.federal.worksheets.F1040TaxComputationWorksheetTaxYear2014Test;
@@ -21,16 +20,15 @@ public class TestRunner {
   private TestRunner() {
     ImmutableList<TestCase> testCases = ImmutableList.<TestCase>of(
       // Add new tests here.
-      new TaxUtilTest(),
       // worksheets
       new F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014Test(),
       new F1040TaxComputationWorksheetTaxYear2014Test(),
       new F6251ExemptionWorksheetTaxYear2014Test(),
       new ItemizedDeductionsWorksheetTaxYear2014Test()
-      // input forms
     );
 
     ImmutableList<FormTest> formTests = ImmutableList.<FormTest>builder()
+        // input forms
         .add(new F1099DivTaxYear2014Test())
         .add(new F1099GTaxYear2014Test())
         .add(new F1099RTaxYear2014Test())
