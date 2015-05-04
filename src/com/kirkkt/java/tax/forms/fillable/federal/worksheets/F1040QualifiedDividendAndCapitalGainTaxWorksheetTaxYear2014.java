@@ -15,6 +15,9 @@ public class F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014 extends
 
   private static final Map<String, String> INT_ENTRY_KEY_MAP =
       ImmutableMap.<String, String>builder()
+          .put("formb9b", "")
+          .put("formb13", "")
+          .put("formb43", "")
           .put("b1", "")
           .put("b2", "")
           .put("b3", "")
@@ -61,27 +64,24 @@ public class F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014 extends
   }
 
   @Override
-  public void readFromMotherForm(Form form) {
-  // public void readFromMotherForm(F1040TaxYear2014 form) {
-    // readFromF1040(
-    //     form.getB9b(),
-    //     form.getB13(),
-    //     form.getB43()
-    // );
-  }
-
-  public void readFromMotherForm(
-      int formB9b,
-      int formB13,
-      int formB43
-  ) {
-    setValue("b1", formB43);
-    setValue("b2", formB9b);
-    setValue("b3", formB13);
+  public void readFromFile(String fileName) {
+    super.readFromFile(fileName);
     doMath();
   }
 
-  private void doMath() {
+  @Override
+  public void readFromMotherForm(Form motherForm) {
+    // F1040TaxYear2014 form = (F1040TaxYear2014) motherForm;
+    // setValue("formb9b", form.getIntValue("b9b"));
+    // setValue("formb13", form.getIntValue("b13"));
+    // setValue("formb43", form.getIntValue("b43"));
+    doMath();
+  }
+
+  public void doMath() {
+    setValue("b1", getIntValue("formb43"));
+    setValue("b2", getIntValue("formb9b"));
+    setValue("b3", getIntValue("formb13"));
     setValue("b4", getIntValue("b2") + getIntValue("b3"));
     setValue("b5", 0);
     setValue("b6", Math.max(0, getIntValue("b4") - getIntValue("b5")));
@@ -106,12 +106,15 @@ public class F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014 extends
     F1040TaxComputationWorksheetTaxYear2014 worksheet;
     Preconditions.checkArgument(getIntValue("b7") >= 100000, TaxUtil.additionalLogicNeededString(this, "24"));
     worksheet = new F1040TaxComputationWorksheetTaxYear2014();
-    worksheet.readFromMotherForm(getIntValue("b7"));
+    worksheet.setValue("b1", getIntValue("b7"));
+    worksheet.doMath();
     setValue("b24", worksheet.getIntValue("bresult"));
     setValue("b25", getIntValue("b20") + getIntValue("b23") + getIntValue("b24"));
+
     Preconditions.checkArgument(getIntValue("b1") >= 100000, TaxUtil.additionalLogicNeededString(this, "26"));
     worksheet = new F1040TaxComputationWorksheetTaxYear2014();
-    worksheet.readFromMotherForm(getIntValue("b1"));
+    worksheet.setValue("b1", getIntValue("b1"));
+    worksheet.doMath();
     setValue("b26", worksheet.getIntValue("bresult"));
     setValue("b27", Math.min(getIntValue("b25"), getIntValue("b26")));
     setValue("bresult", getIntValue("b27"));

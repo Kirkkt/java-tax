@@ -10,7 +10,7 @@ import com.kirkkt.java.tax.forms.fillable.federal.worksheets.F1040TaxComputation
 
 import com.google.common.collect.UnmodifiableIterator;
 
-public class F1040TaxComputationWorksheetTaxYear2014Test extends FormTest {
+public class F1040TaxComputationWorksheetTaxYear2014Test2 extends FormTest {
 
   @Override
   public Form getForm() {
@@ -20,13 +20,13 @@ public class F1040TaxComputationWorksheetTaxYear2014Test extends FormTest {
   @Override
   public String getInputFilePath() {
     return
-        "/forms/fillable/federal/worksheets/f1040taxcomputationworksheettaxyear2014input.txt";
+        "/forms/fillable/federal/worksheets/f1040taxcomputationworksheettaxyear2014input2.txt";
   }
 
   @Override
   public String getGoldFilePath() {
     return
-        "/forms/fillable/federal/worksheets/f1040taxcomputationworksheettaxyear2014gold.txt";
+        "/forms/fillable/federal/worksheets/f1040taxcomputationworksheettaxyear2014gold2.txt";
   }
 
   @Override

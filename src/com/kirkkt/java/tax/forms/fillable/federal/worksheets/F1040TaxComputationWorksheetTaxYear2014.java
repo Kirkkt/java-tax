@@ -42,23 +42,20 @@ public class F1040TaxComputationWorksheetTaxYear2014 extends AttachedForm {
 
   @Override
   public void readFromMotherForm(Form motherForm) {
-    // readFromF1040(form.getB43());
-  }
-
-  public void readFromMotherForm(int formB43) {
-    setValue("b1", formB43);
+    // F1040TaxYear2014 form = (F1040TaxYear2014) motherForm;
+    // setValue("b1", form.getIntValue("b43"));
   }
 
   // TODO(kirktdev): extract this to AttachedForm
-  private void doMath() {
+  public void doMath() {
     int b1 = getIntValue("b1");
     Preconditions.checkArgument(b1 >= 100000, TaxUtil.additionalLogicNeededString(this));
     Preconditions.checkArgument(b1 <= 405100, TaxUtil.additionalLogicNeededString(this));
 
     if (b1 <= 186350) {
-      setValue("bResult", Math.round(b1 * .28f - 6824.25f));
+      setValue("bresult", Math.round(b1 * .28f - 6824.25f));
     } else if (b1 <= 405100) {
-      setValue("bResult", Math.round(b1 * .33f - 16141.75f));
+      setValue("bresult", Math.round(b1 * .33f - 16141.75f));
     }
   }
 }

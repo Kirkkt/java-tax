@@ -132,7 +132,7 @@ public abstract class Form {
 
   public void setValue(String key, Object value) {
     if (!fullKeySet().contains(key)) {
-      return;
+      throw new IllegalStateException("Invalid key: " + key);
     }
     if (!keySet().contains(key)) {
       if (getIntEntryKeyMap().keySet().contains(key)) {
@@ -157,6 +157,16 @@ public abstract class Form {
     }
   }
 
+  public void resetValue(String key) {
+    if (!fullKeySet().contains(key)) {
+      throw new IllegalStateException("Invalid key: " + key);
+    }
+    if (!keySet().contains(key)) {
+      return;
+    }
+    entries.get(key).reset();
+  }
+
   private Set<String> fullKeySet() {
     HashSet<String> result = new HashSet<String>();
     result.addAll(getIntListEntryKeyMap().keySet());
@@ -165,13 +175,6 @@ public abstract class Form {
     result.addAll(getBooleanEntryKeyMap().keySet());
     result.addAll(getStringEntryKeyMap().keySet());
     return result;
-  }
-
-  public void resetValue(String key) {
-    if (!keySet().contains(key)) {
-      return;
-    }
-    entries.get(key).reset();
   }
 
   public Object getValue(String key) {
