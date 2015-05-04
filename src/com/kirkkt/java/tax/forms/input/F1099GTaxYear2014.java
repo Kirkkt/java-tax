@@ -1,17 +1,10 @@
 package com.kirkkt.java.tax.forms.input;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 
 import com.kirkkt.java.tax.Parser;
-import com.kirkkt.java.tax.forms.IntEntry;
-import com.kirkkt.java.tax.forms.StringEntry;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 public class F1099GTaxYear2014 extends InputForm {

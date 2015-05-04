@@ -5,11 +5,12 @@ import com.google.common.collect.ImmutableMap;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.List;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 /** A form. */
 public abstract class Form {
@@ -100,8 +101,9 @@ public abstract class Form {
           BooleanListEntry entry = new BooleanListEntry();
           entry.readFromLine(line, header + ": ");
           entry.setDescription(getBooleanListEntryKeyMap().get(header));
+          Iterator<String> descriptionIterator = getBooleanListSubentryKeyMap().get(header).iterator();
           for (BooleanEntry subentry : entry.getValue()) {
-            subentry.setDescription(getBooleanListSubentryKeyMap().get(header).iterator().next());
+            subentry.setDescription(descriptionIterator.next());
           }
           entries.put(header, entry);
         } else if (getIntListEntryKeyMap().keySet().contains(header)) {

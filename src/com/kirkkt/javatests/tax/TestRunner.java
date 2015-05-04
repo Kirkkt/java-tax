@@ -26,14 +26,14 @@ public class TestRunner {
       new F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014Test(),
       new F1040TaxComputationWorksheetTaxYear2014Test(),
       new F6251ExemptionWorksheetTaxYear2014Test(),
-      new ItemizedDeductionsWorksheetTaxYear2014Test(),
+      new ItemizedDeductionsWorksheetTaxYear2014Test()
       // input forms
-      new F1099RTaxYear2014Test()
     );
 
     ImmutableList<FormTest> formTests = ImmutableList.<FormTest>builder()
         .add(new F1099DivTaxYear2014Test())
         .add(new F1099GTaxYear2014Test())
+        .add(new F1099RTaxYear2014Test())
         .add(new W2TaxYear2014Test())
         .build();
 

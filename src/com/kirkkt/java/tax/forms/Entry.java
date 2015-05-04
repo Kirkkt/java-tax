@@ -72,7 +72,7 @@ public class Entry<T> {
     if (!line.startsWith(prefix)) {
       throw new IllegalArgumentException("line " + line + " doesn't start with " + prefix);
     }
-    setId(prefix.trim());
+    setId(prefix.trim().split(":")[0]);
     this.dirty = true;
   }
 
