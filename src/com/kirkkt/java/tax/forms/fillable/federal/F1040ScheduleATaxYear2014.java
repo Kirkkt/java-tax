@@ -427,7 +427,8 @@ public class F1040ScheduleATaxYear2014 extends AttachedForm {
     return result;
   }
 
-  private void doMath() {
+  @Override
+  public void doMath() {
     if (b2.getValue() > 0) {
       b3.setValue(Math.round(.1f * b2.getValue()));
     }

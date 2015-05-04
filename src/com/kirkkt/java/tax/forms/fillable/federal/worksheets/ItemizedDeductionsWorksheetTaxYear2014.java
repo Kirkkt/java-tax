@@ -59,12 +59,6 @@ public class ItemizedDeductionsWorksheetTaxYear2014 extends AttachedForm {
   }
 
   @Override
-  public void readFromFile(String fileName) {
-    super.readFromFile(fileName);
-    doMath();
-  }
-
-  @Override
   public void readFromMotherForm(Form motherForm) {
     F1040ScheduleATaxYear2014 form = (F1040ScheduleATaxYear2014) motherForm;
     setValue("formb2", form.getIntValue("b2"));
@@ -79,7 +73,8 @@ public class ItemizedDeductionsWorksheetTaxYear2014 extends AttachedForm {
     doMath();
   }
 
-  private void doMath() {
+  @Override
+  public void doMath() {
     setValue("b1", getIntValue("formb4") + getIntValue("formb9") + getIntValue("formb15")
         + getIntValue("formb19") + getIntValue("formb20") + getIntValue("formb27")
         + getIntValue("formb28"));

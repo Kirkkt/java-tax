@@ -120,6 +120,10 @@ public abstract class Form {
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read file " + fileName + " due to error " + e);
     }
+    doMath();
+  }
+
+  public void doMath() {
   }
 
   public Set<String> keySet() {

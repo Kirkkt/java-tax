@@ -64,12 +64,6 @@ public class F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014 extends
   }
 
   @Override
-  public void readFromFile(String fileName) {
-    super.readFromFile(fileName);
-    doMath();
-  }
-
-  @Override
   public void readFromMotherForm(Form motherForm) {
     // F1040TaxYear2014 form = (F1040TaxYear2014) motherForm;
     // setValue("formb9b", form.getIntValue("b9b"));
@@ -78,6 +72,7 @@ public class F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014 extends
     doMath();
   }
 
+  @Override
   public void doMath() {
     setValue("b1", getIntValue("formb43"));
     setValue("b2", getIntValue("formb9b"));

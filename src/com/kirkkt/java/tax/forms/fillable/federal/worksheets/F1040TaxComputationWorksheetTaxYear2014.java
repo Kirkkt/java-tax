@@ -35,18 +35,12 @@ public class F1040TaxComputationWorksheetTaxYear2014 extends AttachedForm {
   }
 
   @Override
-  public void readFromFile(String fileName) {
-    super.readFromFile(fileName);
-    doMath();
-  }
-
-  @Override
   public void readFromMotherForm(Form motherForm) {
     // F1040TaxYear2014 form = (F1040TaxYear2014) motherForm;
     // setValue("b1", form.getIntValue("b43"));
   }
 
-  // TODO(kirktdev): extract this to AttachedForm
+  @Override
   public void doMath() {
     int b1 = getIntValue("b1");
     Preconditions.checkArgument(b1 >= 100000, TaxUtil.additionalLogicNeededString(this));
