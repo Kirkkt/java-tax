@@ -7,9 +7,8 @@ public class BooleanEntry extends Entry<Boolean> {
   private String falseWord;
 
   @Override
-  void init() {
-    super.init();
-    value = false;
+  public Boolean getDefaultValue() {
+    return false;
   }
 
   @Override

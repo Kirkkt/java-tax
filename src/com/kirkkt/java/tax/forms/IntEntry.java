@@ -5,9 +5,8 @@ import com.kirkkt.java.tax.Parser;
 public class IntEntry extends Entry<Integer> {
 
   @Override
-  void init() {
-    super.init();
-    value = 0;
+  public Integer getDefaultValue() {
+    return 0;
   }
 
   @Override

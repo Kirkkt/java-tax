@@ -18,6 +18,7 @@ public class Entry<T> {
 
   void init() {
     dirty = false;
+    value = getDefaultValue();
   }
 
   public Entry<T> setId(String id) {
@@ -49,7 +50,13 @@ public class Entry<T> {
 
   public void setValue(T value) {
     this.value = value;
-    this.dirty = true;
+    if (value != getDefaultValue() || (value != null && !value.equals(getDefaultValue()))) {
+      this.dirty = true;
+    }
+  }
+
+  public T getDefaultValue() {
+    return null;
   }
 
   public boolean isDirty() {

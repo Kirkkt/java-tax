@@ -2,9 +2,8 @@ package com.kirkkt.java.tax.forms;
 
 public class StringEntry extends Entry<String> {
   @Override
-  void init() {
-    super.init();
-    value = "";
+  public String getDefaultValue() {
+    return "";
   }
 
   @Override

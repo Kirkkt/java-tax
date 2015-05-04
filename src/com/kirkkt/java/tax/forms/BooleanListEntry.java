@@ -11,9 +11,13 @@ public class BooleanListEntry extends Entry<List<BooleanEntry>> {
   @Override
   void init() {
     super.init();
-    value = new ArrayList<BooleanEntry>();
     trueWord = "[X]";
     falseWord = "[ ]";
+  }
+
+  @Override
+  public List<BooleanEntry> getDefaultValue() {
+    return new ArrayList<BooleanEntry>();
   }
 
   @Override

@@ -10,9 +10,8 @@ import java.util.ArrayList;
 public class IntListEntry extends Entry<List<IntEntry>> {
 
   @Override
-  void init() {
-    super.init();
-    value = new ArrayList<IntEntry>();
+  public List<IntEntry> getDefaultValue() {
+    return new ArrayList<IntEntry>();
   }
 
   @Override
