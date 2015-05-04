@@ -19,10 +19,10 @@ public class ProdRunner {
   private ProdRunner() {
     ImmutableList<InputForm> forms = ImmutableList.<InputForm>builder()
       // Add new prod here.
-      // .add(new F1099DivTaxYear2014())
-      // .add(new F1099GTaxYear2014())
-      // .add(new F1099RTaxYear2014())
-      // .add(new W2TaxYear2014())
+      .add(new F1099DivTaxYear2014())
+      .add(new F1099GTaxYear2014())
+      .add(new F1099RTaxYear2014())
+      .add(new W2TaxYear2014())
       // .add (new F1040ScheduleATaxYear2014())
       // .add (new F1040ScheduleBTaxYear2014())
       .build();

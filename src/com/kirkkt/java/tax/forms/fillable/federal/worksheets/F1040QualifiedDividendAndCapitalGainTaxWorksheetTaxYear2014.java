@@ -1,6 +1,5 @@
 package com.kirkkt.java.tax.forms.fillable.federal.worksheets;
 
-import com.kirkkt.java.tax.forms.fillable.AttachedForm;
 import com.kirkkt.java.tax.forms.Form;
 // import com.kirkkt.java.tax.forms.fillable.federal.F1040TaxYear2014;
 // import com.kirkkt.java.tax.forms.fillable.federal.F6251TaxYear2014;
@@ -11,7 +10,7 @@ import com.google.common.base.Preconditions;
 
 import java.util.Map;
 
-public class F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014 extends AttachedForm {
+public class F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014 extends Form {
 
   private static final Map<String, String> INT_ENTRY_KEY_MAP =
       ImmutableMap.<String, String>builder()
@@ -63,7 +62,6 @@ public class F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014 extends
     return INT_ENTRY_KEY_MAP;
   }
 
-  @Override
   public void readFromMotherForm(Form motherForm) {
     // F1040TaxYear2014 form = (F1040TaxYear2014) motherForm;
     // setValue("formb9b", form.getIntValue("b9b"));

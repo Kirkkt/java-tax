@@ -1,13 +1,12 @@
 package com.kirkkt.java.tax.forms.fillable.federal.worksheets;
 
-import com.kirkkt.java.tax.forms.fillable.AttachedForm;
 import com.kirkkt.java.tax.forms.Form;
 import com.google.common.collect.ImmutableMap;
 import com.kirkkt.java.tax.forms.fillable.federal.F1040ScheduleATaxYear2014;
 
 import java.util.Map;
 
-public class ItemizedDeductionsWorksheetTaxYear2014 extends AttachedForm {
+public class ItemizedDeductionsWorksheetTaxYear2014 extends Form {
 
   private static final Map<String, String> INT_ENTRY_KEY_MAP =
       ImmutableMap.<String, String>builder()
@@ -58,7 +57,6 @@ public class ItemizedDeductionsWorksheetTaxYear2014 extends AttachedForm {
     return INT_ENTRY_KEY_MAP;
   }
 
-  @Override
   public void readFromMotherForm(Form motherForm) {
     F1040ScheduleATaxYear2014 form = (F1040ScheduleATaxYear2014) motherForm;
     setValue("formb2", form.getIntValue("b2"));

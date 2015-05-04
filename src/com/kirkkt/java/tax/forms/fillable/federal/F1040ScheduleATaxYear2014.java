@@ -8,7 +8,6 @@ import com.kirkkt.java.tax.forms.Form;
 import com.kirkkt.java.tax.forms.IntEntry;
 import com.kirkkt.java.tax.forms.IntListEntry;
 import com.kirkkt.java.tax.forms.StringEntry;
-import com.kirkkt.java.tax.forms.fillable.AttachedForm;
 import com.kirkkt.java.tax.forms.fillable.federal.worksheets.ItemizedDeductionsWorksheetTaxYear2014;
 import com.kirkkt.java.tax.forms.input.InputForm;
 import com.kirkkt.java.tax.forms.input.W2TaxYear2014;
@@ -18,7 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 
-public class F1040ScheduleATaxYear2014 extends AttachedForm {
+public class F1040ScheduleATaxYear2014 extends Form {
   private static final Map<String, String> STRING_ENTRY_KEY_MAP =
       ImmutableMap.<String, String>builder()
           .put("b5checkbox", "A value between [Income taxes] and [General sales taxes]")
@@ -101,7 +100,6 @@ public class F1040ScheduleATaxYear2014 extends AttachedForm {
     return INT_LIST_ENTRY_KEY_MAP;
   }
 
-  @Override
   public void readFromMotherForm(Form motherForm) {
     // F1040TaxYear2014 form = (F1040TaxYear2014) motherForm;
     // setValue("formb38", form.getIntValue("formb38"));
