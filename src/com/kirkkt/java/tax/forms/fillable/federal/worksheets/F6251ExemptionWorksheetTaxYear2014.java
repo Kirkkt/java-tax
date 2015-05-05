@@ -2,7 +2,7 @@ package com.kirkkt.java.tax.forms.fillable.federal.worksheets;
 
 import com.kirkkt.java.tax.TaxUtil;
 import com.kirkkt.java.tax.forms.Form;
-// import com.kirkkt.java.tax.forms.fillable.federal.F6251TaxYear2014;
+import com.kirkkt.java.tax.forms.fillable.federal.F6251TaxYear2014;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.base.Preconditions;
@@ -38,8 +38,9 @@ public class F6251ExemptionWorksheetTaxYear2014 extends Form {
     return INT_ENTRY_KEY_MAP;
   }
 
-  public void readFromMotherForm(Form form) {
-    // readFromF6251(form.getB28());
+  public void readFromMotherForm(F6251TaxYear2014 form) {
+    setValue("formb28", form.getIntValue("b28"));
+    doMath();
   }
 
   @Override
