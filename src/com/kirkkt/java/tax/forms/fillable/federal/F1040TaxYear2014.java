@@ -49,6 +49,7 @@ public class F1040TaxYear2014 extends Form {
           .put("b73d", "")
           .put("b39b", "")
           .put("b76checkbox", "")
+          // TODO(kirktdev): mustprint this
           .put("ballowthirdpartyassignee", "")
           .build();
 
@@ -295,6 +296,8 @@ public class F1040TaxYear2014 extends Form {
     }
 
     setValue("b41", getIntValue("b38") - getIntValue("b40"));
+    Preconditions.checkState(getIntValue("b38") < 254200,
+        TaxUtil.additionalLogicNeededString(this, "42"));
 
     Preconditions.checkState(getIntValue("b38") < 254200,
         TaxUtil.additionalLogicNeededString(this, "42"));
