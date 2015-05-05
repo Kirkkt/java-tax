@@ -12,11 +12,7 @@ import com.kirkkt.java.tax.forms.StringEntry;
 import com.kirkkt.java.tax.forms.fillable.federal.worksheets.F6251ExemptionWorksheetTaxYear2014;
 import com.kirkkt.java.tax.forms.fillable.federal.worksheets.F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014;
 import com.kirkkt.java.tax.forms.input.InputForm;
-import com.kirkkt.java.tax.forms.input.F1099DivTaxYear2014;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Map;
 
 public class F6251TaxYear2014 extends Form {
@@ -116,19 +112,26 @@ public class F6251TaxYear2014 extends Form {
     return INT_ENTRY_KEY_MAP;
   }
 
-  public void readFromF1040ScheduleA(F1040ScheduleATaxYear2014 form) {
-    // F1040TaxYear2014 form = (F1040TaxYear2014) motherForm;
-    // setValue("f1040b38", form.getIntValue("b38"));
+  public void readFromMotherForm(F1040TaxYear2014 form) {
+    setValue("f1040b9b", form.getIntValue("b9b"));
+    setValue("f1040b10", form.getIntValue("b10"));
+    setValue("f1040b13", form.getIntValue("b13"));
+    setValue("f1040b21", form.getIntValue("b21"));
+    setValue("f1040b38", form.getIntValue("b38"));
+    setValue("f1040b41", form.getIntValue("b41"));
+    setValue("f1040b43", form.getIntValue("b43"));
+    setValue("f1040b44", form.getIntValue("b44"));
+    setValue("f1040b46", form.getIntValue("b46"));
+    setValue("f1040b48", form.getIntValue("b48"));
+    {
+      F1040ScheduleATaxYear2014 scheduleA = new F1040ScheduleATaxYear2014();
+      scheduleA.readFromMotherForm(form);
+      setValue("f1040scheduleab4", scheduleA.getIntValue("b4"));
+      setValue("f1040scheduleab9", scheduleA.getIntValue("b9"));
+      setValue("f1040scheduleab27", scheduleA.getIntValue("b27"));
+    }
     doMath();
   }
-
-  // public void readFromF1040(F1040TaxYear2014 form) {
-  //   resetValue("f1099divb1a");
-  //   resetValue("f1099divpayername");
-  //   setValue("f1099divb1a", form.getIntValue("b1a"));
-  //   setValue("f1099divpayername", form.getStringValue("payer name"));
-  //   doMath();
-  // }
 
   @Override
   public void doMath() {

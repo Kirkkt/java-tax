@@ -1,8 +1,7 @@
 package com.kirkkt.java.tax.forms.fillable.federal.worksheets;
 
 import com.kirkkt.java.tax.forms.Form;
-// import com.kirkkt.java.tax.forms.fillable.federal.F1040TaxYear2014;
-// import com.kirkkt.java.tax.forms.fillable.federal.F6251TaxYear2014;
+import com.kirkkt.java.tax.forms.fillable.federal.F1040TaxYear2014;
 import com.kirkkt.java.tax.TaxUtil;
 
 import com.google.common.collect.ImmutableMap;
@@ -34,8 +33,9 @@ public class F1040TaxComputationWorksheetTaxYear2014 extends Form {
   }
 
   public void readFromMotherForm(Form motherForm) {
-    // F1040TaxYear2014 form = (F1040TaxYear2014) motherForm;
-    // setValue("b1", form.getIntValue("b43"));
+    F1040TaxYear2014 form = (F1040TaxYear2014) motherForm;
+    setValue("b1", form.getIntValue("b43"));
+    doMath();
   }
 
   @Override

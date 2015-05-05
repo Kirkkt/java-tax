@@ -101,8 +101,9 @@ public class F1040ScheduleATaxYear2014 extends Form {
   }
 
   public void readFromMotherForm(Form motherForm) {
-    // F1040TaxYear2014 form = (F1040TaxYear2014) motherForm;
-    // setValue("formb38", form.getIntValue("formb38"));
+    F1040TaxYear2014 form = (F1040TaxYear2014) motherForm;
+    setValue("formb38", form.getIntValue("b38"));
+    setValue("w2b17", form.getIntValue("w2b17"));
     doMath();
   }
 
