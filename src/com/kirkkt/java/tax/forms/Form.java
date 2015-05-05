@@ -101,7 +101,7 @@ public abstract class Form {
           }
           entries.put(header, entry);
         } else if (getIntListEntryKeyMap().keySet().contains(header)) {
-          // TODO(kirktdev): improve readind lists from file
+          // TODO(kirktdev): improve reading lists from file
           IntListEntry entry = new IntListEntry();
           entry.readFromLine(line, header + ": ");
           entry.setDescription(getIntListEntryKeyMap().get(header));
