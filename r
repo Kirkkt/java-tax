@@ -10,7 +10,10 @@ javac \
     src/com/kirkkt/java/tax/*.java \
     src/com/kirkkt/java/tax/forms/*.java \
     src/com/kirkkt/java/tax/forms/input/*.java \
-    src/com/kirkkt/java/tax/forms/fillable/federal/worksheets/*.java
+    src/com/kirkkt/java/tax/forms/fillable/federal/*.java \
+    src/com/kirkkt/java/tax/forms/fillable/federal/worksheets/*.java \
+    src/com/kirkkt/java/tax/forms/fillable/state/*.java \
+    src/com/kirkkt/java/tax/forms/fillable/state/worksheets/*.java
 
 cd class
 

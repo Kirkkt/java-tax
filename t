@@ -12,6 +12,8 @@ javac -Xlint:deprecation \
     src/com/kirkkt/java/tax/forms/input/*.java \
     src/com/kirkkt/java/tax/forms/fillable/federal/*.java \
     src/com/kirkkt/java/tax/forms/fillable/federal/worksheets/*.java \
+    src/com/kirkkt/java/tax/forms/fillable/state/*.java \
+    src/com/kirkkt/java/tax/forms/fillable/state/worksheets/*.java \
     src/com/kirkkt/javatests/tax/*.java \
     src/com/kirkkt/javatests/tax/forms/input/*.java \
     src/com/kirkkt/javatests/tax/forms/fillable/federal/worksheets/*.java

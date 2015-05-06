@@ -7,8 +7,7 @@ import com.kirkkt.java.tax.forms.IntEntry;
 import com.kirkkt.java.tax.forms.IntListEntry;
 import com.kirkkt.java.tax.forms.StringEntry;
 import com.kirkkt.java.tax.forms.fillable.federal.F1040TaxYear2014;
-import com.kirkkt.java.tax.forms.fillable.federal.worksheets.F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014;
-import com.kirkkt.java.tax.forms.fillable.federal.worksheets.F1040TaxComputationWorksheetTaxYear2014;
+import com.kirkkt.java.tax.forms.fillable.state.worksheets.F540AgiLimitationWorksheetTaxYear2014;
 import com.kirkkt.java.tax.forms.input.F1099DivTaxYear2014;
 import com.kirkkt.java.tax.forms.input.F1099GTaxYear2014;
 import com.kirkkt.java.tax.forms.input.F1099RTaxYear2014;
@@ -31,6 +30,8 @@ public class F540TaxYear2014 extends Form {
           .put("b3", "Married filing separately")
           .put("b4", "Head of household")
           .put("b5", "Qualifying widow(er) with dependent child")
+          // TODO(kirktdev): mustprint this
+          .put("ballowthirdpartyassignee", "")
           .build();
 
   private static final Map<String, String> INT_ENTRY_KEY_MAP =
@@ -40,6 +41,7 @@ public class F540TaxYear2014 extends Form {
           .put("f540schedulecab37c", "")
           .put("f540schedulecab44", "")
           .put("w2b16", "")
+          .put("w2b17", "")
           .put("b7", "")
           .put("b7dollarvalue", "")
           .put("b8", "")
@@ -63,18 +65,59 @@ public class F540TaxYear2014 extends Form {
           .put("b34", "")
           .put("b35", "")
           .put("b40", "")
-          .put("b41", "")
-          .put("b42", "")
           .put("b43", "")
           .put("b44", "")
           .put("b45", "")
           .put("b46", "")
           .put("b47", "")
           .put("b48", "")
+          .put("b61", "")
+          .put("b62", "")
+          .put("b63", "")
+          .put("b64", "")
+          .put("b71", "")
+          .put("b72", "")
+          .put("b73", "")
+          .put("b74", "")
+          .put("b75", "")
+          .put("b91", "")
+          .put("b92", "")
+          .put("b93", "")
+          .put("b94", "")
+          .put("b95", "")
+          .put("b110", "")
+          .put("b111", "")
+          .put("b112", "")
+          .put("b113", "")
+          .put("b114", "")
+          .put("b115", "")
+          .put("b116", "")
+          .put("b117", "")
+          .put("b400", "")
+          .put("b401", "")
+          .put("b403", "")
+          .put("b405", "")
+          .put("b406", "")
+          .put("b407", "")
+          .put("b408", "")
+          .put("b410", "")
+          .put("b413", "")
+          .put("b419", "")
+          .put("b422", "")
+          .put("b423", "")
+          .put("b424", "")
+          .put("b425", "")
+          .put("b426", "")
+          .put("b427", "")
+          .put("b428", "")
+          .put("b429", "")
           .build();
 
   private static final Map<String, String> STRING_ENTRY_KEY_MAP =
       ImmutableMap.<String, String>builder()
+          .put("routing number", "")
+          .put("account type", "")
+          .put("account number", "")
           .put("b31checkbox", "")
           .build();
 
@@ -169,6 +212,7 @@ public class F540TaxYear2014 extends Form {
 
   public void readFromW2(W2TaxYear2014 form) {
     setValue("w2b16", form.getIntValue("b16"));
+    setValue("w2b17", form.getIntValue("b17"));
     doMath();
   }
 
@@ -194,7 +238,9 @@ public class F540TaxYear2014 extends Form {
     setValue("b19", getIntValue("b17") - getIntValue("b18"));
 
     int b19 = getIntValue("b19");
-    Preconditions.checkState(b19 < 311812 && getStringValue("b31checkbox").equals("Tax Rate Schedule"), TaxUtil.additionalLogicNeededString(this, "31"));
+    Preconditions.checkState(b19 < 311812
+            && getStringValue("b31checkbox").equals("Tax Rate Schedule"),
+        TaxUtil.additionalLogicNeededString(this, "31"));
     if (b19 < 7749) {
       setValue("b31", Math.round(.01f * b19));
     } else if (b19 < 18371) {
@@ -211,5 +257,53 @@ public class F540TaxYear2014 extends Form {
       setValue("b31", Math.round(.103f * (b19 - 259844) + 21674.39f));
     }
 
+    {
+      F540AgiLimitationWorksheetTaxYear2014 form = new F540AgiLimitationWorksheetTaxYear2014();
+      form.readFromMotherForm(this);
+      setValue("b32", form.getIntValue("bresult"));
+    }
+    setValue("b33", Math.max(0, getIntValue("b31") - getIntValue("b32")));
+    setValue("b35", getIntValue("b33") + getIntValue("b34"));
+
+    setValue("b47", getIntValue("b40") + getIntValue("b43") + getIntValue("b44") +
+        + getIntValue("b45") + getIntValue("b46"));
+    setValue("b48", getIntValue("b35") - getIntValue("b47"));
+
+    setValue("b64", getIntValue("b48") + getIntValue("b61") + getIntValue("b62")
+        + getIntValue("b63"));
+
+    setValue("b71", getIntValue("w2b17"));
+    setValue("b75", getIntValue("b71") + getIntValue("b72") + getIntValue("b73")
+        + getIntValue("b74"));
+
+    setValue("b91", Math.max(0, getIntValue("b75") - getIntValue("b64")));
+    setValue("b93", getIntValue("b91") - getIntValue("b92"));
+    setValue("b94", Math.max(0, getIntValue("b64") - getIntValue("b75")));
+
+
+    setValue("b110",
+        getIntValue("b400")
+        + getIntValue("b401")
+        + getIntValue("b403")
+        + getIntValue("b405")
+        + getIntValue("b406")
+        + getIntValue("b407")
+        + getIntValue("b408")
+        + getIntValue("b410")
+        + getIntValue("b413")
+        + getIntValue("b419")
+        + getIntValue("b422")
+        + getIntValue("b423")
+        + getIntValue("b424")
+        + getIntValue("b425")
+        + getIntValue("b426")
+        + getIntValue("b427")
+        + getIntValue("b428")
+        + getIntValue("b429"));
+
+    setValue("b111", getIntValue("b94") + getIntValue("b95") + getIntValue("b110"));
+
+    setValue("b115", getIntValue("b93") - getIntValue("b95") - getIntValue("b110"));
+    setValue("b116", getIntValue("b115"));
   }
 }

@@ -224,6 +224,9 @@ public abstract class Form {
   }
 
   public Object getValue(String key) {
+    if (!fullKeySet().contains(key)) {
+      throw new IllegalStateException("Invalid key: " + key);
+    }
     if (!keySet().contains(key)) {
       return null;
     }
