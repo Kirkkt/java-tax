@@ -49,7 +49,6 @@ public class F1040TaxYear2014 extends Form {
           .put("b73d", "")
           .put("b39b", "")
           .put("b76checkbox", "")
-          // TODO(kirktdev): mustprint this
           .put("ballowthirdpartyassignee", "")
           .build();
 
@@ -179,6 +178,10 @@ public class F1040TaxYear2014 extends Form {
               "You are blind",
               "Your spouse is blind"
           ));
+
+  public F1040TaxYear2014() {
+    forceSetValue("ballowthirdpartyassignee", false);
+  }
 
   @Override
   public String getFormType() {

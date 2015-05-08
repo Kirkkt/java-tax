@@ -30,7 +30,6 @@ public class F540TaxYear2014 extends Form {
           .put("b3", "Married filing separately")
           .put("b4", "Head of household")
           .put("b5", "Qualifying widow(er) with dependent child")
-          // TODO(kirktdev): mustprint this
           .put("ballowthirdpartyassignee", "")
           .build();
 
@@ -134,6 +133,10 @@ public class F540TaxYear2014 extends Form {
           //     "You are blind",
           //     "Your spouse is blind")
           );
+
+  public F540TaxYear2014() {
+    forceSetValue("ballowthirdpartyassignee", false);
+  }
 
   @Override
   public String getFormType() {
