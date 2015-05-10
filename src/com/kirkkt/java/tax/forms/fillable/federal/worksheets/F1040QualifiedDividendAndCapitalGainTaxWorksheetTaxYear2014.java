@@ -1,8 +1,6 @@
 package com.kirkkt.java.tax.forms.fillable.federal.worksheets;
 
 import com.kirkkt.java.tax.forms.Form;
-// import com.kirkkt.java.tax.forms.fillable.federal.F1040TaxYear2014;
-// import com.kirkkt.java.tax.forms.fillable.federal.F6251TaxYear2014;
 import com.kirkkt.java.tax.TaxUtil;
 
 import com.google.common.collect.ImmutableMap;
@@ -97,14 +95,16 @@ public class F1040QualifiedDividendAndCapitalGainTaxWorksheetTaxYear2014 extends
     setValue("b23", Math.round(.2f * getIntValue("b22")));
 
     F1040TaxComputationWorksheetTaxYear2014 worksheet;
-    Preconditions.checkArgument(getIntValue("b7") >= 100000, TaxUtil.additionalLogicNeededString(this, "24"));
+    Preconditions.checkArgument(getIntValue("b7") >= 100000,
+        TaxUtil.additionalLogicNeededString(this, "24"));
     worksheet = new F1040TaxComputationWorksheetTaxYear2014();
     worksheet.setValue("b1", getIntValue("b7"));
     worksheet.doMath();
     setValue("b24", worksheet.getIntValue("bresult"));
     setValue("b25", getIntValue("b20") + getIntValue("b23") + getIntValue("b24"));
 
-    Preconditions.checkArgument(getIntValue("b1") >= 100000, TaxUtil.additionalLogicNeededString(this, "26"));
+    Preconditions.checkArgument(getIntValue("b1") >= 100000,
+        TaxUtil.additionalLogicNeededString(this, "26"));
     worksheet = new F1040TaxComputationWorksheetTaxYear2014();
     worksheet.setValue("b1", getIntValue("b1"));
     worksheet.doMath();

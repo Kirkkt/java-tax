@@ -4,7 +4,7 @@
 
 In order to run this program, you need:
 
-1. Download some packages:
+1. Download these packages:
     - `guava`
     - `hamcrest`
     - `junit`
